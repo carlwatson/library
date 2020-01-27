@@ -1,0 +1,15 @@
+.sy-component--text-two-photos {
+  @include global-padding();
+  margin: auto;
+  .title {
+    color: $turtle-green;
+    text-align: center;
+    padding: 1.6rem;
+  }
+  .bottom-margin {
+    margin-bottom: 2.6rem;
+  }
+  h3 {
+    font-size: 1.9375rem;
+  }
+}

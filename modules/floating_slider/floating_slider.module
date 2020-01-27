@@ -1,0 +1,292 @@
+<?php
+
+function floating_slider_block_info() {
+  $blocks = array();
+
+  $blocks['floating_slider'] = array(
+    'info' => t('Floating Slider Menu'),
+  );
+
+  return $blocks;
+}
+
+function floating_slider_block_configure($delta = '') {
+  $form = array();
+
+  switch ($delta) {
+    case 'floating_slider':
+      $floating_slider = sy_variable_get('floating_slider_options', array(
+        'floating_slider_1_icon' => '',
+        'floating_slider_1_text' => '',
+        'floating_slider_1_link' => '',
+        'floating_slider_2_icon' => '',
+        'floating_slider_2_text' => '',
+        'floating_slider_2_link' => '',
+        'floating_slider_3' => '',
+        'floating_slider_3_icon' => '',
+        'floating_slider_3_text' => '',
+        'floating_slider_3_link' => '',
+        'floating_slider_4' => '',
+        'floating_slider_4_icon' => '',
+        'floating_slider_4_text' => '',
+        'floating_slider_4_link' => '',
+        'floating_slider_5' => '',
+        'floating_slider_5_icon' => '',
+        'floating_slider_5_text' => '',
+        'floating_slider_5_link' => '',
+        'floating_slider_6' => '',
+        'floating_slider_6_icon' => '',
+        'floating_slider_6_text' => '',
+        'floating_slider_6_link' => '',
+      ));
+
+      $form['floating_slider_1_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('1st Icon (Font Awesome Class)'),
+        '#description' => t("For Example 'fa-facebook-square'"),
+        '#default_value' => $floating_slider['floating_slider_1_icon'],
+      );
+
+      $form['floating_slider_1_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('1st Text Item'),
+        '#default_value' => $floating_slider['floating_slider_1_text'],
+      );
+
+      $form['floating_slider_1_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('1st Link Item'),
+        '#default_value' => $floating_slider['floating_slider_1_link'],
+      );
+
+      $form['floating_slider_2_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('2nd Icon (Font Awesome Class)'),
+        '#description' => t("For Example 'fa-facebook-square'"),
+        '#default_value' => $floating_slider['floating_slider_2_icon'],
+      );
+
+      $form['floating_slider_2_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('2nd Text Item'),
+        '#default_value' => $floating_slider['floating_slider_2_text'],
+      );
+
+      $form['floating_slider_2_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('2nd Link Item'),
+        '#default_value' => $floating_slider['floating_slider_2_link'],
+      );
+
+      $form['floating_slider_3'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show 3rd slider on Page'),
+        '#default_value' => $floating_slider['floating_slider_3'],
+      );
+
+      $form['floating_slider_3_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('3rd Icon (Font Awesome Class)'),
+        '#description' => t("For Example 'fa-facebook-square'"),
+        '#default_value' => $floating_slider['floating_slider_3_icon'],
+      );
+
+      $form['floating_slider_3_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('3rd Text Item'),
+        '#default_value' => $floating_slider['floating_slider_3_text'],
+      );
+
+      $form['floating_slider_3_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('3rd Link Item'),
+        '#default_value' => $floating_slider['floating_slider_3_link'],
+      );
+
+      $form['floating_slider_4'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show 4th slider on Page'),
+        '#default_value' => $floating_slider['floating_slider_4'],
+      );
+
+      $form['floating_slider_4_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('4th Icon (Font Awesome Class)'),
+        '#description' => t("For Example 'fa-facebook-square'"),
+        '#default_value' => $floating_slider['floating_slider_4_icon'],
+      );
+
+      $form['floating_slider_4_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('4th Text Item)'),
+        '#default_value' => $floating_slider['floating_slider_4_text'],
+      );
+
+      $form['floating_slider_4_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('4th Link Item)'),
+        '#default_value' => $floating_slider['floating_slider_4_link'],
+      );
+
+      $form['floating_slider_5'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show 5th slider on Page'),
+        '#default_value' => $floating_slider['floating_slider_5'],
+      );
+
+      $form['floating_slider_5_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('5th Icon (Font Awesome Class)'),
+        '#description' => t("For Example 'fa-facebook-square'"),
+        '#default_value' => $floating_slider['floating_slider_5_icon'],
+      );
+
+      $form['floating_slider_5_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('5th Text Item'),
+        '#default_value' => $floating_slider['floating_slider_5_text'],
+      );
+
+      $form['floating_slider_5_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('5th Link Item'),
+        '#default_value' => $floating_slider['floating_slider_5_link'],
+      );
+
+      $form['floating_slider_6'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show 6th slider on Page'),
+        '#default_value' => $floating_slider['floating_slider_6'],
+      );
+
+      $form['floating_slider_6_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('6th Icon (Font Awesome Class)'),
+        '#description' => t("For Example 'fa-facebook-square'"),
+        '#default_value' => $floating_slider['floating_slider_6_icon'],
+      );
+
+      $form['floating_slider_6_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('6th Text Item'),
+        '#default_value' => $floating_slider['floating_slider_6_text'],
+      );
+
+      $form['floating_slider_6_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('6th Link Item'),
+        '#default_value' => $floating_slider['floating_slider_6_link'],
+      );
+
+      break;
+  }
+
+  return $form;
+}
+
+function floating_slider_block_save($delta = '', $edit = array()) {
+  switch ($delta) {
+    case 'floating_slider':
+      sy_variable_set('floating_slider_options', array(
+        'floating_slider_1_icon' => $edit['floating_slider_1_icon'],
+        'floating_slider_1_text' => $edit['floating_slider_1_text'],
+        'floating_slider_1_link' => $edit['floating_slider_1_link'],
+        'floating_slider_2_icon' => $edit['floating_slider_2_icon'],
+        'floating_slider_2_text' => $edit['floating_slider_2_text'],
+        'floating_slider_2_link' => $edit['floating_slider_2_link'],
+        'floating_slider_3' => $edit['floating_slider_3'],
+        'floating_slider_3_icon' => $edit['floating_slider_3_icon'],
+        'floating_slider_3_text' => $edit['floating_slider_3_text'],
+        'floating_slider_3_link' => $edit['floating_slider_3_link'],
+        'floating_slider_4' => $edit['floating_slider_4'],
+        'floating_slider_4_icon' => $edit['floating_slider_4_icon'],
+        'floating_slider_4_text' => $edit['floating_slider_4_text'],
+        'floating_slider_4_link' => $edit['floating_slider_4_link'],
+        'floating_slider_5' => $edit['floating_slider_5'],
+        'floating_slider_5_icon' => $edit['floating_slider_5_icon'],
+        'floating_slider_5_text' => $edit['floating_slider_5_text'],
+        'floating_slider_5_link' => $edit['floating_slider_5_link'],
+        'floating_slider_6' => $edit['floating_slider_6'],
+        'floating_slider_6_icon' => $edit['floating_slider_6_icon'],
+        'floating_slider_6_text' => $edit['floating_slider_6_text'],
+        'floating_slider_6_link' => $edit['floating_slider_6_link'],
+      ));
+
+      break;
+  }
+}
+
+function floating_slider_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+
+    case 'floating_slider':
+      $floating_slider = sy_variable_get('floating_slider_options', array(
+        'floating_slider_1_icon' => '',
+        'floating_slider_1_text' => '',
+        'floating_slider_1_link' => '',
+        'floating_slider_2_icon' => '',
+        'floating_slider_2_text' => '',
+        'floating_slider_2_link' => '',
+        'floating_slider_3' => '',
+        'floating_slider_3_icon' => '',
+        'floating_slider_3_text' => '',
+        'floating_slider_3_link' => '',
+        'floating_slider_4' => '',
+        'floating_slider_4_icon' => '',
+        'floating_slider_4_text' => '',
+        'floating_slider_4_link' => '',
+        'floating_slider_5' => '',
+        'floating_slider_5_icon' => '',
+        'floating_slider_5_text' => '',
+        'floating_slider_5_link' => '',
+        'floating_slider_6' => '',
+        'floating_slider_6_icon' => '',
+        'floating_slider_6_text' => '',
+        'floating_slider_6_link' => '',
+      ));
+
+      $block['content'] = '';
+      $block['content'] .= '<div class="floating-slider">';
+      $block['content'] .= '<div class="floating-slider-item floating-slider-item-1"><div class="floating-slider-icon floating-slider-icon-1"><i class="fa ' . $floating_slider['floating_slider_1_icon'] . ' footer-social-icon-icon footer-social-icon-icon-1"></i></div>';
+      $block['content'] .= '<div class="floating-slider-box floating-slider-box-1"><div class="floating-slider-text floating-slider-text-1">';
+      $block['content'] .= '<a href="' . $floating_slider['floating_slider_1_link'] . '">' . $floating_slider['floating_slider_1_text'] . '</a>';
+      $block['content'] .= '</div></div></div>';
+
+      $block['content'] .= '<div class="floating-slider-item floating-slider-item-2"><div class="floating-slider-icon floating-slider-icon-2"><i class="fa ' . $floating_slider['floating_slider_2_icon'] . ' footer-social-icon-icon footer-social-icon-icon-2"></i></div>';
+      $block['content'] .= '<div class="floating-slider-box floating-slider-box-2"><div class="floating-slider-text floating-slider-text-2">';
+      $block['content'] .= '<a href="' . $floating_slider['floating_slider_2_link'] . '">' . $floating_slider['floating_slider_2_text'] . '</a>';
+      $block['content'] .= '</div></div></div>';
+
+      if ($floating_slider['floating_slider_3'] == 1) {
+        $block['content'] .= '<div class="floating-slider-item floating-slider-item-3"><div class="floating-slider-icon floating-slider-icon-3"><i class="fa ' . $floating_slider['floating_slider_3_icon'] . ' footer-social-icon-icon footer-social-icon-icon-3"></i></div>';
+        $block['content'] .= '<div class="floating-slider-box floating-slider-box-3"><div class="floating-slider-text floating-slider-text-3">';
+        $block['content'] .= '<a href="' . $floating_slider['floating_slider_3_link'] . '">' . $floating_slider['floating_slider_3_text'] . '</a>';
+        $block['content'] .= '</div></div></div>';
+      }
+      if ($floating_slider['floating_slider_4'] == 1) {
+        $block['content'] .= '<div class="floating-slider-item floating-slider-item-4"><div class="floating-slider-icon floating-slider-icon-4"><i class="fa ' . $floating_slider['floating_slider_4_icon'] . ' footer-social-icon-icon footer-social-icon-icon-4"></i></div>';
+        $block['content'] .= '<div class="floating-slider-box floating-slider-box-4"><div class="floating-slider-text floating-slider-text-4">';
+        $block['content'] .= '<a href="' . $floating_slider['floating_slider_4_link'] . '">' . $floating_slider['floating_slider_4_text'] . '</a>';
+        $block['content'] .= '</div></div></div>';
+      }
+      if ($floating_slider['floating_slider_5'] == 1) {
+        $block['content'] .= '<div class="floating-slider-item floating-slider-item-5"><div class="floating-slider-icon floating-slider-icon-5"><i class="fa ' . $floating_slider['floating_slider_5_icon'] . ' footer-social-icon-icon footer-social-icon-icon-5"></i></div>';
+        $block['content'] .= '<div class="floating-slider-box floating-slider-box-5"><div class="floating-slider-text floating-slider-text-5">';
+        $block['content'] .= '<a href="' . $floating_slider['floating_slider_5_link'] . '">' . $floating_slider['floating_slider_5_text'] . '</a>';
+        $block['content'] .= '</div></div></div>';
+      }
+      if ($floating_slider['floating_slider_6'] == 1) {
+        $block['content'] .= '<div class="floating-slider-item floating-slider-item-6"><div class="floating-slider-icon floating-slider-icon-6"><i class="fa ' . $floating_slider['floating_slider_6_icon'] . ' footer-social-icon-icon footer-social-icon-icon-6"></i></div>';
+        $block['content'] .= '<div class="floating-slider-box floating-slider-box-6"><div class="floating-slider-text floating-slider-text-6">';
+        $block['content'] .= '<a href="' . $floating_slider['floating_slider_6_link'] . '">' . $floating_slider['floating_slider_6_text'] . '</a>';
+        $block['content'] .= '</div></div></div>';
+      }
+
+      $block['content'] .= '</div>';
+      break;
+  }
+
+  return $block;
+}

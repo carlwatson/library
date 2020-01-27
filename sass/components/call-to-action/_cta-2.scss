@@ -1,0 +1,9 @@
+.sy-component--cta-2 {
+  @include global-padding();
+  p {
+    font-size: 1.125rem;
+    line-height: 1.77;
+    margin: 1rem 0;
+    padding: 0 2rem;
+  }
+}

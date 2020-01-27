@@ -1,0 +1,325 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ *
+ * Create all the blocks required.
+ */
+function sy_multidomain_block_info() {
+  $blocks = array();
+
+  $blocks['footer_image'] = array(
+    'info' => t('Footer Image'),
+  );
+
+  $blocks['header_image'] = array(
+    'info' => t('Header Image'),
+  );
+
+  $blocks['footer_left_one'] = array(
+    'info' => t('Footer Content Left - Multidomain 1'),
+  );
+
+  $blocks['footer_center_one'] = array(
+    'info' => t('Footer Content Center - Multidomain 1'),
+  );
+
+  $blocks['footer_right_one'] = array(
+    'info' => t('Footer Content Right - Multidomain 1'),
+  );
+
+  $blocks['footer_left_two'] = array(
+    'info' => t('Footer Content Left - Multidomain 2'),
+  );
+
+  $blocks['footer_center_two'] = array(
+    'info' => t('Footer Content Center - Multidomain 2'),
+  );
+
+  $blocks['footer_right_two'] = array(
+    'info' => t('Footer Content Right - Multidomain 2'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function sy_multidomain_block_configure($delta = '') {
+  $form = array();
+
+  switch($delta) {
+
+    case 'footer_image':
+      $footer_image = sy_variable_get('footer_image_options', array(
+        'footer_image_image' => '',
+        'footer_image_show' => 0,
+      ));
+
+      $form['footer_image_show'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show Block on Page'),
+        '#default_value' => $footer_image['footer_image_show'],
+      );
+
+      $form['footer_image'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for the block.'),
+        '#description' => t("Upload an image for this block."),
+        '#default_value' => $footer_image['footer_image'],
+        '#upload_location' => 'public://theme',
+      );
+
+      break;
+
+    case 'header_image':
+      $header_image = sy_variable_get('header_image_options', array(
+        'header_image_image' => '',
+        'header_image_show' => 0,
+      ));
+
+      $form['header_image_show'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show Block on Page'),
+        '#default_value' => $header_image['header_image_show'],
+      );
+
+      $form['header_image'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for the block.'),
+        '#description' => t("Upload an image for this block."),
+        '#default_value' => $header_image['footer_image'],
+        '#upload_location' => 'public://theme',
+      );
+
+      break;
+
+    case 'footer_left_one':
+      $default_val = sy_variable_get('footer_left_one');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Left - Multidomain'),
+        '#default_value' => $default_val ? $default_val : "<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212",
+      );
+      break;
+
+    case 'footer_center_one':
+      $default_val = sy_variable_get('footer_center_one');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Center - Multidomain'),
+        '#default_value' => $default_val ? $default_val : "Want to read our latest viewbook?<br />Interested in working here?<br /><strong>Get in touch!</strong>",
+      );
+      break;
+
+    case 'footer_right_one':
+      $default_val = sy_variable_get('footer_right_one','');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Right - Multidomain'),
+        '#default_value' => $default_val ? $default_val : '<p>Stay in the loop<br />Connect with us on Facebook, Twitter, Youtube, and Google+</p><p><a href="http://www.facebook.com"><i class="fa fa-facebook-square fa-3">&nbsp;</i></a><a href="http://www.twitter.com"><i class="fa fa-twitter-square fa-3">&nbsp;</i></a><a href="http://www.youtube.com"><i class="fa fa-youtube-square fa-3">&nbsp;</i></a><a href="http://plus.google.com"><i class="fa fa-google-plus-square fa-3">&nbsp;</i></a></p>',
+      );
+      break;
+
+    case 'footer_left_two':
+      $default_val = sy_variable_get('footer_left_two');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Left - Multidomain'),
+        '#default_value' => $default_val ? $default_val : "<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212",
+      );
+      break;
+
+    case 'footer_center_two':
+      $default_val = sy_variable_get('footer_center_two');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Center - Multidomain'),
+        '#default_value' => $default_val ? $default_val : "Want to read our latest viewbook?<br />Interested in working here?<br /><strong>Get in touch!</strong>",
+      );
+      break;
+
+    case 'footer_right_two':
+      $default_val = sy_variable_get('footer_right_two','');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Right - Multidomain'),
+        '#default_value' => $default_val ? $default_val : '<p>Stay in the loop<br />Connect with us on Facebook, Twitter, Youtube, and Google+</p><p><a href="http://www.facebook.com"><i class="fa fa-facebook-square fa-3">&nbsp;</i></a><a href="http://www.twitter.com"><i class="fa fa-twitter-square fa-3">&nbsp;</i></a><a href="http://www.youtube.com"><i class="fa fa-youtube-square fa-3">&nbsp;</i></a><a href="http://plus.google.com"><i class="fa fa-google-plus-square fa-3">&nbsp;</i></a></p>',
+      );
+      break;
+
+  }
+
+  return $form;
+}
+
+
+
+/**
+ * Implements hook_block_save().
+ */
+function sy_multidomain_block_save($delta = '', $edit = array()) {
+  switch ($delta) {
+
+    case 'footer_image':
+      sy_variable_set('footer_image_options', array(
+        'footer_image' => $edit['footer_image'],
+        'footer_image_show' => $edit['footer_image_show'],
+      ));
+
+      $file = file_load($edit['footer_image']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+
+      break;
+
+    case 'header_image':
+      sy_variable_set('header_image_options', array(
+        'header_image' => $edit['header_image'],
+        'header_image_show' => $edit['header_image_show'],
+      ));
+
+      $file = file_load($edit['header_image']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+
+      break;
+
+
+    case 'footer_left_one':
+      sy_variable_set('footer_left_one', $edit['text_body']['value']);
+      break;
+
+    case 'footer_center_one':
+      sy_variable_set('footer_center_one', $edit['text_body']['value']);
+      break;
+
+    case 'footer_right_one':
+      sy_variable_set('footer_right_one', $edit['text_body']['value']);
+      break;
+
+    case 'footer_left_two':
+      sy_variable_set('footer_left_two', $edit['text_body']['value']);
+      break;
+
+    case 'footer_center_two':
+      sy_variable_set('footer_center_two', $edit['text_body']['value']);
+      break;
+
+    case 'footer_right_two':
+      sy_variable_set('footer_right_two', $edit['text_body']['value']);
+      break;
+
+  }
+}
+
+
+/**
+ * Implements hook_block_view().
+ */
+function sy_multidomain_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+
+    case 'footer_image':
+      $footer_image = sy_variable_get('footer_image_options', array(
+        'footer_image' => '',
+        'footer_image_show' => 0,
+      ));
+
+      $content = "<div class='footer-image'>";
+      if ($footer_image['footer_image_show'] == 1) {
+        $content .="<div class='footer-image-photo grid-x'>";
+        $content .="<img class='small-12' src='".file_create_url(file_load($footer_image['footer_image'])->uri)."'>";
+        $content .="</div>";
+      }
+      $content .="</div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'header_image':
+      $header_image = sy_variable_get('header_image_options', array(
+        'header_image' => '',
+        'header_image_show' => 0,
+      ));
+
+      $content = "<div class='header-image'>";
+      if ($header_image['header_image_show'] == 1) {
+        $content .="<img src='".file_create_url(file_load($header_image['header_image'])->uri)."'>";
+      }
+      $content .="</div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'footer_left_one':
+      $text = sy_variable_get('footer_left_one');
+      if (!$text) {
+        $text = '<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212';
+      }
+      $block['content'] = '<p>' . check_markup($text,'full_html') . '</p>';
+      break;
+
+    case 'footer_center_one':
+      $text = sy_variable_get('footer_center_one');
+      if (!$text) {
+        $text = 'Want to read our latest viewbook?<br />Interested in working here?<br /><strong>Get in touch!</strong>';
+      }
+      $block['content'] = '<p>' . check_markup($text,'full_html') . '</p>';
+      break;
+
+    case 'footer_right_one':
+      $text = sy_variable_get('footer_right_one','');
+      if (!$text) {
+        $text = '<p>Stay in the loop<br />Connect with us on Facebook, Twitter, Youtube, and Google+</p><p><a href="http://www.facebook.com"><i class="fa fa-facebook-square fa-3">&nbsp;</i></a><a href="http://www.twitter.com"><i class="fa fa-twitter-square fa-3">&nbsp;</i></a><a href="http://www.youtube.com"><i class="fa fa-youtube-square fa-3">&nbsp;</i></a><a href="http://plus.google.com"><i class="fa fa-google-plus-square fa-3">&nbsp;</i></a></p>';
+      }
+      $block['content'] = '<p>' . check_markup($text,'full_html') . '</p>';
+      break;
+
+    case 'footer_left_two':
+      $text = sy_variable_get('footer_left_two');
+      if (!$text) {
+        $text = '<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212';
+      }
+      $block['content'] = '<p>' . check_markup($text,'full_html') . '</p>';
+      break;
+
+    case 'footer_center_two':
+      $text = sy_variable_get('footer_center_two');
+      if (!$text) {
+        $text = 'Want to read our latest viewbook?<br />Interested in working here?<br /><strong>Get in touch!</strong>';
+      }
+      $block['content'] = '<p>' . check_markup($text,'full_html') . '</p>';
+      break;
+
+    case 'footer_right_two':
+      $text = sy_variable_get('footer_right_two','');
+      if (!$text) {
+        $text = '<p>Stay in the loop<br />Connect with us on Facebook, Twitter, Youtube, and Google+</p><p><a href="http://www.facebook.com"><i class="fa fa-facebook-square fa-3">&nbsp;</i></a><a href="http://www.twitter.com"><i class="fa fa-twitter-square fa-3">&nbsp;</i></a><a href="http://www.youtube.com"><i class="fa fa-youtube-square fa-3">&nbsp;</i></a><a href="http://plus.google.com"><i class="fa fa-google-plus-square fa-3">&nbsp;</i></a></p>';
+      }
+      $block['content'] = '<p>' . check_markup($text,'full_html') . '</p>';
+      break;
+
+  }
+
+  return $block;
+}

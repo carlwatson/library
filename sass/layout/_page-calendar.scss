@@ -1,0 +1,286 @@
+.page-calendar,
+.page-node-calendar {
+  .view .date-nav-wrapper {
+    .date-prev {
+      left: 10%;
+      margin: 0;
+      right: auto;
+      background: none;
+      top: 7px;
+      a {
+        line-height: 0;
+        color: transparent;
+        @include arrowJcarouselNext();
+        font-family: FontAwesome;
+        display: block;
+        font-weight: normal;
+        &:before {
+          content: "\f104";
+          color: $primary-color;
+          top: 10px;
+          position: relative;
+        }
+      }
+    }
+    .date-next {
+      right: 10%;
+      margin: 0;
+      background: none;
+      top: 7px;
+      a {
+        line-height: 0;
+        color: transparent;
+        @include arrowJcarouselNext();
+        font-family: FontAwesome;
+        display: block;
+        font-weight: normal;
+        &:before {
+          content: "\f105";
+          color: $primary-color;
+          top: 10px;
+          position: relative;
+          float: right;
+        }
+      }
+    }
+    @include breakpoint(small) {
+      .date-heading h3 {
+        max-width: 80%;
+        margin: 0 auto;
+        font-size: 20px;
+      }
+      .date-prev {
+        left: 5px;
+      }
+      .date-next {
+        right: 5px;
+      }
+    }
+    .date-heading h3 {
+      color: $secondary-color;
+    }
+  }
+  .calendar-calendar {
+    width: 100%;
+    > div.month-view {
+      overflow-x: scroll;
+      > table {
+        min-width: 450px;
+      }
+    }
+    .day-view,
+    .week-view {
+      div.single-day {
+        overflow-y: auto;
+        .view-item {
+          position: relative;
+        }
+      }
+    }
+    // overwriting nesting structure styling
+    .calendar-calendar {
+      > div.month-view {
+        overflow-x: initial;
+        > table {
+          min-width: 50px;
+        }
+      }
+
+    }
+    th.days {
+      background-color: $primary-color;
+      color: $white;
+      a {
+        background-color: $primary-color;
+        color: $white;
+      }
+    }
+    @include breakpoint(xsmall) {
+      th {
+        a {
+          font-size: 11px;
+        }
+        &.days {
+          font-size: 14px;
+        }
+      }
+    }
+    @include breakpoint(xsmall) {
+      .year-view > table > tbody > tr > td {
+        display: block;
+        width: 100% !important;
+      }
+    }
+
+    //Calendar Month, Week, & Day
+    $times: month, week, day;
+    @each $time in $times {
+      .#{$time}-view .full {
+        td {
+          color: $dark-grey;
+          &.empty {
+            .month.day {
+              color: $medium-gray;
+            }
+          }
+          &.multi-day,
+          &.single-day {
+            div.#{$time}view {
+              background: $primary-color !important;
+              height: auto !important;
+              border: none !important;
+              a {
+                color: $white !important;
+                font-size: 13px;
+                font-weight: normal;
+              }
+              .date-display-single {
+                font-size: 13px;
+                font-weight: normal;
+              }
+            }
+            .calendar.#{$time}view .contents {
+              position: relative;
+              width: 100%;
+              padding: 0 5px;
+            }
+          }
+        }
+        div.single-day {
+          div.#{$time}view {
+            background: $primary-color !important;
+            height: auto !important;
+            border: none !important;
+            a {
+              color: $white !important;
+              font-size: 13px;
+              font-weight: normal;
+            }
+            .date-display-single {
+              font-size: 13px;
+              font-weight: normal;
+            }
+          }
+          .calendar.#{$time}view .contents {
+            position: relative;
+            width: 100%;
+            padding: 0 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .view-display-id-week {
+    .calendar-calendar {
+      overflow-x: scroll;
+      > div.week-view {
+        min-width: 450px;
+      }
+      .calendar-calendar > div.week-view {
+        min-width: 50px;
+      }
+    }
+  }
+
+  .views-exposed-widget {
+    width: 100%;
+    margin-top: 0;
+    padding: 0;
+    .description {
+      display: none;
+    }
+    fieldset.collapsed {
+      height: auto;
+    }
+    .form-submit {
+      width: 100%;
+      margin-top: 10px;
+    }
+    .views-widget fieldset {
+      margin-top: 15px;
+      .fieldset-wrapper {
+        padding: 10px 10px 10px 20px;
+        background: $medium-gray;
+        label {
+          color: #fff;
+        }
+        [type="file"], [type="checkbox"], [type="radio"] {
+          margin: 0;
+        }
+      }
+      legend {
+        background-color: $medium-gray;
+        width: 100%;
+        padding: 7px;
+        margin-bottom: 0;
+        a {
+          color: #fff;
+        }
+        .fieldset-legend {
+          background-position: 96% 50%;
+          background-size: 12px 12px;
+          overflow: hidden;
+          position: relative;
+          height: 25px;
+          padding-left: 10px;
+          a.fieldset-title {
+            float: left;
+            padding: 0;
+            margin: 0;
+            display: block;
+            width: calc(100% - .5em);
+          }
+        }
+      }
+    }
+    &.views-submit-button {
+      .form-submit {
+        margin-top: 25px;
+      }
+    }
+  }
+  .today {
+    border-color: $primary-color !important;
+  }
+  td.empty {
+    color: $medium-gray;
+  }
+  .views-exposed-widget.views-submit-button {
+    @include breakpoint(medium) {
+      clear: left;
+    }
+  }
+  #main {
+    #content {
+      margin-top: 25px;
+    }
+  }
+  #block-system-main {
+    .date-prev {
+      top: 0;
+      padding: 0;
+      a {
+        @include arrowJcarouselPrev();
+        height: 38px;
+      }
+    }
+    .date-next {
+      top: 0;
+      padding: 0;
+      a {
+        @include arrowJcarouselNext();
+        height: 38px;
+        display: block;
+      }
+    }
+  }
+  .first-sidebar {
+    @include breakpoint(medium) {
+      display: block;
+      max-width: 320px;
+      float: none;
+      margin: 0 auto;
+    }
+  }
+}

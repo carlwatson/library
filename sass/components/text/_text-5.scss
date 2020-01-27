@@ -1,0 +1,10 @@
+.sy-component--text-5 {
+  @include global-padding();
+  .title {
+    padding-bottom: 105px;
+  }
+  .italic-text {
+    font-style: italic;
+    font-size: 20px;
+  }
+}

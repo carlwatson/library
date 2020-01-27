@@ -1,0 +1,14 @@
+.sy-component--cta-1 {
+  @include global-padding();
+  .cell {
+    padding-top: .5em;
+    div.serif-heading {
+      padding-top: 0.5em;
+    }
+    p {
+      font-size: 1.375em;
+      line-height: 1.77;
+      margin-bottom: 2.3rem;
+    }
+  }
+}

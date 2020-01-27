@@ -1,0 +1,10 @@
+.sy-component--news-7 {
+  @include global-padding();
+  .large-dark-text {
+    color: $black;
+    font-size: 27px;
+  }
+  .small-padding-top {
+    padding-top: 20px;
+  }
+}

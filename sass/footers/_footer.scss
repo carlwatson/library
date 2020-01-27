@@ -1,0 +1,139 @@
+footer {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: $primary-color;
+  overflow: hidden;
+  width: 100%;
+  p {
+    color: $white;
+  }
+  .footer-block {
+    padding: 10px 15px 5px;
+    a {
+      color: $white;
+    }
+
+    &.footer-left, &.footer-bottom {
+      padding-left: 70px;
+      padding-right: 45px;
+      @include breakpoint(medium) {
+        padding-left: 15px;
+      }
+      .fa {
+        font-size: 2.4em;
+        padding-right: 10px;
+      }
+    }
+    &.footer-center {
+      .webform-submit {
+        width: 100%;
+      }
+      .grippie {
+        display: none;
+      }
+    }
+    &.footer-right {
+      @include breakpoint(medium) {
+        padding-right: 45px;
+      }
+    }
+  }
+  #block-sy-multidomain-footer-left-one {
+    position: relative;
+  }
+  .footer-bottom {
+    color: $white;
+    padding-top: 0;
+    float: right;
+    a {
+      color: $white;
+    }
+  }
+  .footer-right {
+    h2 {
+      font-size: 20px;
+      color: $white;
+      margin-top: 0;
+      line-height: initial;
+    }
+    input, textarea {
+      width: 100%;
+      border: 3px solid $primary-color;
+      background: none;
+      position: relative;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      padding: 8px 12px;
+      outline: 0;
+      &:valid {
+        // Hides the label
+        background: white;
+      }
+      &:focus {
+        border: 3px solid $secondary-color;
+      }
+    }
+    .focus label {
+      background: $secondary-color;
+      color: white;
+      font-size: 70%;
+      padding: 1px 6px;
+      z-index: 2;
+      text-transform: uppercase;
+      &.active {
+        display: inherit !important;
+      }
+    }
+    input.button {
+      background: $primary-color;
+      font-size: 16px;
+      width: inherit;
+    }
+    .form-item {
+      position: relative;
+    }
+    label {
+      transition: // not padding
+        background 0.2s,
+        color 0.2s,
+        top 0.2s,
+        bottom 0.2s,
+        right 0.2s,
+        left 0.2s;
+      position: absolute;
+      color: $primary-color;
+      padding: 7px 6px;
+      z-index: 5;
+      &.active {
+        display: none;
+      }
+    }
+    textarea {
+      display: block;
+      resize: vertical;
+    }
+  }
+
+  .footer-image {
+    position: absolute;
+    width: calc(100% + 30px);
+    margin: -30px -15px;
+    @include breakpoint(medium) {
+      display: none;
+    }
+  }
+  .front & {
+    background-color: $white;
+    p {
+      color: $primary-light;
+    }
+    .footer-bottom {
+      color: $primary-color;
+      font-size: 0.9rem;
+      a {
+        color: $primary-color;
+      }
+    }
+  }
+}

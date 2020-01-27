@@ -1,0 +1,5 @@
+name = SY Multidomain
+description = Custom Schoolyard module. Adds several duplicates of blocks that are in core for use with multidomains
+core = 7.x
+package = media
+version = 1.0

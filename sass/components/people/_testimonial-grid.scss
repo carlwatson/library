@@ -1,0 +1,43 @@
+.sy-component--testimonial-grid {
+  @include global-padding();
+  .header {
+    .title {
+      font-weight: bold;
+      font-size: 2.1875rem;
+      margin-bottom: 1.5rem;
+      @media screen and (max-width: 480px) {
+        font-size: 1.75rem;
+        text-align: center;
+      }
+    }
+    .intro {
+      font-size: 1.35rem;
+      @media screen and (max-width: 480px) {
+        text-align: center;
+      }
+    }
+  }
+  .testimonials {
+    margin: 2.5rem 0 1rem 0;
+    .testimonial-card {
+      padding: 1.25rem .5rem;
+      .avatar {
+        margin-right: 1.2rem;
+        img {
+          border-radius: 50%;
+          width: 4.25rem;
+          height: 4.25rem;
+        }
+      }
+      .name {
+        font-size: .875rem;
+        text-transform: uppercase;
+        letter-spacing: rem-calc(1.5px);
+        margin-bottom: 0;
+      }
+      .body {
+        color: $grey;
+      }
+    }
+  }
+}

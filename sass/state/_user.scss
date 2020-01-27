@@ -1,0 +1,59 @@
+// For logged-in users
+.logged-in {
+  footer {
+    .login-footer-left {
+      display: none;
+    }
+  }
+  .tabs {
+    border: none;
+    background: none;
+    &.primary {
+      background-color: transparent;
+      border-bottom: 1px solid $medium-gray;
+      padding-left: 0;
+      .tabs-title {
+        margin-right: 1em;
+        @include breakpoint(xsmall) {
+          margin-right: 10px;
+        }
+        a {
+          padding: 0.3em 0.8em;
+          background-color: $dark-grey;
+          color: $secondary-light;
+          line-height: inherit;
+          font-size: inherit;
+          transition: background-color 0.2s ease;
+          &:hover,
+          &:focus,
+          &.active {
+            background-color: $primary-color;
+            color: $white;
+          }
+          @include breakpoint(xsmall) {
+            padding: 0.3em 0.5em;
+          }
+        }
+      }
+    }
+  }
+}
+
+// For anonymous users
+.not-logged-in {
+  .second-sidebar {
+    margin-top: 5px;
+  }
+  &:not(.page-node) {
+    .center-region {
+      > .title {
+        padding-top: 20px;
+      }
+    }
+  }
+  footer {
+    .logout-footer-left {
+      display: none;
+    }
+  }
+}

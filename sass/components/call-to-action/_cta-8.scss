@@ -1,0 +1,31 @@
+.sy-component--cta-8 {
+  @include global-padding();
+  .cta-8--content {
+    padding: 0 1rem;
+    p {
+      font-size: 1.375em;
+      line-height: 1.77;
+      color: #7f7f7f;
+      margin: 2rem 0;
+    }
+    .cta-8-icons {
+      a {
+        color: inherit;
+        transition: filter .1s;
+        &:hover {
+          filter: brightness(65%);
+        }
+      }
+      .cta-icon-border {
+        display: inline-block;
+        width: 2.5rem;
+        height: 2.5rem;
+        box-sizing: border-box;
+        border-radius: 50%;
+        border: 1px solid #EEEEEE;
+        padding: .5rem;
+        margin: 0 5px;
+      }
+    }
+  }
+}

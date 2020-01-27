@@ -1,0 +1,431 @@
+.not-front {
+  tbody tr:nth-child(even) {
+    background-color: transparent;
+  }
+  table[border="0"] {
+    tbody,
+    thead,
+    tfoot {
+      border: none;
+    }
+  }
+
+
+  // main page content area
+  #main {
+    padding-top: 50px;
+    em {
+      color: $dark-grey;
+    }
+    #content {
+      .center-region {
+        box-sizing: border-box;
+        margin: 0 0.5em;
+        padding-right: 54px;
+        width: 100%;
+        float: left;
+        @include breakpoint(medium) {
+          padding-right: 5px;
+          margin: 0;
+        }
+        .node.node-page.clearfix:after {
+          display: inline;
+        }
+      }
+    }
+
+    #block-system-main {
+      padding-bottom: 30px;
+      text-align: left;
+      p.secondary_button,
+      p.button {
+        margin: 10px;
+      }
+      span.ext {
+        display: inline-block;
+      }
+      .button {
+        span.ext {
+          display: inline-block;
+        }
+      }
+      .content {
+        img[style*="float"][style*="left"] {
+          margin-right: 1.618em;
+          margin-bottom: 0.75em;
+          @include breakpoint(large) {
+            max-width: 50%;
+          }
+          @include breakpoint(small) {
+            max-width: 100%;
+            width: 100%;
+          }
+        }
+        img[style*="float"][style*="right"] {
+          margin-left: 1.618em;
+          margin-bottom: 0.75em;
+          @include breakpoint(large) {
+            max-width: 50%;
+          }
+          @include breakpoint(small) {
+            max-width: 100%;
+            width: 100%;
+          }
+        }
+        figure {
+          @include breakpoint(large) {
+            max-width: 50%;
+            img {
+              max-width: 100%;
+            }
+          }
+          @include breakpoint(small) {
+            max-width: 100%;
+            width: 100%;
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+    .title {
+      color: $primary-color;
+    }
+
+    select {
+      background-image: none;
+    }
+    #breadcrumb {
+      margin-left: 0;
+      ul {
+        margin-bottom: 15px;
+        li {
+          font-size: 14px;
+          color: $black;
+          a {
+            font-size: 14px;
+            color: $black;
+          }
+          &:after {
+            font-size: 14px;
+            color: $black;
+            margin: 0 0.3rem;
+          }
+        }
+      }
+    }
+    h2#page-title {
+      margin: 0.83em 0;
+      letter-spacing: 0.06em;
+      font-size: 2.618em;
+      color: $primary-color;
+      line-height: 1.294em;
+      width: 100%;
+    }
+    @include iframeResponsive('div.video-filter');
+    .responsive-table {
+      overflow-x: auto;
+    }
+    @include breakpoint(medium) {
+      > .grid-x {
+        display: block;
+      }
+    }
+  }
+  // iframe responsive 
+  @include iframeResponsive('.media-youtube-video');
+  #cboxLoadedContent {
+    .file-video-youtube {
+      min-width: 650px;
+      @include breakpoint(medium) {
+        min-width: 500px;
+      }
+      @include breakpoint(small) {
+        min-width: 300px;
+      }
+    }
+  }
+
+  div.ctools-modal-content .modal-header {
+    background: $primary-color;
+  }
+
+  &.page-node {
+    .title-no-image {
+      letter-spacing: 0.06em;
+    }
+  }
+
+  // Group type pages
+  &.node-type-group {
+    .view-id-group_content.view-display-id-posts {
+      .field-name-insert-image {
+        float: left;
+        padding-right: 10px;
+        img {
+          margin-right: 15px;
+        }
+      }
+    }
+    .view-id-group_content.view-display-id-galleries {
+      .view-content {
+        overflow: hidden;
+        .views-row {
+          padding: 10px;
+          margin: 0;
+          float: left;
+          width: 33.33%;
+          box-sizing: border-box;
+          list-style: none;
+          @include breakpoint(small) {
+            width: 50%;
+          }
+          @include breakpoint(xsmall) {
+            width: 280px;
+            float: none;
+            margin: 0 auto;
+          }
+        }
+      }
+      .pager {
+        margin-top: 10px;
+      }
+    }
+  }
+  &.page-node-done .content,
+  &.node-type-webform .content {
+    [type='text'],
+    [type='password'],
+    [type='date'],
+    [type='datetime'],
+    [type='datetime-local'],
+    [type='month'],
+    [type='week'],
+    [type='email'],
+    [type='number'],
+    [type='search'],
+    [type='tel'],
+    [type='time'],
+    [type='url'],
+    [type='color'],
+    textarea {
+      background-color: $dark-grey;
+      border-radius: 0;
+    }
+    label {
+      font-size: 1rem;
+    }
+    [type='checkbox'] + label,
+    [type='radio'] + label {
+      display: initial;
+    }
+    #block-system-main .button {
+      margin-right: 10px;
+      padding: 15px;
+      font-size: 1.2em;
+      letter-spacing: inherit;
+      width: auto;
+    }
+    fieldset {
+      border: 1px solid $medium-gray;
+      margin: 0 2px;
+      padding: 0.35em 0.625em 0.75em;
+    }
+    .webform-progressbar-outer {
+      border: 1px solid $black;
+    }
+    .webform-component-textarea .grippie {
+      display: none !important;
+    }
+    form.webform-client-form {
+      .form-actions input.form-submit {
+        padding: 15px;
+      }
+      .webform-component--survey {
+        overflow-x: auto;
+      }
+      .webform-component-textfield input,
+      .webform-component-email input {
+        max-width: 100%;
+        box-sizing: border-box;
+        background-color: $dark-grey;
+        border-radius: 0;
+      }
+      .webform-component select {
+        width: auto;
+      }
+      .webform-layout-box {
+        &.equal.child-width-3 > *,
+        &.horiz > * {
+          margin-right: 4%;
+          float: left;
+          width: 29.3%;
+          margin-left: 0;
+          @include breakpoint(xsmall) {
+            width: 100%;
+            margin: 0;
+          }
+          input {
+            width: 100%;
+            box-sizing: border-box;
+            background-color: $dark-grey;
+            border-radius: 0;
+          }
+        }
+        & > * select {
+          width: 100%;
+          box-sizing: border-box;
+        }
+        & .equal.child-width-3 .webform-component--layout-box-2--zip {
+          width: 120px;
+          box-sizing: border-box;
+        }
+        &.equal.child-width-2 > * {
+          width: 47%;
+          margin-right: 2%;
+        }
+      }
+      table {
+        max-width: 100%;
+        tr {
+          .form-item {
+            max-width: 94%;
+          }
+          td .webform-component-textfield input {
+            width: 100%;
+            box-sizing: border-box;
+          }
+        }
+      }
+      .form-file + .form-submit {
+        clear: both;
+        display: block;
+        margin-top: 10px;
+      }
+      .webform-component-table-element {
+        overflow-x: auto;
+        table tr td:last-child {
+          min-width: 268px;
+        }
+      }
+      .webform-component--table-element {
+        @include breakpoint(medium) {
+          overflow-x: auto;
+        }
+      }
+    }
+    [type='file'] {
+      width: auto;
+    }
+    .webform-component-file {
+      .form-submit {
+        padding: 8px 25px;
+        @include breakpoint(xsmall) {
+          margin-top: 8px;
+          margin-bottom: 10px;
+          clear: left;
+        }
+      }
+    }
+    .form-actions {
+      .form-submit {
+        margin-right: 10px !important;
+      }
+    }
+    .webform-progressbar-page,
+    .webform-progressbar-outer {
+      border: 1px solid $secondary-color;
+    }
+    .webform-progressbar-page.current,
+    .webform-progressbar-page.completed,
+    .webform-progressbar-inner {
+      background-color: $secondary-color;
+    }
+    .webform-progressbar-outer {
+      margin-bottom: 3em;
+    }
+    select {
+      width: auto;
+      background-image: none;
+      max-width: 100%;
+    }
+    [type='file'], [type='checkbox'], [type='radio'] {
+      margin: 0;
+    }
+    .button {
+      margin-right: 10px !important;
+    }
+    .webform-progressbar-page .webform-progressbar-page-label {
+      font-size: 0.8rem;
+    }
+    #edit-submitted-fieldset-time-field-ampm {
+      @include breakpoint(xsmall) {
+        display: block;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  // color bob pop box
+  #cboxContent {
+    .overlayprof .headshot {
+      width: 50%;
+      text-align: center;
+      margin: 0 auto;
+    }
+    .nametitle {
+      font-size: 0.8em;
+      color: $dark-grey;
+      margin: 0 auto;
+      width: 50%;
+      text-align: center;
+    }
+    .biotext {
+      font-size: 1em;
+      width: 75%;
+      margin: 10px auto;
+      text-align: center;
+    }
+  }
+}
+
+#coffee-form.hide-form {
+  display: none;
+}
+
+.builder-pop {
+  display: none;
+  .builder-pop-internal {
+    background-color: $white;
+    border: 1px solid $light-grey;
+    cursor: default;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    text-align: left;
+    width: 70%;
+    padding: 25px 25px 20px;
+    border-radius: 5px;
+    z-index: 3001;
+    @include breakpoint(small) {
+      width: 85%;
+    }
+    .pop-close {
+      float: right;
+      font-size: 20px;
+    }
+  }
+  .builder-overlay {
+    width: 100%;
+    height: 3000px;
+    background: black;
+    display: block;
+    opacity: .85;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3000;
+  }
+}

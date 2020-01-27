@@ -1,0 +1,16 @@
+.sy-component--stats-wrapper {
+  @include global-padding();
+  text-align: center;
+}
+.stats-block-title {
+  text-align: center;
+  margin-bottom: rem-calc(39px);
+  h2 {
+    font-size: rem-calc(26px);
+  }
+  .subtitle {
+    color: $grey;
+    margin:auto;
+    width: 80%;
+  }
+}

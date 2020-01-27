@@ -1,0 +1,48 @@
+.sy-component--nested-grid {
+  color: white;
+  display: grid;
+  grid-gap: 10px;
+  padding: 1rem;
+  @include breakpoint(medium up) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    div.image-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      background-size: cover;
+      // The first one
+      grid-column-start: 1;
+      grid-column-end: 3;
+      grid-row-start: 2;
+      grid-row-end: 4;
+      // The second one
+      & + .image-block {
+        grid-column-start: 3;
+        grid-column-end: 5;
+        grid-row-start: 1;
+        grid-row-end: 3;
+      }
+    }
+  }
+  > .colored-block, .image-block {
+    border-radius: 4px;
+    padding: rem-calc(24px);
+  }
+  h2 {
+    font-size: rem-calc(19.2px);
+    font-weight: bold;
+    letter-spacing: -0.1px;
+    line-height: 1.35;
+  }
+  .image-block h2 {
+    margin-bottom: rem-calc(60px);
+  }
+  p {
+    line-height: 1.63;
+  }
+  a {
+    color: white;
+  }
+}

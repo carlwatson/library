@@ -1,0 +1,88 @@
+// Import bases
+@import "sass/base/variables";
+@import "sass/base/mixins";
+@import "sass/base/reset";
+@import "sass/base/ckeditor";
+
+//Import Globals
+@import "sass/globals/colors";
+@import "sass/globals/fonts";
+@import "sass/globals/site-wide-styles";
+@import "sass/globals/sy-utility-classes";
+
+//Import Builder Components
+@import "sass/components/call-to-action/cta-1";
+@import "sass/components/call-to-action/cta-2";
+@import "sass/components/call-to-action/cta-3";
+@import "sass/components/call-to-action/cta-8";
+
+@import "sass/components/custom/builder_custom";
+
+@import "sass/components/grid/complex-grid";
+@import "sass/components/grid/image-hover-grid";
+@import "sass/components/grid/text-blurbs";
+
+@import "sass/components/hero/hero-heading-and-text";
+@import "sass/components/hero/hero-heading-stripe";
+@import "sass/components/hero/hero-overlay-caption-left";
+
+@import "sass/components/news/news-3-cards-C";
+@import "sass/components/news/news-3-photos-L";
+@import "sass/components/news/news-3-photos-C";
+@import "sass/components/news/news-4";
+@import "sass/components/news/news-7";
+@import "sass/components/news/news-global";
+@import "sass/components/news/news-kitty-corner";
+@import "sass/components/news/news-split-screen";
+
+@import "sass/components/people/cir-callout-row";
+@import "sass/components/people/directory-grid";
+@import "sass/components/people/profile-grid";
+@import "sass/components/people/profile-card-row";
+@import "sass/components/people/testimonial-grid";
+
+@import "sass/components/statistics/cards";
+@import "sass/components/statistics/numerals-large";
+@import "sass/components/statistics/numerals-small";
+@import "sass/components/statistics/stats-global";
+
+@import "sass/components/stripes/stripes";
+
+@import "sass/components/text/text-1";
+@import "sass/components/text/text-2";
+@import "sass/components/text/text-3";
+@import "sass/components/text/text-4";
+@import "sass/components/text/text-5";
+@import "sass/components/text/text-two-photos";
+
+//Import Headers
+//@import "sass/headers/header-borders";
+//@import "sass/headers/header-chameleon-inline";
+@import "sass/headers/header-drop-logo";
+//@import "sass/headers/header-logo-bar";
+@import "sass/headers/header-logo-overlap";
+//@import "sass/headers/header-one-line";
+//@import "sass/headers/header-social-left";
+//@import "sass/headers/header-standard";
+@import "sass/headers/off-canvas";
+
+//Import Footers
+@import "sass/footers/footer";
+
+//Import Layouts
+@import "sass/layout/course-matrix";
+@import "sass/layout/sidebars";
+@import "sass/layout/front";
+@import "sass/layout/header-image";
+@import "sass/layout/internal";
+@import "sass/layout/page-accordion";
+@import "sass/layout/page-athletics";
+@import "sass/layout/page-calendar";
+@import "sass/layout/page-directory";
+@import "sass/layout/page-gallery";
+@import "sass/layout/page-myportal";
+@import "sass/layout/page-news";
+@import "sass/layout/page-newsletter";
+
+@import "sass/state/user";
+@import "sass/state/modules";

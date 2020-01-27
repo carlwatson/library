@@ -1,0 +1,147 @@
+.page-directory {
+  .overlayprof {
+    text-align: center;
+  }
+  #cboxContent {
+    .bio-email {
+      font-size: 13px;
+    }
+  }
+}
+.view-board-of-trustees,
+.view-staff-directory {
+  .profilebox {
+    color: $dark-grey;
+    .nametitle {
+      .name, .biolink {
+        font-weight: 700;
+      }
+      .name {
+        font-size: 1rem;
+      }
+    }
+  }
+  .views-exposed-form {
+    .views-exposed-widgets {
+      & > div {
+        float: left !important;
+        margin-right: 10px;
+      }
+      .form-submit {
+        margin-top: 24px !important;
+        min-width: 60px;
+      }
+
+      @include breakpoint(xsmall) {
+        .form-item-department-tid select {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .view-content {
+    display: block;
+    overflow: hidden;
+    .views-row .nametitle > h5,
+    .views-row .nametitle > h4 {
+      color: $secondary-color;
+      font-size: 15px;
+      margin-bottom: 0;
+    }
+  }
+  .view-filters {
+    margin-bottom: 45px;
+    .form-submit {
+      margin-top: 25px;
+      @include breakpoint(xsmall) {
+        margin-top: 0;
+      }
+    }
+  }
+  h3 {
+    clear: both;
+    display: block;
+  }
+  .view-row-wrap {
+    padding-bottom: 20px;
+    float: left;
+    width: 100%;
+  }
+  .views-row {
+    padding: 10px;
+    margin-bottom: 30px;
+    letter-spacing: normal;
+    display: inline-block;
+    position: relative;
+    float: none;
+    text-align: left;
+    vertical-align: top;
+    box-sizing: border-box;
+    margin: -2px;
+    .nametitle > h4 {
+      margin-top: 10px;
+    }
+    img {
+      width: 100%;
+    }
+    a {
+      color: $primary-color;
+    }
+    .bio-email,
+    .titles,
+    .education {
+      color: $dark-grey;
+      display: block;
+      word-wrap: break-word;
+      font-size: 15px;
+    }
+    &:nth-child(3n+1) {
+      clear: left;
+    }
+    @include breakpoint(large) {
+      &:nth-child(3n+1) {
+        clear: none;
+      }
+      &:nth-child(2n+1) {
+        clear: left;
+      }
+    }
+    @include breakpoint(medium) {
+      &:nth-child(2n+1) {
+        clear: none;
+      }
+      &:nth-child(3n+1) {
+        clear: left;
+      }
+    }
+    @include breakpoint(small) {
+      &:nth-child(3n+1) {
+        clear: none;
+      }
+      &:nth-child(2n+1) {
+        clear: left;
+      }
+    }
+    @include breakpoint(xsmall) {
+      float: none;
+      margin: 0 auto;
+      img {
+        max-width: 260px;
+      }
+    }
+  }
+}
+.view-board-of-trustees {
+  .views-row {
+    .views-field-nothing {
+      font-size: 1rem;
+      font-weight: 700;
+      color: $secondary-color;
+      margin-top: 10px;
+    }
+    .biolink {
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+  }
+}

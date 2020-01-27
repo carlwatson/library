@@ -1,0 +1,2669 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ *
+ * Create all the blocks required.
+ */
+function sybase2_extras_form_alter(&$form,&$form_state,$form_id){
+  switch($form_id){
+      case 'views_exposed_form':
+          switch($form['#id']){
+                case 'views-exposed-form-calendar-month':
+                case 'views-exposed-form-calendar-year':
+                case 'views-exposed-form-calendar-day':
+                case 'views-exposed-form-calendar-week':
+                  $empty_team_filter = false;
+                  $empty_event_type = false;
+                  $empty_group_filter = false;
+                  if(sizeof($form['team_filter']['#options']) == 0){
+                    hide($form['team_filter']);
+                    $empty_team_filter = true;
+                  }
+                  if(sizeof($form['event_type']['#options']) == 0){
+                    hide($form['event_type']);
+                    $empty_event_type = true;
+                  }
+                  if(sizeof($form['group_filter']['#options']) == 0){
+                    hide($form['group_filter']);
+                    $empty_group_filter = true;
+                  }
+                  if($empty_team_filter == true && $empty_event_type == true && $empty_group_filter == true){
+                      hide($form['submit']);
+                      hide($form['reset']);
+                  }
+                  break;
+          }
+          /* echo '<pre>';
+          print_r($form);
+          echo '</pre>'; */
+          break;
+      }
+}
+function sybase2_extras_block_info()
+{
+  $blocks = array();
+
+  $blocks['footer_left_one'] = array(
+    'info' => t('Footer Content Left - 1'),
+  );
+
+  $blocks['footer_center_one'] = array(
+    'info' => t('Footer Content Center - 1'),
+  );
+
+  $blocks['footer_center_two'] = array(
+    'info' => t('Footer Content Center - 2'),
+  );
+
+  $blocks['footer_right_one'] = array(
+    'info' => t('Footer Content Right - 1'),
+  );
+
+  $blocks['footer_left_two'] = array(
+    'info' => t('Footer Content Left - 2'),
+  );
+
+  $blocks['footer_right_two'] = array(
+    'info' => t('Footer Content Right - 2'),
+  );
+
+  $blocks['sy_stats_block'] = array(
+    'info' => t('SY Stats Block'),
+  );
+
+  $blocks['sy_video_header_block'] = array(
+    'info' => t('SY Video Header Block'),
+  );
+
+  $blocks['sy_footer_social_block'] = array(
+    'info' => t('SY Footer Social'),
+  );
+
+  $blocks['juicer'] = array(
+    'info' => t('Juicer Social Feed'),
+  );
+
+  $blocks['sy_highlight_block'] = array(
+    'info' => t('SY Highlight Block'),
+  );
+
+  $blocks['left_video_block'] = array(
+    'info' => t('Left Video Block'),
+  );
+
+  $blocks['full_image_with_overlay'] = array(
+    'info' => t('Full Image With Overlay'),
+  );
+
+  $blocks['sy4_home_videos'] = array(
+    'info' => t('SY4 Homepage Video Switcher'),
+  );
+
+  $blocks['sy4_second_callout'] = array(
+    'info' => t('SY4 Three-Callout Panel'),
+  );
+
+  $blocks['sy4_home_panel_3'] = array(
+    'info' => t('SY4 Homepage Panel 4 icons'),
+  );
+
+  $blocks['sy4_home_panel_2'] = array(
+    'info' => t('SY4 Homepage Panel 3 icons'),
+  );
+
+  $blocks['sy3_home_top_block'] = array(
+    'info' => t('SY3 Home Top Block'),
+  );
+
+  $blocks['sy7_callout_1'] = array(
+  'info' => t('SY7 Homepage Callout Blocks'),
+  );
+
+  $blocks['sy8_callout_1'] = array(
+    'info' => t('SY8 Homepage Header Images'),
+  );
+
+  $blocks['social_menu'] = array(
+    'info' => t('Social Icon Menu'),
+  );
+
+  $blocks['sy_floating_block'] = array(
+    'info' => t('Floating Block 2'),
+  );
+
+  $blocks['hos_popup1'] = array(
+    'info' => t('Academics Popup'),
+  );
+
+  return $blocks;
+}
+
+
+/**
+ * Implements hook_block_configure().
+ */
+function sybase2_extras_block_configure($delta = '')
+{
+  $form = array();
+
+  switch ($delta) {
+
+    case 'footer_left_one':
+      $default_val = sy_variable_get('footer_left_one');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Left - 1'),
+        '#default_value' => $default_val ? $default_val : "<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212",
+      );
+      break;
+
+    case 'footer_center_one':
+      $default_val = sy_variable_get('footer_center_one');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Center - 1'),
+        '#default_value' => $default_val ? $default_val : "Want to read our latest viewbook?<br />Interested in working here?<br /><strong>Get in touch!</strong>",
+      );
+      break;
+
+    case 'footer_center_two':
+      $default_val = sy_variable_get('footer_center_two', '');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Center - 2'),
+        '#default_value' => $default_val ? $default_val : '<p>Stay in the loop<br />Connect with us on Facebook, Twitter, Youtube, and Google+</p><p><a href="http://www.facebook.com"><i class="fa fa-facebook-square fa-3">&nbsp;</i></a><a href="http://www.twitter.com"><i class="fa fa-twitter-square fa-3">&nbsp;</i></a><a href="http://www.youtube.com"><i class="fa fa-youtube-square fa-3">&nbsp;</i></a><a href="http://plus.google.com"><i class="fa fa-google-plus-square fa-3">&nbsp;</i></a></p>',
+      );
+      break;
+
+    case 'footer_right_one':
+      $default_val = sy_variable_get('footer_right_one');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Right - 1'),
+        '#default_value' => $default_val ? $default_val : "<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212",
+      );
+      break;
+
+    case 'footer_right_two':
+      $default_val = sy_variable_get('footer_right_two');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Right - 2'),
+        '#default_value' => $default_val ? $default_val : "<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212",
+      );
+      break;
+
+    case 'footer_left_two':
+      $default_val = sy_variable_get('footer_left_two');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Footer Content Left - 2'),
+        '#default_value' => $default_val ? $default_val : "<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212",
+      );
+      break;
+
+    case 'sy_stats_block':
+      $home_stats_block = variable_get('sy_stats_block_options', array(
+        'sy_stats_block_stat_1_title' => '',
+        'sy_stats_block_stat_1' => '',
+        'sy_stats_block_stat_2_title' => '',
+        'sy_stats_block_stat_2' => '',
+        'sy_stats_block_stat_3_title' => '',
+        'sy_stats_block_stat_3' => '',
+
+      ));
+
+      $form['sy_stats_block_stat_1_title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Stat 1 Title'),
+        '#default_value' => $home_stats_block['sy_stats_block_stat_1_title'],
+      );
+      $form['sy_stats_block_stat_1'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Stat 1'),
+        '#default_value' => $home_stats_block['sy_stats_block_stat_1'],
+      );
+      $form['sy_stats_block_stat_2_title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Stat 2 Title'),
+        '#default_value' => $home_stats_block['sy_stats_block_stat_2_title'],
+      );
+      $form['sy_stats_block_stat_2'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Stat 2'),
+        '#default_value' => $home_stats_block['sy_stats_block_stat_2'],
+      );
+      $form['sy_stats_block_stat_3_title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Stat 3 Title'),
+        '#default_value' => $home_stats_block['sy_stats_block_stat_3_title'],
+      );
+      $form['sy_stats_block_stat_3'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Stat 3'),
+        '#default_value' => $home_stats_block['sy_stats_block_stat_3'],
+      );
+      break;
+
+    case 'sy_video_header_block':
+      $sy_video_header_block = variable_get('sy_video_header_block_options', array(
+        'sy_video_youtube_header_block_url' => '',
+        'sy_video_vimeo_header_block_url' => '',
+      ));
+
+      $form['sy_video_youtube_header_block_url'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Video URL - YouTube (iframe)'),
+        '#default_value' => $sy_video_header_block['sy_video_youtube_header_block_url'],
+        '#maxlength' => 2024,
+      );
+
+      $form['sy_video_vimeo_header_block_url'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Video URL - Vimeo'),
+        '#default_value' => $sy_video_header_block['sy_video_vimeo_header_block_url'],
+        '#maxlength' => 1024,
+      );
+
+      break;
+
+    case 'sy_footer_social_block':
+      $sy_footer_right_block = variable_get('sy_footer_right_block_options', array(
+        'sy_social_1_icon' => '',
+        'sy_social_1_link' => '',
+        'sy_social_2_icon' => '',
+        'sy_social_2_link' => '',
+        'sy_social_3_icon' => '',
+        'sy_social_3_link' => '',
+        'sy_social_4_icon' => '',
+        'sy_social_4_link' => '',
+      ));
+
+      $form['sy_social_1_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('1st Social Icon (Font Awesome Class)'),
+        '#description' => t("For Example 'fa-facebook-square'"),
+        '#default_value' => $sy_footer_right_block['sy_social_1_icon'],
+      );
+      $form['sy_social_1_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('1st Social Link'),
+        '#default_value' => $sy_footer_right_block['sy_social_1_link'],
+      );
+      $form['sy_social_2_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('2nd Social Icon (Font Awesome Class)'),
+        '#description' => t("For Example 'fa-twitter-square'"),
+        '#default_value' => $sy_footer_right_block['sy_social_2_icon'],
+      );
+      $form['sy_social_2_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('2nd Social Link'),
+        '#default_value' => $sy_footer_right_block['sy_social_2_link'],
+      );
+      $form['sy_social_3_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('3rd Social Icon (Font Awesome Class)'),
+        '#description' => t("For Example 'fa-linkedin-square'"),
+        '#default_value' => $sy_footer_right_block['sy_social_3_icon'],
+      );
+      $form['sy_social_3_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('3rd Social Link'),
+        '#default_value' => $sy_footer_right_block['sy_social_3_link'],
+      );
+      $form['sy_social_4_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('4th Social Icon (Font Awesome Class)'),
+        '#description' => t("For Example 'fa-instagram'"),
+        '#default_value' => $sy_footer_right_block['sy_social_4_icon'],
+      );
+      $form['sy_social_4_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('4th Social Link'),
+        '#default_value' => $sy_footer_right_block['sy_social_4_link'],
+      );
+
+      break;
+
+    case 'juicer':
+      $juicer = sy_variable_get('juicer', array(
+        'juicer_title' => '',
+        'juicer_feed' => '',
+      ));
+
+      $form['juicer_title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title of Feeds Block'),
+        '#default_value' => $juicer['juicer_title'],
+      );
+
+      $form['juicer_feed'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Juicer Data Feed ID'),
+        '#default_value' => $juicer['juicer_feed'],
+      );
+
+      break;
+
+    case 'sy_highlight_block':
+      $home_top_block = variable_get('sy_highlight_block_options', array(
+        'sy_highlight_block_text' => '',
+        'sy_highlight_block_title' => '',
+        'sy_highlight_block_link' => '',
+        'sy_highlight_block_button_text' => '',
+        'sy_highlight_block_show' => 0,
+      ));
+
+      $form['sy_highlight_block_show'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show Block on Page'),
+        '#default_value' => $home_top_block['sy_highlight_block_show'],
+      );
+
+      $form['sy_highlight_block_title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Block Title'),
+        '#default_value' => $home_top_block['sy_highlight_block_title'],
+      );
+
+      $form['sy_highlight_block_text'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Body text'),
+        '#default_value' => check_markup($home_top_block['sy_highlight_block_text']['value'], 'full_html'),
+      );
+
+      $form['sy_highlight_block_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Link URL'),
+        '#default_value' => $home_top_block['sy_highlight_block_link'],
+      );
+
+      $form['sy_highlight_block_button_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Link Text'),
+        '#default_value' => $home_top_block['sy_highlight_block_button_text'],
+      );
+      break;
+
+    case 'left_video_block':
+      $algarve_home_video_block = sy_variable_get('algarve_home_video_block_options', array(
+        'algarve_home_video_block_title' => 'Title',
+        'algarve_home_video_block_title_color' => '007cb1',
+        'algarve_home_video_bg_color' => 'ffffff',
+        'algarve_home_video_text' => 'Text next to video',
+        'algarve_home_video_video' => '',
+      ));
+
+      $form['algarve_home_video_block_title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title for the panel, shows up at the top.'),
+        '#default_value' => $algarve_home_video_block['algarve_home_video_block_title'],
+      );
+
+      $form['algarve_home_video_text'] = array(
+        '#type' => 'text_format',
+        '#format' => NULL,
+        '#title' => t('Text to go next to the video.'),
+        '#default_value' => check_markup($algarve_home_video_block['algarve_home_video_text']['value'], 'full_html'),
+      );
+
+      $vid_url = str_replace("[video:", "", $algarve_home_video_block['algarve_home_video_video']);
+      $vid_url = str_replace("]", "", $vid_url);
+      $form['algarve_home_video_video'] = array(
+        '#type' => 'textfield',
+        '#format' => NULL,
+        '#title' => t('URL for the video, paste it in right from your browser location bar.'),
+        '#default_value' => $vid_url,
+      );
+      break;
+
+    case 'full_image_with_overlay':
+      $full_image_with_overlay = sy_variable_get('full_image_with_overlay_options', array(
+        'full_image_with_overlay_head' => '',
+        'full_image_with_overlay_body' => '',
+        'full_image_with_overlay_image' => '',
+      ));
+
+      $form['full_image_with_overlay_head'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Headline'),
+        '#default_value' => $full_image_with_overlay['full_image_with_overlay_head'],
+      );
+
+      $form['full_image_with_overlay_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Body text'),
+        '#default_value' => check_markup($full_image_with_overlay['full_image_with_overlay_body']['value'], 'full_html'),
+      );
+
+      $form['full_image_with_overlay_image'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for the block.'),
+        '#description' => t("Upload an image for this block."),
+        '#default_value' => $full_image_with_overlay['full_image_with_overlay_image'],
+        '#upload_location' => 'public://theme',
+      );
+
+      break;
+
+    case 'sy4_home_videos':
+      $sy4_home_videos = sy_variable_get('sy4_home_video_options', array(
+        'sy4_home_videos_title' => 'panel title',
+        'sy4_home_videos_title_color' => '7f7b92',
+        'sy4_home_videos_text' => 'text under title',
+        'sy4_home_videos_tabs' => '',
+        'sy4_home_videos_text_under' => 'text under videos',
+      ));
+
+      $form['sy4_home_videos_title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title for the panel, shows up at the top above the blocks and in the sidebar button.'),
+        '#default_value' => $sy4_home_videos['sy4_home_videos_title'],
+      );
+
+      $form['sy4_home_videos_text'] = array(
+        '#type' => 'text_format',
+        '#format' => NULL,
+        '#title' => t('Text for under the title but above the videos.'),
+        '#default_value' => check_markup($sy4_home_videos['sy4_home_videos_text']['value'], 'full_html'),
+      );
+
+      $tab_value = str_replace("[mediaqt:", "", $sy4_home_videos['sy4_home_videos_tabs']);
+      $tab_value = str_replace("]", "", $tab_value);
+      $form['sy4_home_videos_tabs'] = array(
+        '#type' => 'textfield',
+        '#format' => NULL,
+        '#title' => t('Enter the gallery ID here.'),
+        '#default_value' => $tab_value,
+      );
+
+      $form['sy4_home_videos_text_under'] = array(
+        '#type' => 'text_format',
+        '#format' => NULL,
+        '#title' => t('Text for under the videos.'),
+        '#default_value' => check_markup($sy4_home_videos['sy4_home_videos_text_under']['value'], 'full_html'),
+      );
+      break;
+
+    case 'sy4_second_callout':
+      $sy4_second_callout = sy_variable_get('sy4_second_callout_options', array(
+        'sy4_second_callout_title' => 'pane title',
+        'sy4_second_callout_text' => 'text under title',
+        'sy4_second_callout_text_under' => 'text under callouts',
+
+        'sy4_second_callout_overlay_title_1' => 'title 1',
+        'sy4_second_callout_overlay_text_1' => 'overlay text 1',
+        'sy4_second_callout_overlay_color_1' => '7a7a7a',
+        'sy4_second_callout_text_1' => 'text 1',
+        'sy4_second_callout_image_1' => '',
+
+        'sy4_second_callout_overlay_title_2' => 'title 2',
+        'sy4_second_callout_overlay_text_2' => 'overlay text 2',
+        'sy4_second_callout_overlay_color_2' => '7a7a7a',
+        'sy4_second_callout_text_2' => 'text 2',
+        'sy4_second_callout_image_2' => '',
+
+        'sy4_second_callout_overlay_title_3' => 'title 3',
+        'sy4_second_callout_overlay_text_3' => 'overlay text 3',
+        'sy4_second_callout_overlay_color_3' => '7a7a7a',
+        'sy4_second_callout_text_3' => 'text 3',
+        'sy4_second_callout_image_3' => '',
+      ));
+
+      $form['sy4_second_callout_title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title on top of the pane.'),
+        '#default_value' => $sy4_second_callout['sy4_second_callout_title'],
+      );
+
+      $form['sy4_second_callout_text'] = array(
+        '#type' => 'text_format',
+        '#format' => NULL,
+        '#title' => t('Text for under the title but above the callouts.'),
+        '#default_value' => check_markup($sy4_second_callout['sy4_second_callout_text']['value'], 'full_html'),
+      );
+
+      $form['sy4_second_callout_text_under'] = array(
+        '#type' => 'text_format',
+        '#format' => NULL,
+        '#title' => t('Text for under the callouts.'),
+        '#default_value' => check_markup($sy4_second_callout['sy4_second_callout_text_under']['value'], 'full_html'),
+      );
+
+      $form['sy4_second_callout_markup_1'] = array(
+        '#markup' => '<br /><h3><strong>Enter data for the first callout:</strong></h3>',
+      );
+
+      $form['sy4_second_callout_overlay_title_1'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title on top of the first image.'),
+        '#default_value' => $sy4_second_callout['sy4_second_callout_overlay_title_1'],
+      );
+
+      $form['sy4_second_callout_overlay_text_1'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Text to go under the title on top of the overlay.'),
+        '#default_value' => $sy4_second_callout['sy4_second_callout_overlay_text_1'],
+      );
+
+      $form['sy4_second_callout_text_1'] = array(
+        '#type' => 'text_format',
+        '#format' => NULL,
+        '#title' => t('Text to show up on hover (or tap for phones).'),
+        '#default_value' => check_markup($sy4_second_callout['sy4_second_callout_text_1']['value'], 'full_html'),
+      );
+
+      $form['sy4_second_callout_image_1'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for this callout.'),
+        '#description' => t("Upload an image for this block."),
+        '#default_value' => $sy4_second_callout['sy4_second_callout_image_1'],
+        '#upload_location' => 'public://theme',
+      );
+
+      $form['sy4_second_callout_markup_2'] = array(
+        '#markup' => '<br /><h3><strong>Enter data for the second callout:</strong></h3>',
+      );
+
+      $form['sy4_second_callout_overlay_title_2'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title on top of the second image.'),
+        '#default_value' => $sy4_second_callout['sy4_second_callout_overlay_title_2'],
+      );
+
+      $form['sy4_second_callout_overlay_text_2'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Text to go under the title on top of the overlay.'),
+        '#default_value' => $sy4_second_callout['sy4_second_callout_overlay_text_2'],
+      );
+
+      $form['sy4_second_callout_text_2'] = array(
+        '#type' => 'text_format',
+        '#format' => NULL,
+        '#title' => t('Text to show up on hover (or tap for phones).'),
+        '#default_value' => check_markup($sy4_second_callout['sy4_second_callout_text_2']['value'], 'full_html'),
+      );
+
+      $form['sy4_second_callout_image_2'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for this callout.'),
+        '#description' => t("Upload an image for this block."),
+        '#default_value' => $sy4_second_callout['sy4_second_callout_image_2'],
+        '#upload_location' => 'public://theme',
+      );
+
+      $form['sy4_second_callout_markup_3'] = array(
+        '#markup' => '<br /><h3><strong>Enter data for the third callout:</strong></h3>',
+      );
+
+      $form['sy4_second_callout_overlay_title_3'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title on top of the third image.'),
+        '#default_value' => $sy4_second_callout['sy4_second_callout_overlay_title_3'],
+      );
+
+      $form['sy4_second_callout_overlay_text_3'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Text to go under the title on top of the overlay.'),
+        '#default_value' => $sy4_second_callout['sy4_second_callout_overlay_text_3'],
+      );
+
+      $form['sy4_second_callout_text_3'] = array(
+        '#type' => 'text_format',
+        '#format' => NULL,
+        '#title' => t('Text to show up on hover (or tap for phones).'),
+        '#default_value' => check_markup($sy4_second_callout['sy4_second_callout_text_3']['value'], 'full_html'),
+      );
+
+      $form['sy4_second_callout_image_3'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for this callout.'),
+        '#description' => t("Upload an image for this block."),
+        '#default_value' => $sy4_second_callout['sy4_second_callout_image_3'],
+        '#upload_location' => 'public://theme',
+      );
+      break;
+
+    case 'sy4_home_panel_3':
+      $sy4_panel_3 = sy_variable_get('sy4_panel_3_options', array(
+        'sy4_panel_3_title_1' => 'title 1',
+        'sy4_panel_3_text_1' => '',
+        'sy4_panel_3_icon_1' => 'pencil',
+        'sy4_panel_3_link_1' => '',
+        'sy4_panel_3_title_2' => 'title 2',
+        'sy4_panel_3_text_2' => '',
+        'sy4_panel_3_icon_2' => 'apple',
+        'sy4_panel_3_link_2' => '',
+        'sy4_panel_3_title_3' => 'title 3',
+        'sy4_panel_3_text_3' => '',
+        'sy4_panel_3_icon_3' => 'beaker',
+        'sy4_panel_3_link_3' => '',
+        'sy4_panel_3_title_4' => 'title 4',
+        'sy4_panel_3_text_4' => '',
+        'sy4_panel_3_icon_4' => 'robot',
+        'sy4_panel_3_link_4' => '',
+        'sy4_panel_3_bg' => 'ffffff',
+        'sy4_panel_3_title_icon_color' => '45a178',
+        'sy4_panel_3_text_color' => '7a7a7a',
+        'sy4_panel_3_bar_color' => 'f29f1f',
+      ));
+
+      $form['sy4_panel_3_markup_1'] = array(
+        '#markup' => '<br /><h3><strong>Enter data for three or four different icon links:</strong></h3>',
+      );
+
+      $form['sy4_panel_3_title_1'] = array(
+        '#type' => 'textfield',
+        '#title' => t('First title text.'),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_title_1'],
+      );
+
+      $form['sy4_panel_3_text_1'] = array(
+        '#type' => 'textarea',
+        '#title' => t('Text to show up under the title and above the icon.'),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_text_1'],
+      );
+
+      $form['sy4_panel_3_icon_1'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Enter the word for the icon you would like to use (<a target='_blank' href='" . $GLOBALS['base_url'] . "/profiles/schoolyard/themes/custom/schoolyard_base/sass/schoolyard_themes/sy_fonts/icons-reference.html'>click here</a> to see the choices)."),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_icon_1'],
+      );
+
+      $form['sy4_panel_3_link_1'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_link_1'],
+      );
+
+      $form['sy4_panel_3_title_2'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Second title text.'),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_title_2'],
+      );
+
+      $form['sy4_panel_3_text_2'] = array(
+        '#type' => 'textarea',
+        '#title' => t('Text to show up under the title and above the icon.'),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_text_2'],
+      );
+
+      $form['sy4_panel_3_icon_2'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Enter the word for the icon you would like to use (<a target='_blank' href='" . $GLOBALS['base_url'] . "/profiles/schoolyard/themes/custom/schoolyard_base/sass/schoolyard_themes/sy_fonts/icons-reference.html'>click here</a> to see the choices)."),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_icon_2'],
+      );
+
+      $form['sy4_panel_3_link_2'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_link_2'],
+      );
+
+      $form['sy4_panel_3_title_3'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Third title text.'),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_title_3'],
+      );
+
+      $form['sy4_panel_3_text_3'] = array(
+        '#type' => 'textarea',
+        '#title' => t('Text to show up under the title and above the icon.'),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_text_3'],
+      );
+
+      $form['sy4_panel_3_icon_3'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Enter the word for the icon you would like to use (<a target='_blank' href='" . $GLOBALS['base_url'] . "/profiles/schoolyard/themes/custom/schoolyard_base/sass/schoolyard_themes/sy_fonts/icons-reference.html'>click here</a> to see the choices)."),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_icon_3'],
+      );
+
+      $form['sy4_panel_3_link_3'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_link_3'],
+      );
+
+      $form['sy4_panel_3_title_4'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Fourth title text.'),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_title_4'],
+      );
+
+      $form['sy4_panel_3_text_4'] = array(
+        '#type' => 'textarea',
+        '#title' => t('Text to show up under the title and above the icon.'),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_text_4'],
+      );
+
+      $form['sy4_panel_3_icon_4'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Enter the word for the icon you would like to use (<a target='_blank' href='" . $GLOBALS['base_url'] . "/profiles/schoolyard/themes/custom/schoolyard_base/sass/schoolyard_themes/sy_fonts/icons-reference.html'>click here</a> to see the choices)."),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_icon_4'],
+      );
+
+      $form['sy4_panel_3_link_4'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $sy4_panel_3['sy4_panel_3_link_4'],
+      );
+
+      $form['sy4_panel_3_bg'] = array(
+        '#type' => 'jquery_colorpicker',
+        '#title' => t('Color for the background of the whole panel.'),
+        '#default_value' => str_ireplace('#', '', $sy4_panel_3['sy4_panel_3_bg']),
+        '#sassy' => TRUE,
+      );
+
+      $form['sy4_panel_3_title_icon_color'] = array(
+        '#type' => 'jquery_colorpicker',
+        '#title' => t('Color for the titles and icons.'),
+        '#default_value' => str_ireplace('#', '', $sy4_panel_3['sy4_panel_3_title_icon_color']),
+        '#sassy' => TRUE,
+      );
+
+      $form['sy4_panel_3_text_color'] = array(
+        '#type' => 'jquery_colorpicker',
+        '#title' => t('Color for the text.'),
+        '#default_value' => str_ireplace('#', '', $sy4_panel_3['sy4_panel_3_text_color']),
+        '#sassy' => TRUE,
+      );
+
+      $form['sy4_panel_3_bar_color'] = array(
+        '#type' => 'jquery_colorpicker',
+        '#title' => t('Color for the bar above the titles and icons.'),
+        '#default_value' => str_ireplace('#', '', $sy4_panel_3['sy4_panel_3_bar_color']),
+        '#sassy' => TRUE,
+      );
+      break;
+
+    case 'sy4_home_panel_2':
+      $sy4_panel_2 = sy_variable_get('sy4_panel_2_options', array(
+        'sy4_panel_2_title_1' => 'title 1',
+        'sy4_panel_2_icon_1' => 'pencil',
+        'sy4_panel_2_link_1' => '',
+        'sy4_panel_2_title_2' => 'title 2',
+        'sy4_panel_2_icon_2' => 'apple',
+        'sy4_panel_2_link_2' => '',
+        'sy4_panel_2_title_3' => 'title 3',
+        'sy4_panel_2_icon_3' => 'beaker',
+        'sy4_panel_2_link_3' => '',
+
+      ));
+
+      $form['sy4_panel_2_markup_1'] = array(
+        '#markup' => '<br /><h3><strong>Enter data for three or four different icon links:</strong></h3>',
+      );
+
+      $form['sy4_panel_2_title_1'] = array(
+        '#type' => 'textfield',
+        '#title' => t('First title text.'),
+        '#default_value' => $sy4_panel_2['sy4_panel_2_title_1'],
+      );
+
+      $form['sy4_panel_2_icon_1'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Enter the word for the icon you would like to use (<a target='_blank' href='" . $GLOBALS['base_url'] . "/profiles/schoolyard/themes/custom/schoolyard_base/sass/schoolyard_themes/sy_fonts/icons-reference.html'>click here</a> to see the choices)."),
+        '#default_value' => $sy4_panel_2['sy4_panel_2_icon_1'],
+      );
+
+      $form['sy4_panel_2_link_1'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $sy4_panel_2['sy4_panel_2_link_1'],
+      );
+
+      $form['sy4_panel_2_title_2'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Second title text.'),
+        '#default_value' => $sy4_panel_2['sy4_panel_2_title_2'],
+      );
+
+      $form['sy4_panel_2_icon_2'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Enter the word for the icon you would like to use (<a target='_blank' href='" . $GLOBALS['base_url'] . "/profiles/schoolyard/themes/custom/schoolyard_base/sass/schoolyard_themes/sy_fonts/icons-reference.html'>click here</a> to see the choices)."),
+        '#default_value' => $sy4_panel_2['sy4_panel_2_icon_2'],
+      );
+
+      $form['sy4_panel_2_link_2'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $sy4_panel_2['sy4_panel_2_link_2'],
+      );
+
+      $form['sy4_panel_2_title_3'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Third title text.'),
+        '#default_value' => $sy4_panel_2['sy4_panel_2_title_3'],
+      );
+
+      $form['sy4_panel_2_icon_3'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Enter the word for the icon you would like to use (<a target='_blank' href='" . $GLOBALS['base_url'] . "/profiles/schoolyard/themes/custom/schoolyard_base/sass/schoolyard_themes/sy_fonts/icons-reference.html'>click here</a> to see the choices)."),
+        '#default_value' => $sy4_panel_2['sy4_panel_2_icon_3'],
+      );
+
+      $form['sy4_panel_2_link_3'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $sy4_panel_2['sy4_panel_2_link_3'],
+      );
+
+
+
+
+      break;
+
+    case 'sy3_home_top_block':
+      $home_top_block = variable_get('sy3_home_top_block_options', array(
+        'sy3_home_top_block_grid' => '',
+        'sy3_home_top_block_title' => '',
+        'sy3_home_top_block_image_1' => '',
+        'sy3_home_top_block_text_1' => 'text 1',
+        'sy3_home_top_block_image_2' => '',
+        'sy3_home_top_block_text_2' => 'text 2',
+        'sy3_home_top_block_image_3' => '',
+        'sy3_home_top_block_text_3' => 'text 3',
+        'sy3_home_top_block_image_4' => '',
+        'sy3_home_top_block_text_4' => 'text 4',
+      ));
+
+      $form['sy3_home_top_block_grid'] = array(
+        '#type' => 'radios',
+        '#title' => t('Number of Images'),
+        '#options' => array(
+          'two'=>t('Two'),
+          'three'=>t('Three'),
+          'four'=>t('Four')),
+      );
+
+      $form['sy3_home_top_block_title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title for the panel.'),
+        '#default_value' => $home_top_block['sy3_home_top_block_title'],
+      );
+
+      $form['sy3_home_top_block_image_1'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('First image'),
+        '#description' => t("Upload the first image. Keep in mind it will be automatically cropped to be square and then placed in a circular area."),
+        '#default_value' => $home_top_block['sy3_hill_home_top_block_image_1'],
+        '#upload_location' => 'public://theme',
+      );
+
+      $form['sy3_home_top_block_text_1'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Text to go under the first image.'),
+        '#default_value' => check_markup($home_top_block['sy3_home_top_block_text_1']['value'], 'full_html'),
+      );
+
+      $form['sy3_home_top_block_image_2'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Second image'),
+        '#description' => t("Upload the second image. Keep in mind it will be automatically cropped to be square and then placed in a circular area."),
+        '#default_value' => $home_top_block['sy3_home_top_block_image_2'],
+        '#upload_location' => 'public://theme',
+      );
+
+      $form['sy3_home_top_block_text_2'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Text to go under the second image.'),
+        '#default_value' => check_markup($home_top_block['sy3_home_top_block_text_2']['value'], 'full_html'),
+      );
+
+      $form['sy3_home_top_block_image_3'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Third image'),
+        '#description' => t("Upload the third image. Keep in mind it will be automatically cropped to be square and then placed in a circular area."),
+        '#default_value' => $home_top_block['sy3_home_top_block_image_3'],
+        '#upload_location' => 'public://theme',
+      );
+
+      $form['sy3_home_top_block_text_3'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Text to go under the third image.'),
+        '#default_value' => check_markup($home_top_block['sy3_home_top_block_text_3']['value'], 'full_html'),
+      );
+      $form['sy3_home_top_block_image_4'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Fourth image'),
+        '#description' => t("Upload the third image. Keep in mind it will be automatically cropped to be square and then placed in a circular area."),
+        '#default_value' => $home_top_block['sy3_home_top_block_image_4'],
+        '#upload_location' => 'public://theme',
+      );
+
+      $form['sy3_home_top_block_text_4'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Text to go under the fourth image.'),
+        '#default_value' => check_markup($home_top_block['sy3_home_top_block_text_4']['value'], 'full_html'),
+      );
+      break;
+
+    case 'sy7_callout_1':
+      $callout_1 = sy_variable_get('sy7_callout_1_options', array(
+        'sy7_callout_1_text' => '',
+        'sy7_callout_1_link' => '',
+        'sy7_callout_1_image' => '',
+        'sy7_callout_2_text' => '',
+        'sy7_callout_2_link' => '',
+        'sy7_callout_2_image' => '',
+        'sy7_callout_3_text' => '',
+        'sy7_callout_3_link' => '',
+        'sy7_callout_3_image' => '',
+        'sy7_callout_4_text' => '',
+        'sy7_callout_4_link' => '',
+        'sy7_callout_4_image' => '',
+      ));
+
+      $form['sy7_callout_1_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Text for the callout.'),
+        '#default_value' => $callout_1['sy7_callout_1_text'],
+      );
+
+      $form['sy7_callout_1_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $callout_1['sy7_callout_1_link'],
+      );
+
+      $form['sy7_callout_1_image'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for the callout.'),
+        '#description' => t("Upload an image for this callout."),
+        '#default_value' => $callout_1['sy7_callout_1_image'],
+        '#upload_location' => 'public://theme',
+      );
+
+      $form['sy7_callout_2_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Text for the callout.'),
+        '#default_value' => $callout_1['sy7_callout_2_text'],
+      );
+
+      $form['sy7_callout_2_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $callout_1['sy7_callout_2_link'],
+      );
+
+      $form['sy7_callout_2_image'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for the callout.'),
+        '#description' => t("Upload an image for this callout."),
+        '#default_value' => $callout_1['sy7_callout_2_image'],
+        '#upload_location' => 'public://theme',
+      );
+
+      $form['sy7_callout_3_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Text for the callout.'),
+        '#default_value' => $callout_1['sy7_callout_3_text'],
+      );
+
+      $form['sy7_callout_3_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $callout_1['sy7_callout_3_link'],
+      );
+
+      $form['sy7_callout_3_image'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for the callout.'),
+        '#description' => t("Upload an image for this callout."),
+        '#default_value' => $callout_1['sy7_callout_3_image'],
+        '#upload_location' => 'public://theme',
+      );
+
+      $form['sy7_callout_4_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Text for the callout.'),
+        '#default_value' => $callout_1['sy7_callout_4_text'],
+      );
+
+      $form['sy7_callout_4_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $callout_1['sy7_callout_4_link'],
+      );
+
+      $form['sy7_callout_4_image'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for the callout.'),
+        '#description' => t("Upload an image for this callout."),
+        '#default_value' => $callout_1['sy7_callout_4_image'],
+        '#upload_location' => 'public://theme',
+      );
+      break;
+
+    case 'sy8_callout_1':
+      $callout_1 = sy_variable_get('sy8_callout_1_options', array(
+        'sy7_callout_1_text' => '',
+        'sy7_callout_1_link' => '',
+        'sy7_callout_1_image' => '',
+        'sy7_callout_2_text' => '',
+        'sy7_callout_2_link' => '',
+        'sy7_callout_2_image' => '',
+        'sy7_callout_3_text' => '',
+        'sy7_callout_3_link' => '',
+        'sy7_callout_3_image' => '',
+      ));
+
+      $form['sy7_callout_1_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Text for the callout.'),
+        '#default_value' => $callout_1['sy7_callout_1_text'],
+      );
+
+      $form['sy7_callout_1_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $callout_1['sy7_callout_1_link'],
+      );
+
+      $form['sy7_callout_1_image'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for the callout.'),
+        '#description' => t("Upload an image for this callout."),
+        '#default_value' => $callout_1['sy7_callout_1_image'],
+        '#upload_location' => 'public://theme',
+      );
+
+      $form['sy7_callout_2_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Text for the callout.'),
+        '#default_value' => $callout_1['sy7_callout_2_text'],
+      );
+
+      $form['sy7_callout_2_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $callout_1['sy7_callout_2_link'],
+      );
+
+      $form['sy7_callout_2_image'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for the callout.'),
+        '#description' => t("Upload an image for this callout."),
+        '#default_value' => $callout_1['sy7_callout_2_image'],
+        '#upload_location' => 'public://theme',
+      );
+
+      $form['sy7_callout_3_text'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Text for the callout.'),
+        '#default_value' => $callout_1['sy7_callout_3_text'],
+      );
+
+      $form['sy7_callout_3_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t("Link for the callout. For internal links, just enter the site address part after the url, such as 'http://www.school.com/<strong>thispart</strong>'. For external links, the '<strong>http://</strong>' part is required. "),
+        '#default_value' => $callout_1['sy7_callout_3_link'],
+      );
+
+      $form['sy7_callout_3_image'] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Image for the callout.'),
+        '#description' => t("Upload an image for this callout."),
+        '#default_value' => $callout_1['sy7_callout_3_image'],
+        '#upload_location' => 'public://theme',
+      );
+
+      break;
+
+    case 'social_menu':
+      $social_menu = sy_variable_get('social_menu_options', array(
+        'social_menu_1_icon' => '',
+        'social_menu_1_link' => '',
+        'social_menu_2_icon' => '',
+        'social_menu_2_link' => '',
+        'social_menu_3_icon' => '',
+        'social_menu_3_link' => '',
+        'social_menu_4_icon' => '',
+        'social_menu_4_link' => '',
+        'social_menu_5_icon' => '',
+        'social_menu_5_link' => '',
+        'social_menu_6_icon' => '',
+        'social_menu_6_link' => '',
+      ));
+
+      $form['social_menu_1_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Icon for Link 1'),
+        '#default_value' => $social_menu['social_menu_1_icon'],
+      );
+
+      $form['social_menu_1_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Link for Link 1'),
+        '#default_value' => $social_menu['social_menu_1_link'],
+      );
+
+      $form['social_menu_2_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Icon for Link 2'),
+        '#default_value' => $social_menu['social_menu_2_icon'],
+      );
+
+      $form['social_menu_2_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Link for Link 2'),
+        '#default_value' => $social_menu['social_menu_2_link'],
+      );
+
+      $form['social_menu_3_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Icon for Link 3'),
+        '#default_value' => $social_menu['social_menu_3_icon'],
+      );
+
+      $form['social_menu_3_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Link for Link 3'),
+        '#default_value' => $social_menu['social_menu_3_link'],
+      );
+
+      $form['social_menu_4_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Icon for Link 4'),
+        '#default_value' => $social_menu['social_menu_4_icon'],
+      );
+
+      $form['social_menu_4_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Link for Link 4'),
+        '#default_value' => $social_menu['social_menu_4_link'],
+      );
+
+      $form['social_menu_5_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Icon for Link 5'),
+        '#default_value' => $social_menu['social_menu_5_icon'],
+      );
+
+      $form['social_menu_5_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Link for Link 5'),
+        '#default_value' => $social_menu['social_menu_5_link'],
+      );
+
+      $form['social_menu_6_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Icon for Link 6'),
+        '#default_value' => $social_menu['social_menu_6_icon'],
+      );
+
+      $form['social_menu_6_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Link for Link 6'),
+        '#default_value' => $social_menu['social_menu_6_link'],
+      );
+
+
+      break;
+
+    case 'sy_floating_block':
+      $floating_block = variable_get('floating_block_options', array(
+        'floating_block_font' => '',
+        'floating_block_1' => 'Apply',
+        'floating_block_1_link' => '#',
+        'floating_block_1_icon' => 'pencil',
+        'floating_block_2' => 'Giving',
+        'floating_block_2_link' => '#',
+        'floating_block_2_icon' => 'heart',
+        'floating_block_3_on' => '',
+        'floating_block_3' => 'Athletics',
+        'floating_block_3_link' => '#',
+        'floating_block_3_icon' => 'softball',
+        'floating_block_4_on' => '',
+        'floating_block_4' => 'Cafeteria',
+        'floating_block_4_link' => '#',
+        'floating_block_4_icon' => 'cutlery',
+        'floating_block_5_on' => '',
+        'floating_block_5' => 'Academics',
+        'floating_block_5_link' => '#',
+        'floating_block_5_icon' => 'beaker',
+        'floating_block_6_on' => '',
+        'floating_block_6' => 'Community',
+        'floating_block_6_link' => '#',
+        'floating_block_6_icon' => 'family',
+        'floating_block_login' => 'Login',
+        'floating_block_logout' => 'Logout',
+        'floating_block_logout_icon' => 'key',
+      ));
+
+      $form['floating_block_font'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('click for font-awesome'),
+        '#default_value' => $floating_block['floating_block_font'],
+      );
+
+      $form['floating_block_1'] = array(
+        '#type' => 'textfield',
+        '#title' => t('1st Item Text'),
+        '#default_value' => $floating_block['floating_block_1'],
+      );
+      $form['floating_block_1_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('1st Item Link'),
+        '#default_value' => $floating_block['floating_block_1_link'],
+      );
+      $form['floating_block_1_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('1st Item Icon'),
+        '#default_value' => $floating_block['floating_block_1_icon'],
+      );
+      $form['floating_block_2'] = array(
+        '#type' => 'textfield',
+        '#title' => t('2nd Item Text'),
+        '#default_value' => $floating_block['floating_block_2'],
+      );
+      $form['floating_block_2_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('2nd Item Link'),
+        '#default_value' => $floating_block['floating_block_2_link'],
+      );
+      $form['floating_block_2_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('2nd Item Icon'),
+        '#default_value' => $floating_block['floating_block_2_icon'],
+      );
+      $form['floating_block_3_on'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show 3rd Item in Block'),
+        '#default_value' => $floating_block['floating_block_3_on'],
+      );
+      $form['floating_block_3'] = array(
+        '#type' => 'textfield',
+        '#title' => t('3rd Item Text'),
+        '#default_value' => $floating_block['floating_block_3'],
+      );
+      $form['floating_block_3_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('3rd Item Link'),
+        '#default_value' => $floating_block['floating_block_3_link'],
+      );
+      $form['floating_block_3_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('3rd Item Icon'),
+        '#default_value' => $floating_block['floating_block_3_icon'],
+      );
+      $form['floating_block_4_on'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show 4th Item in Block'),
+        '#default_value' => $floating_block['floating_block_4_on'],
+      );
+      $form['floating_block_4'] = array(
+        '#type' => 'textfield',
+        '#title' => t('4th Item Text'),
+        '#default_value' => $floating_block['floating_block_4'],
+      );
+      $form['floating_block_4_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('4th Item Link'),
+        '#default_value' => $floating_block['floating_block_4_link'],
+      );
+      $form['floating_block_4_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('4th Item Icon'),
+        '#default_value' => $floating_block['floating_block_4_icon'],
+      );
+      $form['floating_block_5_on'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show 5th Item in Block'),
+        '#default_value' => $floating_block['floating_block_5_on'],
+      );
+      $form['floating_block_5'] = array(
+        '#type' => 'textfield',
+        '#title' => t('5th Item Text'),
+        '#default_value' => $floating_block['floating_block_5'],
+      );
+      $form['floating_block_5_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('5th Item Link'),
+        '#default_value' => $floating_block['floating_block_5_link'],
+      );
+      $form['floating_block_5_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('5th Item Icon'),
+        '#default_value' => $floating_block['floating_block_5_icon'],
+      );
+      $form['floating_block_6_on'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show 6th Item in Block'),
+        '#default_value' => $floating_block['floating_block_6_on'],
+      );
+      $form['floating_block_6'] = array(
+        '#type' => 'textfield',
+        '#title' => t('6th Item Text'),
+        '#default_value' => $floating_block['floating_block_6'],
+      );
+      $form['floating_block_6_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('6th Item Link'),
+        '#default_value' => $floating_block['floating_block_6_link'],
+      );
+      $form['floating_block_6_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('6th Item Icon'),
+        '#default_value' => $floating_block['floating_block_6_icon'],
+      );
+      $form['floating_block_login'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Login Text'),
+        '#default_value' => $floating_block['floating_block_login'],
+      );
+      $form['floating_block_logout'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Logout Text.'),
+        '#default_value' => $floating_block['floating_block_logout'],
+      );
+      $form['floating_block_logout_icon'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Logout Icon'),
+        '#default_value' => $floating_block['floating_block_logout_icon'],
+      );
+      break;
+
+    case 'hos_popup1':
+      $default_val = sy_variable_get('hos_popup1');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Popup Text'),
+        '#default_value' => $default_val ? $default_val : "<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212",
+      );
+      break;
+
+  }
+
+  return $form;
+}
+
+
+/**
+ * Implements hook_block_save().
+ */
+function sybase2_extras_block_save($delta = '', $edit = array())
+{
+  switch ($delta) {
+    case 'footer_left_one':
+      sy_variable_set('footer_left_one', $edit['text_body']['value']);
+      break;
+
+    case 'footer_center_one':
+      sy_variable_set('footer_center_one', $edit['text_body']['value']);
+      break;
+
+    case 'footer_center_two':
+      sy_variable_set('footer_center_two', $edit['text_body']['value']);
+      break;
+
+    case 'footer_right_one':
+      sy_variable_set('footer_right_one', $edit['text_body']['value']);
+      break;
+
+    case 'footer_right_two':
+      sy_variable_set('footer_right_two', $edit['text_body']['value']);
+      break;
+
+    case 'footer_left_two':
+      sy_variable_set('footer_left_two', $edit['text_body']['value']);
+      break;
+
+    case 'sy_stats_block':
+      variable_set('sy_stats_block_options', array(
+        'sy_stats_block_stat_1_title' => $edit['sy_stats_block_stat_1_title'],
+        'sy_stats_block_stat_1' => $edit['sy_stats_block_stat_1'],
+        'sy_stats_block_stat_2_title' => $edit['sy_stats_block_stat_2_title'],
+        'sy_stats_block_stat_2' => $edit['sy_stats_block_stat_2'],
+        'sy_stats_block_stat_3_title' => $edit['sy_stats_block_stat_3_title'],
+        'sy_stats_block_stat_3' => $edit['sy_stats_block_stat_3'],
+        'sy_stats_block_stat_bg' => '#' . $edit['sy_stats_block_stat_bg'],
+        'sy_stats_block_stat_color' => '#' . $edit['sy_stats_block_stat_color'],
+      ));
+
+      break;
+
+    case 'sy_video_header_block':
+    variable_set('sy_video_header_block_options', array(
+      'sy_video_youtube_header_block_url' => $edit['sy_video_youtube_header_block_url'],
+      'sy_video_vimeo_header_block_url' => $edit['sy_video_vimeo_header_block_url'],
+    ));
+
+    break;
+
+    case 'sy_footer_social_block':
+      variable_set('sy_footer_right_block_options', array(
+        'sy_social_1_icon' => $edit['sy_social_1_icon'],
+        'sy_social_1_link' => $edit['sy_social_1_link'],
+        'sy_social_2_icon' => $edit['sy_social_2_icon'],
+        'sy_social_2_link' => $edit['sy_social_2_link'],
+        'sy_social_3_icon' => $edit['sy_social_3_icon'],
+        'sy_social_3_link' => $edit['sy_social_3_link'],
+        'sy_social_4_icon' => $edit['sy_social_4_icon'],
+        'sy_social_4_link' => $edit['sy_social_4_link'],
+      ));
+
+      break;
+
+    case 'juicer':
+      sy_variable_set('juicer', array(
+        'juicer_title' => $edit['juicer_title'],
+        'juicer_feed' => $edit['juicer_feed'],
+      ));
+
+      break;
+
+    case 'sy_highlight_block':
+      variable_set('sy_highlight_block_options', array(
+        'sy_highlight_block_title' => $edit['sy_highlight_block_title'],
+        'sy_highlight_block_text' => $edit['sy_highlight_block_text'],
+        'sy_highlight_block_link' => $edit['sy_highlight_block_link'],
+        'sy_highlight_block_show' => $edit['sy_highlight_block_show'],
+        'sy_highlight_block_button_text' => $edit['sy_highlight_block_button_text'],
+      ));
+
+      break;
+
+    case 'left_video_block':
+      sy_variable_set('algarve_home_video_block_options', array(
+        'algarve_home_video_block_title' => $edit['algarve_home_video_block_title'],
+        'algarve_home_video_block_title_color' => '#' . $edit['algarve_home_video_block_title_color'],
+        'algarve_home_video_bg_color' => '#' . $edit['algarve_home_video_bg_color'],
+        'algarve_home_video_text' => $edit['algarve_home_video_text'],
+        'algarve_home_video_video' => '[video:' . $edit['algarve_home_video_video'] . ']',
+      ));
+
+      break;
+
+    case 'full_image_with_overlay':
+      sy_variable_set('full_image_with_overlay_options', array(
+        'full_image_with_overlay_head' => $edit['full_image_with_overlay_head'],
+        'full_image_with_overlay_body' => $edit['full_image_with_overlay_body'],
+        'full_image_with_overlay_image' => $edit['full_image_with_overlay_image'],
+      ));
+
+      $file = file_load($edit['full_image_with_overlay_image']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+
+      break;
+
+    case 'sy4_home_videos':
+      sy_variable_set('sy4_home_video_options', array(
+        'sy4_home_videos_title' => $edit['sy4_home_videos_title'],
+        'sy4_home_videos_text' => $edit['sy4_home_videos_text'],
+        'sy4_home_videos_tabs' => '[mediaqt:' . $edit['sy4_home_videos_tabs'] . ']',
+        'sy4_home_videos_text_under' => $edit['sy4_home_videos_text_under'],
+      ));
+      break;
+
+    case 'sy4_second_callout':
+      sy_variable_set('sy4_second_callout_options', array(
+        'sy4_second_callout_title' => $edit['sy4_second_callout_title'],
+        'sy4_second_callout_title_color' => '#' . $edit['sy4_second_callout_title_color'],
+        'sy4_second_callout_text' => $edit['sy4_second_callout_text'],
+        'sy4_second_callout_text_under' => $edit['sy4_second_callout_text_under'],
+
+        'sy4_second_callout_overlay_title_1' => $edit['sy4_second_callout_overlay_title_1'],
+        'sy4_second_callout_overlay_title_1_color' => '#' . $edit['sy4_second_callout_overlay_title_1_color'],
+        'sy4_second_callout_overlay_text_1' => $edit['sy4_second_callout_overlay_text_1'],
+        'sy4_second_callout_overlay_text_1_color' => '#' . $edit['sy4_second_callout_overlay_text_1_color'],
+        'sy4_second_callout_overlay_color_1' => '#' . $edit['sy4_second_callout_overlay_color_1'],
+        'sy4_second_callout_text_1' => $edit['sy4_second_callout_text_1'],
+        'sy4_second_callout_image_1' => $edit['sy4_second_callout_image_1'],
+
+        'sy4_second_callout_overlay_title_2' => $edit['sy4_second_callout_overlay_title_2'],
+        'sy4_second_callout_overlay_title_2_color' => '#' . $edit['sy4_second_callout_overlay_title_2_color'],
+        'sy4_second_callout_overlay_text_2' => $edit['sy4_second_callout_overlay_text_2'],
+        'sy4_second_callout_overlay_text_2_color' => '#' . $edit['sy4_second_callout_overlay_text_2_color'],
+        'sy4_second_callout_overlay_color_2' => '#' . $edit['sy4_second_callout_overlay_color_2'],
+        'sy4_second_callout_text_2' => $edit['sy4_second_callout_text_2'],
+        'sy4_second_callout_image_2' => $edit['sy4_second_callout_image_2'],
+
+        'sy4_second_callout_overlay_title_3' => $edit['sy4_second_callout_overlay_title_3'],
+        'sy4_second_callout_overlay_title_3_color' => '#' . $edit['sy4_second_callout_overlay_title_3_color'],
+        'sy4_second_callout_overlay_text_3' => $edit['sy4_second_callout_overlay_text_3'],
+        'sy4_second_callout_overlay_text_3_color' => '#' . $edit['sy4_second_callout_overlay_text_3_color'],
+        'sy4_second_callout_overlay_color_3' => '#' . $edit['sy4_second_callout_overlay_color_3'],
+        'sy4_second_callout_text_3' => $edit['sy4_second_callout_text_3'],
+        'sy4_second_callout_image_3' => $edit['sy4_second_callout_image_3'],
+      ));
+
+      // Save the images.
+      $file = file_load($edit['sy4_second_callout_image_1']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+
+      $file = file_load($edit['sy4_second_callout_image_2']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+
+      $file = file_load($edit['sy4_second_callout_image_3']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+      break;
+
+    case 'sy4_home_panel_3':
+      sy_variable_set('sy4_panel_3_options', array(
+        'sy4_panel_3_title_1' => $edit['sy4_panel_3_title_1'],
+        'sy4_panel_3_text_1' => $edit['sy4_panel_3_text_1'],
+        'sy4_panel_3_icon_1' => $edit['sy4_panel_3_icon_1'],
+        'sy4_panel_3_link_1' => $edit['sy4_panel_3_link_1'],
+        'sy4_panel_3_title_2' => $edit['sy4_panel_3_title_2'],
+        'sy4_panel_3_text_2' => $edit['sy4_panel_3_text_2'],
+        'sy4_panel_3_icon_2' => $edit['sy4_panel_3_icon_2'],
+        'sy4_panel_3_link_2' => $edit['sy4_panel_3_link_2'],
+        'sy4_panel_3_title_3' => $edit['sy4_panel_3_title_3'],
+        'sy4_panel_3_text_3' => $edit['sy4_panel_3_text_3'],
+        'sy4_panel_3_icon_3' => $edit['sy4_panel_3_icon_3'],
+        'sy4_panel_3_link_3' => $edit['sy4_panel_3_link_3'],
+        'sy4_panel_3_title_4' => $edit['sy4_panel_3_title_4'],
+        'sy4_panel_3_text_4' => $edit['sy4_panel_3_text_4'],
+        'sy4_panel_3_icon_4' => $edit['sy4_panel_3_icon_4'],
+        'sy4_panel_3_link_4' => $edit['sy4_panel_3_link_4'],
+        'sy4_panel_3_bg' => '#' . $edit['sy4_panel_3_bg'],
+        'sy4_panel_3_title_icon_color' => '#' . $edit['sy4_panel_3_title_icon_color'],
+        'sy4_panel_3_text_color' => '#' . $edit['sy4_panel_3_text_color'],
+        'sy4_panel_3_bar_color' => '#' . $edit['sy4_panel_3_bar_color'],
+      ));
+      break;
+
+    case 'sy4_home_panel_2':
+      sy_variable_set('sy4_panel_2_options', array(
+        'sy4_panel_2_title_1' => $edit['sy4_panel_2_title_1'],
+        'sy4_panel_2_icon_1' => $edit['sy4_panel_2_icon_1'],
+        'sy4_panel_2_link_1' => $edit['sy4_panel_2_link_1'],
+        'sy4_panel_2_title_2' => $edit['sy4_panel_2_title_2'],
+        'sy4_panel_2_icon_2' => $edit['sy4_panel_2_icon_2'],
+        'sy4_panel_2_link_2' => $edit['sy4_panel_2_link_2'],
+        'sy4_panel_2_title_3' => $edit['sy4_panel_2_title_3'],
+        'sy4_panel_2_icon_3' => $edit['sy4_panel_2_icon_3'],
+        'sy4_panel_2_link_3' => $edit['sy4_panel_2_link_3'],
+        'sy4_panel_2_title_4' => $edit['sy4_panel_2_title_4'],
+        'sy4_panel_2_icon_4' => $edit['sy4_panel_2_icon_4'],
+        'sy4_panel_2_link_4' => $edit['sy4_panel_2_link_4'],
+
+      ));
+      break;
+
+    case 'sy3_home_top_block':
+      variable_set('sy3_home_top_block_options', array(
+        'sy3_home_top_block_grid' => $edit['sy3_home_top_block_grid'],
+        'sy3_home_top_block_title' => $edit['sy3_home_top_block_title'],
+        'sy3_home_top_block_image_1' => $edit['sy3_home_top_block_image_1'],
+        'sy3_home_top_block_text_1' => $edit['sy3_home_top_block_text_1'],
+        'sy3_home_top_block_image_2' => $edit['sy3_home_top_block_image_2'],
+        'sy3_home_top_block_text_2' => $edit['sy3_home_top_block_text_2'],
+        'sy3_home_top_block_image_3' => $edit['sy3_home_top_block_image_3'],
+        'sy3_home_top_block_text_3' => $edit['sy3_home_top_block_text_3'],
+        'sy3_home_top_block_image_4' => $edit['sy3_home_top_block_image_4'],
+        'sy3_home_top_block_text_4' => $edit['sy3_home_top_block_text_4'],
+      ));
+
+      // Save the images
+      $file = file_load($edit['sy3_home_top_block_image_1']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "sy3", "block", $file->fid);
+      }
+
+      $file = file_load($edit['sy3_home_top_block_image_2']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "sy3", "block", $file->fid);
+      }
+
+      $file = file_load($edit['sy3_home_top_block_image_3']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "sy3", "block", $file->fid);
+      }
+
+      $file = file_load($edit['sy3_home_top_block_image_4']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "sy3", "block", $file->fid);
+      }
+
+      break;
+
+    case 'sy7_callout_1':
+      sy_variable_set('sy7_callout_1_options', array(
+        'sy7_callout_1_text' => $edit['sy7_callout_1_text'],
+        'sy7_callout_1_link' => $edit['sy7_callout_1_link'],
+        'sy7_callout_1_image' => $edit['sy7_callout_1_image'],
+        'sy7_callout_2_text' => $edit['sy7_callout_2_text'],
+        'sy7_callout_2_link' => $edit['sy7_callout_2_link'],
+        'sy7_callout_2_image' => $edit['sy7_callout_2_image'],
+        'sy7_callout_3_text' => $edit['sy7_callout_3_text'],
+        'sy7_callout_3_link' => $edit['sy7_callout_3_link'],
+        'sy7_callout_3_image' => $edit['sy7_callout_3_image'],
+        'sy7_callout_4_text' => $edit['sy7_callout_4_text'],
+        'sy7_callout_4_link' => $edit['sy7_callout_4_link'],
+        'sy7_callout_4_image' => $edit['sy7_callout_4_image'],
+
+      ));
+
+      // Save the image
+      $file = file_load($edit['sy7_callout_1_image']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+
+      $file = file_load($edit['sy7_callout_2_image']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+
+      $file = file_load($edit['sy7_callout_3_image']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+
+      $file = file_load($edit['sy7_callout_4_image']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+      break;
+
+    case 'sy8_callout_1':
+      sy_variable_set('sy8_callout_1_options', array(
+        'sy7_callout_1_text' => $edit['sy7_callout_1_text'],
+        'sy7_callout_1_link' => $edit['sy7_callout_1_link'],
+        'sy7_callout_1_image' => $edit['sy7_callout_1_image'],
+        'sy7_callout_2_text' => $edit['sy7_callout_2_text'],
+        'sy7_callout_2_link' => $edit['sy7_callout_2_link'],
+        'sy7_callout_2_image' => $edit['sy7_callout_2_image'],
+        'sy7_callout_3_text' => $edit['sy7_callout_3_text'],
+        'sy7_callout_3_link' => $edit['sy7_callout_3_link'],
+        'sy7_callout_3_image' => $edit['sy7_callout_3_image'],
+
+      ));
+
+      // Save the image
+      $file = file_load($edit['sy7_callout_1_image']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+
+      $file = file_load($edit['sy7_callout_2_image']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+
+      $file = file_load($edit['sy7_callout_3_image']);
+      if ($file) {
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+        // Save.
+        file_save($file);
+        file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+      }
+      break;
+
+    case 'social_menu':
+      sy_variable_set('social_menu_options', array(
+        'social_menu_1_icon' => $edit['social_menu_1_icon'],
+        'social_menu_1_link' => $edit['social_menu_1_link'],
+        'social_menu_2_icon' => $edit['social_menu_2_icon'],
+        'social_menu_2_link' => $edit['social_menu_2_link'],
+        'social_menu_3_icon' => $edit['social_menu_3_icon'],
+        'social_menu_3_link' => $edit['social_menu_3_link'],
+        'social_menu_4_icon' => $edit['social_menu_4_icon'],
+        'social_menu_4_link' => $edit['social_menu_4_link'],
+        'social_menu_5_icon' => $edit['social_menu_5_icon'],
+        'social_menu_5_link' => $edit['social_menu_5_link'],
+        'social_menu_6_icon' => $edit['social_menu_6_icon'],
+        'social_menu_6_link' => $edit['social_menu_6_link'],
+
+      ));
+
+      break;
+
+    case 'sy_floating_block':
+      variable_set('floating_block_options', array(
+        'floating_block_font' => $edit['floating_block_font'],
+        'floating_block_1' => $edit['floating_block_1'],
+        'floating_block_1_link' => $edit['floating_block_1_link'],
+        'floating_block_1_icon' => $edit['floating_block_1_icon'],
+        'floating_block_2' => $edit['floating_block_2'],
+        'floating_block_2_link' => $edit['floating_block_2_link'],
+        'floating_block_2_icon' => $edit['floating_block_2_icon'],
+        'floating_block_3_on' => $edit['floating_block_3_on'],
+        'floating_block_3' => $edit['floating_block_3'],
+        'floating_block_3_link' => $edit['floating_block_3_link'],
+        'floating_block_3_icon' => $edit['floating_block_3_icon'],
+        'floating_block_4_on' => $edit['floating_block_4_on'],
+        'floating_block_4' => $edit['floating_block_4'],
+        'floating_block_4_link' => $edit['floating_block_4_link'],
+        'floating_block_4_icon' => $edit['floating_block_4_icon'],
+        'floating_block_5_on' => $edit['floating_block_5_on'],
+        'floating_block_5' => $edit['floating_block_5'],
+        'floating_block_5_link' => $edit['floating_block_5_link'],
+        'floating_block_5_icon' => $edit['floating_block_5_icon'],
+        'floating_block_6_on' => $edit['floating_block_6_on'],
+        'floating_block_6' => $edit['floating_block_6'],
+        'floating_block_6_link' => $edit['floating_block_6_link'],
+        'floating_block_6_icon' => $edit['floating_block_6_icon'],
+        'floating_block_login' => $edit['floating_block_login'],
+        'floating_block_logout' => $edit['floating_block_logout'],
+        'floating_block_logout_icon' => $edit['floating_block_logout_icon'],
+      ));
+      break;
+
+    case 'hos_popup1':
+      $default_val = sy_variable_get('hos_popup1');
+
+      $form['text_body'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Popup Text'),
+        '#default_value' => $default_val ? $default_val : "<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212",
+      );
+      break;
+
+  }
+}
+
+
+/**
+ * Implements hook_block_view().
+ */
+function sybase2_extras_block_view($delta = '')
+{
+  $block = array();
+
+  switch ($delta) {
+    case 'footer_left_one':
+      $text = sy_variable_get('footer_left_one');
+      if (!$text) {
+        $text = '<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212';
+      }
+      $block['content'] = '<p>' . check_markup($text, 'full_html') . '</p>';
+      break;
+
+    case 'footer_center_one':
+      $text = sy_variable_get('footer_center_one');
+      if (!$text) {
+        $text = 'Want to read our latest viewbook?<br />Interested in working here?<br /><strong>Get in touch!</strong>';
+      }
+      $block['content'] = '<p>' . check_markup($text, 'full_html') . '</p>';
+      break;
+
+    case 'footer_center_two':
+      $text = sy_variable_get('footer_center_two', '');
+      if (!$text) {
+        $text = '<p>Stay in the loop<br />Connect with us on Facebook, Twitter, Youtube, and Google+</p><p><a href="http://www.facebook.com"><i class="fa fa-facebook-square fa-3">&nbsp;</i></a><a href="http://www.twitter.com"><i class="fa fa-twitter-square fa-3">&nbsp;</i></a><a href="http://www.youtube.com"><i class="fa fa-youtube-square fa-3">&nbsp;</i></a><a href="http://plus.google.com"><i class="fa fa-google-plus-square fa-3">&nbsp;</i></a></p>';
+      }
+      $block['content'] = '<p>' . check_markup($text, 'full_html') . '</p>';
+      break;
+
+    case 'footer_right_one':
+      $text = sy_variable_get('footer_right_one');
+      if (!$text) {
+        $text = '<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212';
+      }
+      $block['content'] = '<p>' . check_markup($text, 'full_html') . '</p>';
+      break;
+
+    case 'footer_right_two':
+      $text = sy_variable_get('footer_right_two');
+      if (!$text) {
+        $text = '<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212';
+      }
+      $block['content'] = '<p>' . check_markup($text, 'full_html') . '</p>';
+      break;
+
+    case 'footer_left_two':
+      $text = sy_variable_get('footer_left_two');
+      if (!$text) {
+        $text = '<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212';
+      }
+      $block['content'] = '<p>' . check_markup($text, 'full_html') . '</p>';
+      break;
+
+    case 'sy_stats_block':
+      $home_stats_block = variable_get('sy_stats_block_options', array(
+        'sy_stats_block_stat_1_title' => '',
+        'sy_stats_block_stat_1' => '',
+        'sy_stats_block_stat_2_title' => '',
+        'sy_stats_block_stat_2' => '',
+        'sy_stats_block_stat_3_title' => '',
+        'sy_stats_block_stat_3' => '',
+
+      ));
+      $content = '';
+      $content .= '<div class="homepage-stats-1">';
+      $content .= '<div class="statistics grid-x">';
+
+      $content .= '<div class="stat-module-block small-12 large-4">';
+      $content .= '<div class="title">' . $home_stats_block['sy_stats_block_stat_1_title'] . '</div>';
+      $content .= '<div class="stat">' . $home_stats_block['sy_stats_block_stat_1'] . '</div>';
+      $content .= '</div>';
+
+      $content .= '<div class="stat-module-block small-12 large-4">';
+      $content .= '<div class="title">' . $home_stats_block['sy_stats_block_stat_2_title'] . '</div>';
+      $content .= '<div class="stat">' . $home_stats_block['sy_stats_block_stat_2'] . '</div>';
+      $content .= '</div>';
+
+      $content .= '<div class="stat-module-block small-12 large-4">';
+      $content .= '<div class="title">' . $home_stats_block['sy_stats_block_stat_3_title'] . '</div>';
+      $content .= '<div class="stat">' . $home_stats_block['sy_stats_block_stat_3'] . '</div>';
+      $content .= '</div>';
+
+      $content .= '</div>';
+      $content .= '</div>';
+
+      $block['content'] = $content;
+
+      break;
+
+    case 'sy_video_header_block':
+      $sy_video_header_block = variable_get('sy_video_header_block_options', array(
+        'sy_video_header_block_url' => '',
+
+      ));
+      $block['subject'] = '';
+      $block['content'] .= '<div class="hero_header">';
+      if ($sy_video_header_block['sy_video_youtube_header_block_url']) {
+        $block['content'] .= '<div class="youtube-video">' . $sy_video_header_block["sy_video_youtube_header_block_url"] . '</div>';
+      } else if ($sy_video_header_block['sy_video_vimeo_header_block_url']) {
+        $block['content'] .= '<div class="vimeo-video"><video autoplay loop muted><source src="' . $sy_video_header_block["sy_video_vimeo_header_block_url"] . '" type="video/mp4">Your browser does not support the video tag.</video></div>';
+      }
+      $block['content'] .= '</div>';
+
+
+      break;
+
+    case 'sy_footer_social_block':
+      $sy_footer_right_block = variable_get('sy_footer_right_block_options', array(
+        'sy_social_1_icon' => '',
+        'sy_social_1_link' => '',
+        'sy_social_2_icon' => '',
+        'sy_social_2_link' => '',
+        'sy_social_3_icon' => '',
+        'sy_social_3_link' => '',
+        'sy_social_4_icon' => '',
+        'sy_social_4_link' => '',
+
+      ));
+
+      $block['content'] = '';
+      $block['content'] .= '<div class="footer-social-icons">';
+      if ($sy_footer_right_block['sy_social_1_link']) {
+        $block['content'] .= '<a href="' . $sy_footer_right_block['sy_social_1_link'] . '"><i class="fa ' . $sy_footer_right_block['sy_social_1_icon'] . ' footer-social-icon fa-3"></i></a>';
+      }
+      if ($sy_footer_right_block['sy_social_2_link']) {
+        $block['content'] .= '<a href="' . $sy_footer_right_block['sy_social_2_link'] . '"><i class="fa ' . $sy_footer_right_block['sy_social_2_icon'] . ' footer-social-icon fa-3"></i></a>';
+      }
+      if ($sy_footer_right_block['sy_social_3_link']) {
+        $block['content'] .= '<a href="' . $sy_footer_right_block['sy_social_3_link'] . '"><i class="fa ' . $sy_footer_right_block['sy_social_3_icon'] . ' footer-social-icon  fa-3"></i></a>';
+      }
+      if ($sy_footer_right_block['sy_social_4_link']) {
+        $block['content'] .= '<a href="' . $sy_footer_right_block['sy_social_4_link'] . '"><i class="fa ' . $sy_footer_right_block['sy_social_4_icon'] . ' footer-social-icon  fa-4"></i></a>';
+      }
+      $block['content'] .= '</div>';
+      break;
+
+    case 'juicer':
+      $juicer = sy_variable_get('juicer', array(
+        'juicer_title' => '',
+        'juicer_feed' => '',
+      ));
+
+      $content = '<div class="juicer-block">';
+      $content .= '<h3 class="pane-title">' . $juicer["juicer_title"] . '</h3>';
+      $content .= '<script src="//assets.juicer.io/embed-no-jquery.js" type="text/javascript"></script>';
+      $content .= '<link href="//assets.juicer.io/embed.css" media="all" rel="stylesheet" type="text/css" />';
+      $content .= '<ul class="juicer-feed" data-feed-id="' . $juicer["juicer_feed"] . '" data-pages="1" data-per="3"></ul>';
+      $content .= '</div>';
+
+
+      $block['content'] = $content;
+      break;
+
+    case 'sy_highlight_block':
+      $home_top_block = variable_get('sy_highlight_block_options', array(
+        'sy_highlight_block_show' => 0,
+        'sy_highlight_block_text' => '',
+        'sy_highlight_block_link' => 'text 1',
+        'sy_highlight_block_title' => '',
+        'sy_highlight_block_button_text' => '',
+      ));
+
+      $content = "";
+      if ($home_top_block['sy_highlight_block_show'] == 1) {
+        $content .= "<div class='sy_highlight'>";
+        $content .= "<div class='sy_highlight_top_block'>";
+        $content .= "<div class='sy_highlight_block'>";
+        $content .= "<div class='sy_highlight_headline'>" . $home_top_block['sy_highlight_block_title'] . "</div>";
+        $content .= "<div class='sy_highlight_block-text'>" . check_markup($home_top_block['sy_highlight_block_text']['value'], 'full_html') . "</div>";
+        $content .= "<a href='" . $home_top_block['sy_highlight_block_link'] . "' class='sy_highlight_block-button button button-secondary'>" . $home_top_block['sy_highlight_block_button_text'] . "</a>";
+        $content .= "</div>";
+        $content .= "</div>";
+
+      } else {
+        $content .= "<div>";
+      }
+      $content .= "</div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'left_video_block':
+      $algarve_home_video_block = sy_variable_get('algarve_home_video_block_options', array(
+        'algarve_home_video_block_title' => 'Panel Title',
+        'algarve_home_video_block_title_color' => '#7f7b92',
+        'algarve_home_video_text' => 'Panel text.',
+        'algarve_home_video_bg_color' => '#ffffff',
+        'algarve_home_video_video' => '',
+      ));
+
+      $content = "<div class='left-video-top-block'>";
+      $content .= "<div class='left-video-title'><h2 class='pane-title'>" . $algarve_home_video_block['algarve_home_video_block_title'] . "</h2></div>";
+      $content .= "<div class='grid-x'>";
+      $content .= "<div class='left-video-video small-10 small-offset-1 large-4 cell'>" . check_markup($algarve_home_video_block['algarve_home_video_video'], 'full_html') . "</div>";
+      $content .= "<div class='left-video-text small-10 small-offset-1 large-offset-2 large-4 cell'>" . check_markup($algarve_home_video_block['algarve_home_video_text']['value'], 'full_html') . "</div>";
+      $content .= "</div></div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'full_image_with_overlay':
+      $full_image_with_overlay = sy_variable_get('full_image_with_overlay_options', array(
+        'full_image_with_overlay_head' => '',
+        'full_image_with_overlay_body' => '',
+        'full_image_with_overlay_image' => '',
+      ));
+
+      $content = "<div class='full_image_with_overlay'>";
+      $content .= "<div class='homepage-full-photo grid-x'>";
+      $content .= "<img class='small-12' src='" . file_create_url(file_load($full_image_with_overlay['full_image_with_overlay_image'])->uri) . "'>";
+      $content .= "<div class='homepage-full-photo-box small-offset-1 small-10 medium-offset-2 medium-8 large-offset-3 large-6'>";
+      $content .= "<h4 class='homepage-full-photo-box-head'>" . $full_image_with_overlay['full_image_with_overlay_head'] . "</h4>";
+      $content .= "<div class='homepage-full-photo-box-body'>" . check_markup($full_image_with_overlay["full_image_with_overlay_body"]["value"], "full_html") . "</div>";
+      $content .= "</div></div></div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'sy4_home_videos':
+      $sy4_home_videos = sy_variable_get('sy4_home_video_options', array(
+        'sy4_home_videos_title' => 'panel title',
+        'sy4_home_videos_text' => 'text under title',
+        'sy4_home_videos_tabs' => '',
+        'sy4_home_videos_text_under' => 'text under videos',
+      ));
+
+      $content = "<div class='sy4-home-panel sy4-home-videos'>";
+      $content .= "<h2 class='pane-title'>" . $sy4_home_videos['sy4_home_videos_title'] . "</h2>";
+      $content .= "<div class='pane-title-sub sy4-home-panel-text'>" . check_markup($sy4_home_videos['sy4_home_videos_text']['value'], 'full_html') . "</div>";
+
+      $content .= "<div class='sy4-home-video-tabs'>" . check_markup($sy4_home_videos['sy4_home_videos_tabs'], 'full_html') . "</div>";
+
+      $content .= "<div class='sy4-home-panel-text-under'>" . check_markup($sy4_home_videos['sy4_home_videos_text_under']['value'], 'full_html') . "</div>";
+
+      $content .= "</div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'sy4_second_callout':
+      $sy4_second_callout = sy_variable_get('sy4_second_callout_options', array(
+        'sy4_second_callout_title' => 'pane title',
+        'sy4_second_callout_text' => 'text under title',
+        'sy4_second_callout_text_under' => 'text under callouts',
+
+        'sy4_second_callout_overlay_title_1' => 'title 1',
+        'sy4_second_callout_overlay_text_1' => 'overlay text 1',
+        'sy4_second_callout_text_1' => 'text 1',
+        'sy4_second_callout_image_1' => '',
+
+        'sy4_second_callout_overlay_title_2' => 'title 2',
+        'sy4_second_callout_overlay_text_2' => 'overlay text 2',
+        'sy4_second_callout_text_2' => 'text 2',
+        'sy4_second_callout_image_2' => '',
+
+        'sy4_second_callout_overlay_title_3' => 'title 3',
+        'sy4_second_callout_overlay_text_3' => 'overlay text 3',
+        'sy4_second_callout_text_3' => 'text 3',
+        'sy4_second_callout_image_3' => '',
+      ));
+
+      $content = "<div class='sy4-home-panel sy4-second-callout'>";
+      $content .= "<h2 class='pane-title'>" . $sy4_second_callout['sy4_second_callout_title'] . "</h2>";
+      $content .= "<div class='pane-title-sub sy4-second-callout-text'>" . check_markup($sy4_second_callout['sy4_second_callout_text']['value'], 'full_html') . "</div>";
+      $content .= "<div class='grid-x'>";
+      $content .= "<div class='sy4-second-callout-single sy4-second-callout-1 small-12 large-4'>";
+      $content .= "<div class='sy4-second-callout-bg'>";
+      $content .= "<img src='" . file_create_url(file_load($sy4_second_callout['sy4_second_callout_image_1'])->uri) . "' />";
+      $content .= "<div class='sy4-second-callout-bg-overlay'></div>";
+      $content .= "</div>";
+      $content .= "<div class='sy4-second-callout-title'><div class='title-text'>" . $sy4_second_callout['sy4_second_callout_overlay_title_1'] . "</div></div>";
+      $content .= "<div class='sy4-second-callout-overlay-text'><div class='overlay-text'>" . $sy4_second_callout['sy4_second_callout_overlay_text_1'] . "</div></div>";
+      $content .= "<div class='sy4-second-callout-hover-text'><div class='hover-text'>" . check_markup($sy4_second_callout['sy4_second_callout_text_1']['value'], 'full_html') . "</div></div>";
+      $content .= "</div>";
+
+      $content .= "<div class='sy4-second-callout-single sy4-second-callout-2 small-12 large-4'>";
+      $content .= "<div class='sy4-second-callout-bg'>";
+      $content .= "<img src='" . file_create_url(file_load($sy4_second_callout['sy4_second_callout_image_2'])->uri) . "' />";
+      $content .= "<div class='sy4-second-callout-bg-overlay'></div>";
+      $content .= "</div>";
+      $content .= "<div class='sy4-second-callout-title'><div class='title-text'>" . $sy4_second_callout['sy4_second_callout_overlay_title_2'] . "</div></div>";
+      $content .= "<div class='sy4-second-callout-overlay-text'><div class='overlay-text'>" . $sy4_second_callout['sy4_second_callout_overlay_text_2'] . "</div></div>";
+      $content .= "<div class='sy4-second-callout-hover-text'><div class='hover-text'>" . check_markup($sy4_second_callout['sy4_second_callout_text_2']['value'], 'full_html') . "</div></div>";
+      $content .= "</div>";
+
+      $content .= "<div class='sy4-second-callout-single sy4-second-callout-3 small-12 large-4'>";
+      $content .= "<div class='sy4-second-callout-bg'>";
+      $content .= "<img src='" . file_create_url(file_load($sy4_second_callout['sy4_second_callout_image_3'])->uri) . "' />";
+      $content .= "<div class='sy4-second-callout-bg-overlay'></div>";
+      $content .= "</div>";
+      $content .= "<div class='sy4-second-callout-title'><div class='title-text'>" . $sy4_second_callout['sy4_second_callout_overlay_title_3'] . "</div></div>";
+      $content .= "<div class='sy4-second-callout-overlay-text'><div class='overlay-text'>" . $sy4_second_callout['sy4_second_callout_overlay_text_3'] . "</div></div>";
+      $content .= "<div class='sy4-second-callout-hover-text'><div class='hover-text'>" . check_markup($sy4_second_callout['sy4_second_callout_text_3']['value'], 'full_html') . "</div></div>";
+      $content .= "</div>";
+      $content .= "</div>";
+
+      $content .= "<div class='sy4-second-callout-text-under'>" . check_markup($sy4_second_callout['sy4_second_callout_text_under']['value'], 'full_html') . "</div>";
+
+      $content .= "</div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'sy4_home_panel_3':
+      $sy4_panel_3 = sy_variable_get('sy4_panel_3_options', array(
+        'sy4_panel_3_title_1' => 'title 1',
+        'sy4_panel_3_text_1' => '',
+        'sy4_panel_3_icon_1' => 'pencil',
+        'sy4_panel_3_link_1' => '',
+        'sy4_panel_3_title_2' => 'title 2',
+        'sy4_panel_3_text_2' => '',
+        'sy4_panel_3_icon_2' => 'apple',
+        'sy4_panel_3_link_2' => '',
+        'sy4_panel_3_title_3' => 'title 3',
+        'sy4_panel_3_text_3' => '',
+        'sy4_panel_3_icon_3' => 'beaker',
+        'sy4_panel_3_link_3' => '',
+        'sy4_panel_3_title_4' => 'title 4',
+        'sy4_panel_3_text_4' => '',
+        'sy4_panel_3_icon_4' => 'robot',
+        'sy4_panel_3_link_4' => '',
+        'sy4_panel_3_bg' => '#ffffff',
+        'sy4_panel_3_title_icon_color' => '#45a178',
+        'sy4_panel_3_text_color' => '#7a7a7a',
+        'sy4_panel_3_bar_color' => '#f29f1f',
+      ));
+
+      $content = "<div class='sy4-panel-3'>";
+
+      $content .= "<style scoped>";
+      $content .= ".icon-callout:before {";
+      $content .= "content: ''; width: 60px; border-top: 6px solid " . $sy4_panel_3['sy4_panel_3_bar_color'] . "; display: block; margin: 0px auto 10px auto;";
+      $content .= "}";
+      $content .= "</style>";
+
+
+      $content .= "<div class='grid-x'>";
+      if ($sy4_panel_3['sy4_panel_3_link_4']) {
+        $content .= "<div class='icon-callout icon-callout-1 small-12 medium-6 large-3'>";
+      } else {
+        $content .= "<div class='icon-callout icon-callout-1 small-12 large-4'>";
+      }
+      $content .= "<a href='" . $sy4_panel_3['sy4_panel_3_link_1'] . "'>";
+      $content .= "<div class='icon-title'>" . $sy4_panel_3['sy4_panel_3_title_1'] . "</div>";
+      $content .= "<div class='icon-text'>" . $sy4_panel_3['sy4_panel_3_text_1'] . "</div>";
+      $content .= "<div class='icon-icon'><span class='icon icon-" . $sy4_panel_3['sy4_panel_3_icon_1'] . "'>&nbsp;</span></div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      if ($sy4_panel_3['sy4_panel_3_link_4']) {
+        $content .= "<div class='icon-callout icon-callout-2 small-12 medium-6 large-3'>";
+      } else {
+        $content .= "<div class='icon-callout icon-callout-2 small-12 large-4'>";
+      }
+      $content .= "<a href='" . $sy4_panel_3['sy4_panel_3_link_2'] . "'>";
+      $content .= "<div class='icon-title'>" . $sy4_panel_3['sy4_panel_3_title_2'] . "</div>";
+      $content .= "<div class='icon-text'>" . $sy4_panel_3['sy4_panel_3_text_2'] . "</div>";
+      $content .= "<div class='icon-icon'><span class='icon icon-" . $sy4_panel_3['sy4_panel_3_icon_2'] . "'>&nbsp;</span></div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      if ($sy4_panel_3['sy4_panel_3_link_4']) {
+        $content .= "<div class='icon-callout icon-callout-3 small-12 medium-6 large-3'>";
+      } else {
+        $content .= "<div class='icon-callout icon-callout-3 small-12 large-4'>";
+      }
+      $content .= "<a href='" . $sy4_panel_3['sy4_panel_3_link_3'] . "'>";
+      $content .= "<div class='icon-title'>" . $sy4_panel_3['sy4_panel_3_title_3'] . "</div>";
+      $content .= "<div class='icon-text'>" . $sy4_panel_3['sy4_panel_3_text_3'] . "</div>";
+      $content .= "<div class='icon-icon'><span class='icon icon-" . $sy4_panel_3['sy4_panel_3_icon_3'] . "'>&nbsp;</span></div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      if ($sy4_panel_3['sy4_panel_3_link_4']) {
+      $content .= "<div class='icon-callout icon-callout-4 small-12 medium-6 large-3'>";
+      $content .= "<a href='" . $sy4_panel_3['sy4_panel_3_link_4'] . "'>";
+      $content .= "<div class='icon-title'>" . $sy4_panel_3['sy4_panel_3_title_4'] . "</div>";
+      $content .= "<div class='icon-text'>" . $sy4_panel_3['sy4_panel_3_text_4'] . "</div>";
+      $content .= "<div class='icon-icon'><span class='icon icon-" . $sy4_panel_3['sy4_panel_3_icon_4'] . "'>&nbsp;</span></div>";
+      $content .= "</a>";
+      $content .= "</div>";}
+
+      $content .= "</div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'sy4_home_panel_2':
+      $sy4_panel_2 = sy_variable_get('sy4_panel_2_options', array(
+        'sy4_panel_2_title_1' => 'title 1',
+        'sy4_panel_2_text_1' => '',
+        'sy4_panel_2_icon_1' => 'pencil',
+        'sy4_panel_2_link_1' => '',
+        'sy4_panel_2_title_2' => 'title 2',
+        'sy4_panel_2_text_2' => '',
+        'sy4_panel_2_icon_2' => 'apple',
+        'sy4_panel_2_link_2' => '',
+        'sy4_panel_2_title_3' => 'title 3',
+        'sy4_panel_2_text_3' => '',
+        'sy4_panel_2_icon_3' => 'beaker',
+        'sy4_panel_2_link_3' => '',
+        'sy4_panel_2_title_4' => 'title 4',
+        'sy4_panel_2_text_4' => '',
+        'sy4_panel_2_icon_4' => 'robot',
+        'sy4_panel_2_link_4' => '',
+      ));
+
+      $content = "<div class='sy4-panel-3'>";
+
+      $content .= "<style scoped>";
+      $content .= ".icon-callout:before {";
+      $content .= "content: ''; width: 60px; border-top: 6px solid " . $sy4_panel_2['sy4_panel_2_bar_color'] . "; display: block; margin: 0px auto 10px auto;";
+      $content .= "}";
+      $content .= "</style>";
+
+
+      $content .= "<div class='grid-x'>";
+      $content .= "<div class='icon-callout icon-callout-1 small-12 large-4 grid-x'>";
+      $content .= "<a class='icon-callout-link icon-callout-link-1' href='" . $sy4_panel_2['sy4_panel_2_link_1'] . "'>";
+      $content .= "<div class='icon-icon'><span class='icon icon-" . $sy4_panel_2['sy4_panel_2_icon_1'] . "'>&nbsp;</span></div>";
+      $content .= "<div class='icon-title'>" . $sy4_panel_2['sy4_panel_2_title_1'] . "</div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      $content .= "<div class='icon-callout icon-callout-2 small-12 large-4 grid-x'>";
+      $content .= "<a class='icon-callout-link icon-callout-link-2' href='" . $sy4_panel_2['sy4_panel_2_link_2'] . "'>";
+      $content .= "<div class='icon-icon'><span class='icon icon-" . $sy4_panel_2['sy4_panel_2_icon_2'] . "'>&nbsp;</span></div>";
+      $content .= "<div class='icon-title'>" . $sy4_panel_2['sy4_panel_2_title_2'] . "</div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      $content .= "<div class='icon-callout icon-callout-3 small-12 large-4 grid-x'>";
+      $content .= "<a class='icon-callout-link icon-callout-link-3' href='" . $sy4_panel_2['sy4_panel_2_link_3'] . "'>";
+      $content .= "<div class='icon-icon'><span class='icon icon-" . $sy4_panel_2['sy4_panel_2_icon_3'] . "'>&nbsp;</span></div>";
+      $content .= "<div class='icon-title'>" . $sy4_panel_2['sy4_panel_2_title_3'] . "</div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      $content .= "</div>";
+      $content .= "</div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'sy3_home_top_block':
+      $home_top_block = variable_get('sy3_home_top_block_options', array(
+        'sy3_home_top_block_grid' => '',
+        'sy3_home_top_block_title' => '',
+        'sy3_home_top_block_image_1' => '',
+        'sy3_home_top_block_text_1' => 'text 1',
+        'sy3_home_top_block_image_2' => '',
+        'sy3_home_top_block_text_2' => 'text 2',
+        'sy3_home_top_block_image_3' => '',
+        'sy3_home_top_block_text_3' => 'text 3',
+        'sy3_home_top_block_image_4' => '',
+        'sy3_home_top_block_text_4' => 'text 4',
+      ));
+
+      $content = "<div class='sy3-home-top-block'>";
+      $content .= "<div class='top-block-title'>" . $home_top_block['sy3_home_top_block_title'] . "</div>";
+      $content .= "<div class='top-block-blocks grid-x'>";
+
+      if ($home_top_block['sy3_home_top_block_grid'] == 'four') {
+        $content .= "<div class='top-block top-block-1 small-12 large-3'>";
+        $content .= "<div class='top-block-image'>";
+        $content .= "<img src='" . file_create_url(file_load($home_top_block['sy3_home_top_block_image_1'])->uri) . "' />";
+        $content .= "</div>";
+        $content .= "<div class='top-block-text'>" . check_markup($home_top_block['sy3_home_top_block_text_1']['value'], 'full_html') . "</div>";
+        $content .= "</div>";
+
+        $content .= "<div class='top-block top-block-2 small-12 large-3'>";
+        $content .= "<div class='top-block-image'>";
+        $content .= "<img src='" . file_create_url(file_load($home_top_block['sy3_home_top_block_image_2'])->uri) . "' />";
+        $content .= "</div>";
+        $content .= "<div class='top-block-text'>" . check_markup($home_top_block['sy3_home_top_block_text_2']['value'], 'full_html') . "</div>";
+        $content .= "</div>";
+
+        $content .= "<div class='top-block top-block-3 small-12 large-3'>";
+        $content .= "<div class='top-block-image'>";
+        $content .= "<img src='" . file_create_url(file_load($home_top_block['sy3_home_top_block_image_3'])->uri) . "' />";
+        $content .= "</div>";
+        $content .= "<div class='top-block-text'>" . check_markup($home_top_block['sy3_home_top_block_text_3']['value'], 'full_html') . "</div>";
+        $content .= "</div>";
+
+        $content .= "<div class='top-block top-block-4 small-12 large-3'>";
+        $content .= "<div class='top-block-image'>";
+        $content .= "<img src='" . file_create_url(file_load($home_top_block['sy3_home_top_block_image_4'])->uri) . "' />";
+        $content .= "</div>";
+        $content .= "<div class='top-block-text'>" . check_markup($home_top_block['sy3_home_top_block_text_4']['value'], 'full_html') . "</div>";
+        $content .= "</div>";
+      }
+
+      if ($home_top_block['sy3_home_top_block_grid'] == 'three') {
+        $content .= "<div class='top-block top-block-1 small-12 large-4'>";
+        $content .= "<div class='top-block-image'>";
+        $content .= "<img src='" . file_create_url(file_load($home_top_block['sy3_home_top_block_image_1'])->uri) . "' />";
+        $content .= "</div>";
+        $content .= "<div class='top-block-text'>" . check_markup($home_top_block['sy3_home_top_block_text_1']['value'], 'full_html') . "</div>";
+        $content .= "</div>";
+
+        $content .= "<div class='top-block top-block-2 small-12 large-4'>";
+        $content .= "<div class='top-block-image'>";
+        $content .= "<img src='" . file_create_url(file_load($home_top_block['sy3_home_top_block_image_2'])->uri) . "' />";
+        $content .= "</div>";
+        $content .= "<div class='top-block-text'>" . check_markup($home_top_block['sy3_home_top_block_text_2']['value'], 'full_html') . "</div>";
+        $content .= "</div>";
+
+        $content .= "<div class='top-block top-block-3 small-12 large-4'>";
+        $content .= "<div class='top-block-image'>";
+        $content .= "<img src='" . file_create_url(file_load($home_top_block['sy3_home_top_block_image_3'])->uri) . "' />";
+        $content .= "</div>";
+        $content .= "<div class='top-block-text'>" . check_markup($home_top_block['sy3_home_top_block_text_3']['value'], 'full_html') . "</div>";
+        $content .= "</div>";
+
+      }
+
+      if ($home_top_block['sy3_home_top_block_grid'] == 'two') {
+        $content .= "<div class='top-block top-block-1 small-12 large-5 large-offset-1'>";
+        $content .= "<div class='top-block-image'>";
+        $content .= "<img src='" . file_create_url(file_load($home_top_block['sy3_home_top_block_image_1'])->uri) . "' />";
+        $content .= "</div>";
+        $content .= "<div class='top-block-text'>" . check_markup($home_top_block['sy3_home_top_block_text_1']['value'], 'full_html') . "</div>";
+        $content .= "</div>";
+
+        $content .= "<div class='top-block top-block-2 small-12 large-5 end'>";
+        $content .= "<div class='top-block-image'>";
+        $content .= "<img src='" . file_create_url(file_load($home_top_block['sy3_home_top_block_image_2'])->uri) . "' />";
+        $content .= "</div>";
+        $content .= "<div class='top-block-text'>" . check_markup($home_top_block['sy3_home_top_block_text_2']['value'], 'full_html') . "</div>";
+        $content .= "</div>";
+
+      }
+
+      $content .= "</div>";
+      $content .= "</div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'sy7_callout_1':
+      $callout_1 = sy_variable_get('sy7_callout_1_options', array(
+        'sy7_callout_1_text' => '',
+        'sy7_callout_1_link' => '',
+        'sy7_callout_1_image' => '',
+        'sy7_callout_2_text' => '',
+        'sy7_callout_2_link' => '',
+        'sy7_callout_2_image' => '',
+        'sy7_callout_3_text' => '',
+        'sy7_callout_3_link' => '',
+        'sy7_callout_3_image' => '',
+        'sy7_callout_4_text' => '',
+        'sy7_callout_4_link' => '',
+        'sy7_callout_4_image' => '',
+      ));
+
+      $content = "<div id='sy7-callout-1'><div class='sy7-callout grid-x'>";
+
+      $content .= "<div class='callouts-homepage-sy7 small-12 medium-6 large-3'>";
+      $content .= "<a href='" . $callout_1['sy7_callout_1_link'] . "'>";
+      $content .= "<div class='home-callout-1 home-callout'>";
+      if ($callout_1['sy7_callout_1_image']) {
+        $content .= "<div class='callout-bg-image'><img src='" . file_create_url(file_load($callout_1['sy7_callout_1_image'])->uri) . "' /></div>";
+      }
+      $content .= "<div class='callout-text'><div class='this-text'>" . $callout_1['sy7_callout_1_text'] . "</div></div>";
+      $content .= "</div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      $content .= "<div class='callouts-homepage-sy7 small-12 medium-6 large-3'>";
+      $content .= "<a href='" . $callout_1['sy7_callout_2_link'] . "'>";
+      $content .= "<div class='home-callout-2 home-callout'>";
+      if ($callout_1['sy7_callout_2_image']) {
+        $content .= "<div class='callout-bg-image'><img src='" . file_create_url(file_load($callout_1['sy7_callout_2_image'])->uri) . "' /></div>";
+      }
+      $content .= "<div class='callout-text'><div class='this-text'>" . $callout_1['sy7_callout_2_text'] . "</div></div>";
+      $content .= "</div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      $content .= "<div class='callouts-homepage-sy7 small-12 medium-6 large-3'>";
+      $content .= "<a href='" . $callout_1['sy7_callout_3_link'] . "'>";
+      $content .= "<div class='home-callout-3 home-callout'>";
+      if ($callout_1['sy7_callout_3_image']) {
+        $content .= "<div class='callout-bg-image'><img src='" . file_create_url(file_load($callout_1['sy7_callout_3_image'])->uri) . "' /></div>";
+      }
+      $content .= "<div class='callout-text'><div class='this-text'>" . $callout_1['sy7_callout_3_text'] . "</div></div>";
+      $content .= "</div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      $content .= "<div class='callouts-homepage-sy7 small-12 medium-6 large-3'>";
+      $content .= "<a href='" . $callout_1['sy7_callout_4_link'] . "'>";
+      $content .= "<div class='home-callout-4 home-callout'>";
+      if ($callout_1['sy7_callout_4_image']) {
+        $content .= "<div class='callout-bg-image'><img src='" . file_create_url(file_load($callout_1['sy7_callout_4_image'])->uri) . "' /></div>";
+      }
+      $content .= "<div class='callout-text'><div class='this-text'>" . $callout_1['sy7_callout_4_text'] . "</div></div>";
+      $content .= "</div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      $content .= "</div>";
+      $content .= "</div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'sy8_callout_1':
+      $callout_1 = sy_variable_get('sy8_callout_1_options', array(
+        'sy7_callout_1_text' => '',
+        'sy7_callout_1_link' => '',
+        'sy7_callout_1_image' => '',
+        'sy7_callout_2_text' => '',
+        'sy7_callout_2_link' => '',
+        'sy7_callout_2_image' => '',
+        'sy7_callout_3_text' => '',
+        'sy7_callout_3_link' => '',
+        'sy7_callout_3_image' => '',
+      ));
+
+      $content = "<div class='sy8-callout grid-x'>";
+
+      $content .= "<div class='callouts-homepage-sy8 small-12 large-4'>";
+      $content .= "<a href='" . $callout_1['sy7_callout_1_link'] . "'>";
+      $content .= "<div class='home-callout-1 home-callout'>";
+      if ($callout_1['sy7_callout_1_image']) {
+        $content .= "<div class='callout-bg-image'><img src='" . file_create_url(file_load($callout_1['sy7_callout_1_image'])->uri) . "' /></div>";
+      }
+      $content .= "<div class='callout-text'><div class='this-text'>" . $callout_1['sy7_callout_1_text'] . "</div></div>";
+      $content .= "</div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      $content .= "<div class='callouts-homepage-sy8 small-12 large-4'>";
+      $content .= "<a href='" . $callout_1['sy7_callout_2_link'] . "'>";
+      $content .= "<div class='home-callout-2 home-callout'>";
+      if ($callout_1['sy7_callout_2_image']) {
+        $content .= "<div class='callout-bg-image'><img src='" . file_create_url(file_load($callout_1['sy7_callout_2_image'])->uri) . "' /></div>";
+      }
+      $content .= "<div class='callout-text'><div class='this-text'>" . $callout_1['sy7_callout_2_text'] . "</div></div>";
+      $content .= "</div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      $content .= "<div class='callouts-homepage-sy8 small-12 large-4'>";
+      $content .= "<a href='" . $callout_1['sy7_callout_3_link'] . "'>";
+      $content .= "<div class='home-callout-3 home-callout'>";
+      if ($callout_1['sy7_callout_3_image']) {
+        $content .= "<div class='callout-bg-image'><img src='" . file_create_url(file_load($callout_1['sy7_callout_3_image'])->uri) . "' /></div>";
+      }
+      $content .= "<div class='callout-text'><div class='this-text'>" . $callout_1['sy7_callout_3_text'] . "</div></div>";
+      $content .= "</div>";
+      $content .= "</a>";
+      $content .= "</div>";
+
+      $content .= "</div>";
+
+      $block['content'] = $content;
+      break;
+
+    case 'social_menu':
+      $social_menu = sy_variable_get('social_menu_options', array(
+        'social_menu_1_icon' => '',
+        'social_menu_1_link' => '',
+        'social_menu_2_icon' => '',
+        'social_menu_2_link' => '',
+        'social_menu_3_icon' => '',
+        'social_menu_3_link' => '',
+        'social_menu_4_icon' => '',
+        'social_menu_4_link' => '',
+        'social_menu_5_icon' => '',
+        'social_menu_5_link' => '',
+        'social_menu_6_icon' => '',
+        'social_menu_6_link' => '',
+      ));
+
+      $content = "<div class='social-icon-menu'>";
+
+
+      if ($social_menu['social_menu_1_link']) {
+        $content .= "<div class='social-icon-item social-icon-item-1'><a href='" . $social_menu['social_menu_1_link'] . "' target='_blank'>";
+        $content .= "<i class='fa fa-" . $social_menu['social_menu_1_icon'] . "'></i>";
+        $content .= "</a></div>";
+      }
+
+      if ($social_menu['social_menu_2_link']) {
+        $content .= "<div class='social-icon-item social-icon-item-2'><a href='" . $social_menu['social_menu_2_link'] . "' target='_blank'>";
+        $content .= "<i class='fa fa-" . $social_menu['social_menu_2_icon'] . "'></i>";
+        $content .= "</a></div>";
+      }
+
+      if ($social_menu['social_menu_3_link']) {
+        $content .= "<div class='social-icon-item social-icon-item-3'><a href='" . $social_menu['social_menu_3_link'] . "' target='_blank'>";
+        $content .= "<i class='fa fa-" . $social_menu['social_menu_3_icon'] . "'></i>";
+        $content .= "</a></div>";
+      }
+
+      if ($social_menu['social_menu_4_link']) {
+        $content .= "<div class='social-icon-item social-icon-item-4'><a href='" . $social_menu['social_menu_4_link'] . "' target='_blank'>";
+        $content .= "<i class='fa fa-" . $social_menu['social_menu_4_icon'] . "'></i>";
+        $content .= "</a></div>";
+      }
+
+      if ($social_menu['social_menu_5_link']) {
+        $content .= "<div class='social-icon-item social-icon-item-5'><a href='" . $social_menu['social_menu_5_link'] . "' target='_blank'>";
+        $content .= "<i class='fa fa-" . $social_menu['social_menu_5_icon'] . "'></i>";
+        $content .= "</a></div>";
+      }
+
+      if ($social_menu['social_menu_6_link']) {
+        $content .= "<div class='social-icon-item social-icon-item-6'><a href='" . $social_menu['social_menu_6_link'] . "' target='_blank'>";
+        $content .= "<i class='fa fa-" . $social_menu['social_menu_6_icon'] . "'></i>";
+        $content .= "</a></div>";
+      }
+
+      $content .= "</div>";
+
+
+      $block['content'] = $content;
+      break;
+
+    case 'sy_floating_block':
+      $floating_block = variable_get('floating_block_options', array(
+        'floating_block_font' => '',
+        'floating_block_1' => '',
+        'floating_block_1_link' => '',
+        'floating_block_1_icon' => '',
+        'floating_block_2' => '',
+        'floating_block_2_link' => '',
+        'floating_block_2_icon' => '',
+        'floating_block_3_on' => '',
+        'floating_block_3' => '',
+        'floating_block_3_link' => '',
+        'floating_block_3_icon' => '',
+        'floating_block_4_on' => '',
+        'floating_block_4' => '',
+        'floating_block_4_link' => '',
+        'floating_block_4_icon' => '',
+        'floating_block_5_on' => '',
+        'floating_block_5' => '',
+        'floating_block_5_link' => '',
+        'floating_block_5_icon' => '',
+        'floating_block_6_on' => '',
+        'floating_block_6' => '',
+        'floating_block_6_link' => '',
+        'floating_block_6_icon' => '',
+        'floating_block_login' => '',
+        'floating_block_logout' => '',
+        'floating_block_logout_icon' => '',
+      ));
+
+      if ($floating_block['floating_block_font'] == 1) {
+        $fa = 'fa fa-';
+      } else {
+        $fa = 'icon-';
+       }
+      $content = "<div id='block-sybase2-sy-floating-block' class='active'>";
+
+      $content.="<div class='float-close'><i class='fa fa-close'></i></div>";
+
+      $content .='<ul class="floating-block-wrapper">';
+
+      $content .='<li class="btn-1 btn">';
+      $content .='<a href="' . $floating_block['floating_block_1_link'] . '">';
+      $content .= '<i class="'. $fa . $floating_block['floating_block_1_icon'].'"></i>' . $floating_block['floating_block_1'];
+      $content .='</a>';
+      $content .='</li>';
+
+      $content .='<li class="btn-2 btn">';
+      $content .='<a href="' . $floating_block['floating_block_2_link'] . '">';
+      $content .= '<i class="'. $fa .$floating_block['floating_block_2_icon'].'"></i>' . $floating_block['floating_block_2'];
+      $content .='</a>';
+      $content .='</li>';
+
+      if ($floating_block['floating_block_3_on'] == 1) {
+        $content .='<li class="btn-3 btn">';
+        $content .='<a href="' . $floating_block['floating_block_3_link'] . '">';
+        $content .= '<i class="'. $fa .$floating_block['floating_block_3_icon'].'"></i>' . $floating_block['floating_block_3'];
+        $content .='</a>';
+        $content .='</li>';
+      }
+
+      if ($floating_block['floating_block_4_on'] == 1) {
+        $content .='<li class="btn-4 btn">';
+        $content .='<a href="' . $floating_block['floating_block_4_link'] . '">';
+        $content .= '<i class="'. $fa .$floating_block['floating_block_4_icon'].'"></i>' . $floating_block['floating_block_4'];
+        $content .='</a>';
+        $content .='</li>';
+      }
+
+      if ($floating_block['floating_block_5_on'] == 1) {
+        $content .='<li class="btn-5 btn">';
+        $content .='<a href="' . $floating_block['floating_block_5_link'] . '">';
+        $content .= '<i class="'. $fa .$floating_block['floating_block_5_icon'].'"></i>' . $floating_block['floating_block_5'];
+        $content .='</a>';
+        $content .='</li>';
+      }
+
+      if ($floating_block['floating_block_6_on'] == 1) {
+        $content .='<li class="btn-6 btn">';
+        $content .='<a href="' . $floating_block['floating_block_6_link'] . '">';
+        $content .= '<i class="'. $fa .$floating_block['floating_block_6_icon'].'"></i>' . $floating_block['floating_block_6'];
+        $content .='</a>';
+        $content .='</li>';
+      }
+
+      $content .='<li class="login_logout_btn btn">';
+      $link = user_is_logged_in() ? '/user/logout' : '/user';
+      $text = user_is_logged_in() ? $floating_block['floating_block_logout'] : $floating_block['floating_block_login'];
+      $content .='<a href="' . $link . '">';
+      $content .= '<i class="'.$fa .$floating_block['floating_block_logout_icon'].'"></i>' . $text;
+      $content .='</a>';
+      $content .='</li>';
+      $content .= "</ul></div>";
+      $block['content'] = $content;
+      break;
+
+    case 'hos_popup1':
+      $text = sy_variable_get('hos_popup1');
+
+      $block['content'] = '<div class="builder-pop">';
+      $block['content'] .= '<div class="builder-overlay"></div><div class="builder-pop-internal"><a class="pop-close" href="/"><i class="fa fa-close"></i></a>';
+      if (!$text) {
+        $text = '<strong>Northampton Academy</strong><br />1200 North Drive<br />Northampton, MA 01060<br />413-555-1212';
+      }
+      $block['content'] .= '<p>' . check_markup($text,'full_html') . '</p>';
+      $block['content'] .= '</div></div>';
+      break;
+
+  }
+
+  return $block;
+}

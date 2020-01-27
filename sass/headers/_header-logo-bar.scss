@@ -1,0 +1,358 @@
+header.header-logo-bar {
+  background-color: $white;
+  position: relative;
+  // Header top bar includes search bar, utility menu
+  .top-bar {
+    background-color: $white;
+    margin-right: 10px;
+    padding: 0;
+    height: 80px;
+    position: relative;
+    @include breakpoint(medium) {
+      min-height: 50px;
+      height: 50px;
+    }
+    .top-bar-menu {
+      position: relative;
+      display: inline-block;
+      width: auto;
+      top: 17.5px;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      &.school-select-menu {
+        top: 17px;
+        margin-right: 10px;
+        @include breakpoint(medium) {
+          display: none;
+        }
+        a:hover {
+          color: $white;
+        }
+      }
+      ul.menu {
+        display: none;
+        position: absolute;
+        background-color: $medium-gray;
+        min-width: 12.5em;
+        z-index: 9;
+        right: 0;
+        a {
+          color: $primary-dark;
+          padding: 10px 6px;
+          text-decoration: none;
+          display: block;
+          border-top: 1px solid $white;
+
+        }
+      }
+      &:hover {
+        ul.nice-menu,
+        ul.menu {
+          display: block;
+        }
+      }
+
+      &.utility-menu {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        z-index: 10;
+        @include breakpoint(medium) {
+          display: none;
+        }
+        > ul.nice-menu {
+          background: none;
+          display: block;
+          > li {
+            border: none;
+            background-color: transparent;
+            > a, > span {
+              text-align: right;
+              padding-top: 0;
+              border-top: none;
+              display: block;
+              color: $primary-color;
+            }
+            ul.menu {
+              top: 22px;
+            }
+          }
+        }
+        margin-right: 10px;
+        .utility-menu-header {
+          padding-right: 20px;
+          margin-bottom: 1px;
+          margin-top: 4px;
+          color: $primary-dark;
+        }
+      }
+    }
+
+    .social-icon-menu {
+      float: right;
+      padding-top: 5px;
+      @include breakpoint (small) {
+        position: relative;
+        top: -10px;
+        text-align: center;
+        float: left;
+        left: 115px;
+      }
+      .social-icon-item {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border: 1px solid $primary-color;
+        border-radius: 50%;
+        text-align: center;
+        margin: 5px;
+        i {
+          color: $primary-color;
+          top: 3px;
+          position: relative;
+        }
+        &:hover {
+          border-color: $primary-dark;
+          i {
+            color: $primary-dark;
+          }
+        }
+        &:last-child {
+          margin-right: 16px;
+          @include breakpoint(small) {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+
+    .search-block {
+      position: relative;
+      height: 20px;
+      @include breakpoint(small) {
+        right: inherit;
+        top: inherit;
+      }
+      #edit-search-block-form--2 {
+        padding: 4px;
+        width: 15px;
+        background: $white;
+        border: none;
+        box-shadow: none;
+        webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        -ms-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        float: right;
+        color: $white;
+        @include breakpoint(medium) {
+          background: none;
+        }
+      }
+      &:hover,
+      &:focus {
+        #edit-search-block-form--2 {
+          width: 100%;
+          background-color: $primary-color;
+        }
+      }
+      input.form-autocomplete {
+        background-image: none;
+      }
+      #edit-search-block-form--2.expanded {
+        width: 250px;
+      }
+      input.form-submit {
+        display: none;
+      }
+      .fa-search {
+        position: absolute;
+        right: 18px;
+        top: 1px;
+        font-size: 1.5em;
+        color: $dark-grey;
+      }
+      @include breakpoint(medium) {
+        float: right;
+        right: 0;
+        top: -10px;
+      }
+    }
+    span.toggler {
+      @include breakpoint(medium) {
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        position: relative;
+        top: 0;
+        margin-left: 10px;
+        right: 5px;
+        color: $white;
+        font-size: 23px;
+        transform: scaleX(1.6);
+        cursor: pointer;
+        z-index: 11;
+      }
+    }
+  }
+
+  // Header bar includes main menu and logo
+  .second-top-bar {
+    background-color: $secondary-dark;
+    z-index: 4;
+    position: relative;
+    .logo-row {
+      position: absolute;
+      left: 7%;
+      z-index: 9;
+      a#logo {
+        img {
+          max-height: 60px;
+          position: relative;
+          top: 4px;
+          @include breakpoint(small) {
+            height: 200px;
+            object-fit: cover;
+          }
+        }
+      }
+      @include breakpoint(xlarge) {
+        left: 2%;
+      }
+    }
+    .nav-row {
+      position: relative;
+      height: 65px;
+      nav#main-menu {
+        float: right;
+        @include breakpoint(medium) {
+          display: none !important;
+        }
+      }
+      span.toggle {
+        @include breakpoint(medium) {
+          background: transparent;
+          border-radius: 0;
+          box-shadow: none;
+          position: absolute;
+          top: 15px;
+          right: 20px;
+          color: $white;
+          cursor: pointer;
+          z-index: 9;
+          display: block !important;
+        }
+      }
+    }
+    ul.medium-horizontal,
+    ul.nice-menu {
+      list-style: none;
+      padding: 0;
+      text-align: right;
+      top: -15px;
+      position: inherit;
+      > li {
+        float: none;
+        margin-left: 12px;
+        display: inline-block;
+        padding: 17px 10px 18px 10px;
+        position: initial;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        line-height: 18px;
+        height: 65px;
+        @include breakpoint(large) {
+          margin-left: 7px;
+        }
+        &:hover {
+          background: $secondary-light;
+        }
+        &.last {
+          margin-right: 20px;
+        }
+        &.active-trail {
+          background-color: $secondary-color;
+          .is-dropdown-submenu {
+            display: flex;
+            flex-flow: row wrap;
+            ul {
+              display: none !important;
+            }
+            > ul {
+              display: flex !important;
+              visibility: visible !important;
+              li.active-trail a {
+                color: $dark-grey;
+              }
+            }
+          }
+          > ul {
+            z-index: -8;
+            display: flex !important;
+            visibility: visible !important;
+          }
+        }
+        span, a {
+          color: $white;
+          font-size: 1.2em;
+          display: block;
+          padding: 0.3em 0 0.3em 0;
+        }
+        > ul {
+          background-color: $medium-gray;
+          min-height: 50px;
+          width: 100%;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+          position: absolute;
+          left: 0;
+          top: 65px;
+          border: none;
+          display: flex;
+          &.js-dropdown-active {
+            display: flex;
+            flex-flow: row wrap;
+          }
+          > li {
+            margin: 0 1.1%;
+            padding: 0;
+            width: auto;
+            background: transparent;
+            border: none;
+            &:hover {
+              a {
+                color: $dark-grey;
+              }
+            }
+            a {
+              color: $primary-dark;
+              &.active-trail {
+                color: $dark-grey;
+              }
+            }
+          }
+          ul {
+            display: none;
+            left: 0;
+            top: 45px;
+            text-align: left;
+          }
+        }
+        ul.js-dropdown-active {
+          display: flex;
+          flex-wrap: wrap;
+          z-index: 4;
+        }
+        li.menuparent {
+          background: transparent;
+        }
+      }
+      .opens-right > a::after {
+        border: none !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,395 @@
+header.header-top-bar {
+  background-color: $white;
+  .above-bar {
+    background-color: $secondary-color;
+    height: 50px;
+    position: relative;
+    z-index: 11;
+    .search-block {
+      position: absolute;
+      height: 50px;
+      display: inline-block;
+      right: 250px;
+      @include breakpoint(small) {
+        right: inherit;
+        top: inherit;
+      }
+      #edit-search-block-form--2 {
+        padding: 4px;
+        width: 15px;
+        background: $secondary-color;
+        border: none;
+        box-shadow: none;
+        webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        -ms-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        float: right;
+        color: $secondary-color;
+        @include breakpoint(medium) {
+          background: none;
+        }
+      }
+      &:hover,
+      &:focus {
+        #edit-search-block-form--2 {
+          width: 100%;
+          background-color: $primary-color;
+          color: $white;
+        }
+      }
+      input.form-autocomplete {
+        background-image: none;
+      }
+      #edit-search-block-form--2.expanded {
+        width: 250px;
+      }
+      input.form-submit {
+        display: none;
+      }
+      .fa-search {
+        position: absolute;
+        top: 8px;
+        right: 18px;
+        font-size: 1.5em;
+        color: $white;
+      }
+      @include breakpoint(medium) {
+        float: right;
+        right: 0;
+        top: -10px;
+      }
+    }
+    span.toggler {
+      @include breakpoint(medium) {
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        position: relative;
+        top: 0;
+        margin-left: 10px;
+        right: 5px;
+        color: $white;
+        font-size: 23px;
+        transform: scaleX(1.6);
+        cursor: pointer;
+        z-index: 11;
+      }
+    }
+    ul.nice-menu {
+      min-width: 160px;
+      z-index: 9;
+      right: 0;
+      background: transparent;
+      float: right;
+      > li {
+        background: transparent;
+        border: none;
+        &:hover > a {
+          background: $primary-color;
+          color: $white;
+        }
+        &:last-child {
+          background-color: $primary-color;
+          a {
+            color: $white;
+          }
+          &:hover > a {
+            background: $secondary-dark;
+          }
+        }
+      }
+      a {
+        color: $primary-color;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      ul {
+        background: $medium-gray;
+        border-radius: 0;
+        width: 10em;
+        padding: 0 !important;
+        top: 50px;
+        li a {
+          color: $white;
+          &:hover {
+            background: $primary-color;
+          }
+        }
+        li {
+          background: $secondary-color;
+          border: none;
+          a {
+            color: $primary-color;
+          }
+        }
+      }
+    }
+    .utility-menu {
+      display: inline-block;
+      float: right;
+      @include breakpoint(medium) {
+        display: none;
+      }
+    }
+  }
+  .top-bar {
+    background-color: $white;
+    position: relative;
+    z-index: 10;
+    @include breakpoint(medium) {
+      max-width: 100%;
+      float: none;
+    }
+    .social-menu-block {
+      display: block;
+      @include breakpoint(medium) {
+        position: relative;
+        top: 15px;
+        z-index: 50;
+      }
+      .social-icon-menu {
+        float: right;
+        padding-top: 5px;
+        @include breakpoint (small) {
+          position: relative;
+          top: -10px;
+          text-align: center;
+          float: left;
+          left: 115px;
+        }
+        .social-icon-item {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          border: 1px solid $primary-color;
+          border-radius: 50%;
+          text-align: center;
+          margin: 5px;
+          i {
+            color: $primary-color;
+            top: 3px;
+            position: relative;
+          }
+          &:hover {
+            border-color: $primary-dark;
+            i {
+              color: $primary-dark;
+            }
+          }
+          &:last-child {
+            margin-right: 16px;
+            @include breakpoint(small) {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+    .top-bar-menu {
+      ul.nice-menu {
+        min-width: 160px;
+        z-index: 9;
+        right: 0;
+        top: 15px;
+        background-color: $white;
+        > li {
+          background: transparent;
+          border: none;
+          &:hover > a {
+            background: $primary-color;
+            color: $white;
+          }
+        }
+        a {
+          color: $primary-color;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+        ul {
+          background: $medium-gray;
+          border-radius: 0;
+          width: 10em;
+          padding: 0 !important;
+          li a {
+            color: $white;
+            &:hover {
+              background: $primary-color;
+            }
+          }
+        }
+      }
+    }
+    .show_mobile_menu {
+      display: none;
+      color: $white;
+      @include breakpoint(medium) {
+        display: block;
+      }
+    }
+    @include breakpoint(medium) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 50px;
+      background: $primary-color;
+    }
+  }
+  .second-top-bar {
+    z-index: 4;
+    position: relative;
+    clear: both;
+    @include breakpoint(small) {
+      height: auto;
+    }
+    .responsive-menus {
+      margin: 0 auto;
+    }
+    .logo-row {
+      position: relative;
+      top: -25px;
+      padding-left: 20px;
+      padding-right: 20px;
+      z-index: 9;
+      a#logo {
+        img {
+          max-height: 120px;
+        }
+      }
+      @include breakpoint(medium) {
+        top: 0;
+      }
+    }
+    .nav-row {
+      bottom: 0;
+      display: flex;
+      position: relative;
+      margin-top: -10px;
+      nav#main-menu {
+        float: right;
+        @include breakpoint(medium) {
+          display: none;
+        }
+      }
+    }
+    ul.nice-menu {
+      list-style: none;
+      padding: 0;
+      text-align: right;
+      top: -15px;
+      position: inherit;
+      > li {
+        float: none;
+        margin-left: 5px;
+        display: inline-block;
+        padding: 0 10px;
+        position: initial;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        > a {
+          padding: 0.9rem 1rem;
+          height: 46px;
+        }
+        > ul {
+          overflow: initial !important;
+        }
+        &:hover {
+          background-color: $primary-color;
+          > a {
+            color: $white;
+          }
+        }
+        span, a {
+          color: $primary-color;
+          font-size: 1em;
+          font-family: $SEC-FONT;
+        }
+        ul {
+          background-color: $secondary-color;
+          min-height: 50px;
+          width: 100%;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+          position: absolute;
+          left: 0;
+          border: none;
+          top: 44px;
+          display: none;
+          &.rm-no-class {
+            display: flex;
+            flex-flow: row wrap;
+          }
+          > li {
+            margin: 0 5px;
+            padding: 0;
+            width: auto;
+            clear: none;
+            border: none;
+            background: transparent;
+            &:hover {
+              a {
+                color: $white;
+              }
+            }
+            a {
+              padding: 0 1rem;
+              height: 50px;
+              line-height: 50px;
+              color: $white;
+              &.active-trail {
+                color: $white;
+              }
+              &:hover {
+                background: $primary-color;
+              }
+            }
+            li {
+              width: 100%;
+              text-align: left;
+              margin: 0;
+            }
+            ul {
+              top: 50px;
+              width: 12.5em !important;
+              flex-wrap: wrap;
+              li {
+                a {
+                  height: auto;
+                  line-height: 1.4em;
+                  padding: 10px 1rem;
+                  display: block;
+                }
+              }
+            }
+          }
+          ul.rm-no-class {
+            top: 44px;
+            display: none;
+            background: $medium-gray;
+            border-radius: 0;
+          }
+        }
+        &:hover ul {
+          display: flex !important;
+          flex-wrap: wrap;
+          z-index: 4;
+        }
+      }
+      .opens-right > a::after {
+        border: none !important;
+      }
+    }
+    @include breakpoint(medium) {
+      height: auto;
+      margin-top: 50px;
+      padding-bottom: 15px;
+      padding-top: 15px;
+    }
+  }
+}

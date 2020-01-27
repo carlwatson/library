@@ -1,0 +1,6 @@
+.sy-component--news-4 {
+  @include global-padding();
+  .dark-text {
+    color: $black;
+  }
+}

@@ -1,0 +1,824 @@
+<?php
+
+function sy_supplements_preprocess_page(&$variables) {
+    
+  $variables['primary_nav'] = FALSE;
+  if ($variables['main_menu']) {
+    $main_menu = menu_build_tree(variable_get('menu_main_links_source', 'main-menu'));
+    //print_r($links);
+    $main_menu_links = theme('sybase2_menu_tree', array(
+      'tree' => $main_menu,
+      'reset' => TRUE,
+      'depth' => 1,
+    ));
+    $utility_menu = menu_build_tree('utility-menu');
+    //print_r($links);
+    $utility_menu_links = theme('sybase2_menu_tree', array(
+      'tree' => $utility_menu,
+      'reset' => TRUE,
+      'depth' => 1,
+    ));
+    
+    
+      
+    //$variables['primary_nav'] = menu_tree(variable_get('menu_main_links_source', 'main-menu'));
+    $variables['primary_nav'] = $main_menu_links.$utility_menu_links;
+    
+    //$variables['primary_nav']['#theme_wrappers'] = ['menu_tree__primary'];
+  }
+
+}
+
+
+function sy_supplements_theme() {
+  return array(
+    'sybase2_menu_tree' => array(
+      'variables' => array(
+        'tree' => NULL,
+        'reset' => FALSE,
+        'depth' => 1,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_glazed_builder_classes_alter().
+ */
+function sy_supplements_glazed_builder_classes_alter(&$glazed_classes) {
+  $glazed_classes['arrow-right-blue'] = t('Arrow - Right/Blue');
+  $glazed_classes['arrow-left-blue'] = t('Arrow - Left/Blue');
+  $glazed_classes['arrow-right-grey'] = t('Arrow - Right/Grey');
+  $glazed_classes['arrow-left-grey'] = t('Arrow - Left/Grey');
+}
+
+function theme_sybase2_menu_tree(array $block = array(
+  'tree' => array(),
+  'reset' => FALSE,
+  'depth' => 1)) {
+    $tree = $block['tree'];
+    $reset = $block['reset'];
+    $depth = $block['depth'];
+    
+
+  // Don't render if block content is empty.
+  if (count($tree) <= 0) {
+    return '';
+  }
+  static $mmenu_output = '';
+  if ($reset) {
+    $mmenu_output = '';
+  }
+  foreach ($tree as $item) {
+    if (isset($item['link']['hidden']) && $item['link']['hidden']) {
+      continue;
+    }
+    $cur_path = url($_GET['q']);
+    $menu_path = check_url(url($item['link']['link_path']));
+    // Adds classes to li in order to do more customization changes.
+    $li_class = array();
+    $li_class[] = 'mmenu-mm-list-mlid-' . $item['link']['mlid'];
+    $my_menu_path = $item['link']['link_path'];
+    // $my_menu_path = trim($my_menu_path, '<');
+    // $my_menu_path = trim($my_menu_path, '>');
+    // $my_menu_path = trim($my_menu_path, '/');
+    // $my_menu_path = str_replace('/', '-', $my_menu_path);
+    if (!empty($my_menu_path)) {
+      $li_class[] = 'mmenu-mm-list-path-' . check_plain($my_menu_path);
+    }
+    if ($cur_path == $menu_path) {
+      $li_class[] = 'active-trail';
+    }
+    // Gets the classes from the menu attributes.
+    if (isset($item['link']['options']['attributes']['class'])
+      && count($item['link']['options']['attributes']['class']) > 0) {
+      $li_class = array_merge($li_class, $item['link']['options']['attributes']['class']);
+    }
+    $icon_class = 'icon-class-here';
+
+    // In order to support the special_menu_items and menu_firstchild modules.
+    $subopen_link_class = '';
+    if (in_array($item['link']['link_path'], array('<nolink>', '<firstchild>'))) {
+      $menu_path = 'javascript:void(0);';
+      $subopen_link_class = 'mmenu-mm-subopen';
+    }
+
+    $mmenu_output .= '<li class="' . implode(' ', $li_class) . '">
+        <a data-href="'
+      . $menu_path . '"  href="'
+      . $menu_path . '" class="parent_menu_item mmenu-mm-list ' . $subopen_link_class . '"><i class="'
+      . $icon_class . '"></i><span class="mmenu-block-title">'
+      . $item['link']['title']
+      . '</span></a>';
+    if (isset($item['below']) && count($item['below']) > 0) {
+      $mmenu_output .= '<a href="' . $menu_path . '" class="parent_menu_icon">&nbsp;</a>';  
+      $mmenu_output .= '<ul class="mmenu-mm-list-level-' . ($depth + 1) . '">';
+      theme('sybase2_menu_tree', array(
+        'tree' => $item['below'],
+        'reset' => FALSE,
+        'depth' => $depth + 1,
+      ));
+      $mmenu_output .= '</ul>';
+    }
+    $mmenu_output .= '</li>';
+  }
+  if($depth == 1){
+    $ul = '<ul class="vertical drilldown menu" data-drilldown data-responsive-menu="drilldown">';
+  }else{
+    $ul = '<ul class="mmenu-mm-list-level-' . $depth . '">';
+  }
+  return  $ul. $mmenu_output . '</ul>';
+}
+
+
+/**
+ * Implements hook_block_info().
+ *
+ * Create all the blocks required.
+ */
+function sy_supplements_block_info()
+{
+    $blocks = array();
+
+    $blocks['sy_promoter_block'] = array(
+        'info' => t('SY Promoter Block'),
+    );
+
+    $blocks['sy_stats_block'] = array(
+        'info' => t('SY Stats Block'),
+    );
+
+    $blocks['sy_video_header_block'] = array(
+        'info' => t('SY Video Header Block'),
+    );
+
+    $blocks['sy_footer_social_block'] = array(
+        'info' => t('SY Footer Social'),
+    );
+
+    $blocks['juicer'] = array(
+        'info' => t('Juicer Social Feed'),
+    );
+
+    $blocks['sy_highlight_block'] = array(
+      'info' => t('SY Highlight Block'),
+    );
+
+    $blocks['left_video_block'] = array(
+    'info' => t('Left Video Block'),
+  );
+
+    $blocks['full_image_with_overlay'] = array(
+      'info' => t('Full Image With Overlay'),
+    );
+
+    return $blocks;
+}
+
+
+/**
+ * Implements hook_block_configure().
+ */
+function sy_supplements_block_configure($delta = '')
+{
+    $form = array();
+
+    switch ($delta) {
+        case 'sy_promoter_block':
+            $promoter = variable_get('sy_promoter_options', array(
+                'sy_promoter_width' => '',
+                'sy_promoter_body' => '',
+                'sy_promoter_2nd_color' => 'ffffff',
+                'sy_promoter_bg' => '7f7b92',
+                'sy_promoter_show' => 0,
+            ));
+
+            $form['sy_promoter_show'] = array(
+                '#type' => 'checkbox',
+                '#title' => t('Show Block on Page'),
+                '#default_value' => $promoter['sy_promoter_show'],
+            );
+
+            $form['sy_promoter_width'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Width of promoter in percentage of screen.'),
+                '#default_value' => $promoter['sy_promoter_width'],
+            );
+
+            $form['sy_promoter_2nd_color'] = array(
+                '#type' => 'jquery_colorpicker',
+                '#title' => t('Color for the border and close link.'),
+                '#default_value' => str_ireplace('#', '', $promoter['sy_promoter_2nd_color']),
+                '#sassy' => TRUE,
+            );
+
+            $form['sy_promoter_bg'] = array(
+                '#type' => 'jquery_colorpicker',
+                '#title' => t('Color for the panel background.'),
+                '#default_value' => str_ireplace('#', '', $promoter['sy_promoter_bg']),
+                '#sassy' => TRUE,
+            );
+
+            $form['sy_promoter_body'] = array(
+                '#type' => 'text_format',
+                '#title' => t('Body text'),
+                '#default_value' => check_markup($promoter['sy_promoter_body']['value'], 'full_html'),
+            );
+
+            break;
+
+        case 'sy_stats_block':
+            $home_stats_block = variable_get('sy_stats_block_options', array(
+                'sy_stats_block_stat_1_title' => '',
+                'sy_stats_block_stat_1' => '',
+                'sy_stats_block_stat_2_title' => '',
+                'sy_stats_block_stat_2' => '',
+                'sy_stats_block_stat_3_title' => '',
+                'sy_stats_block_stat_3' => '',
+                'sy_stats_block_stat_bg' => '000000',
+                'sy_stats_block_stat_color' => 'ffffff',
+            ));
+
+            $form['sy_stats_block_stat_1_title'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Stat 1 Title'),
+                '#default_value' => $home_stats_block['sy_stats_block_stat_1_title'],
+            );
+            $form['sy_stats_block_stat_1'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Stat 1'),
+                '#default_value' => $home_stats_block['sy_stats_block_stat_1'],
+            );
+            $form['sy_stats_block_stat_2_title'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Stat 2 Title'),
+                '#default_value' => $home_stats_block['sy_stats_block_stat_2_title'],
+            );
+            $form['sy_stats_block_stat_2'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Stat 2'),
+                '#default_value' => $home_stats_block['sy_stats_block_stat_2'],
+            );
+            $form['sy_stats_block_stat_3_title'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Stat 3 Title'),
+                '#default_value' => $home_stats_block['sy_stats_block_stat_3_title'],
+            );
+            $form['sy_stats_block_stat_3'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Stat 3'),
+                '#default_value' => $home_stats_block['sy_stats_block_stat_3'],
+            );
+            $form['sy_stats_block_stat_bg'] = array(
+                '#type' => 'jquery_colorpicker',
+                '#title' => t('Color for the background'),
+                '#default_value' => str_ireplace('#', '', $home_stats_block['sy_stats_block_stat_bg']),
+                '#sassy' => TRUE,
+            );
+            $form['sy_stats_block_stat_color'] = array(
+                '#type' => 'jquery_colorpicker',
+                '#title' => t('Color for the text.'),
+                '#default_value' => str_ireplace('#', '', $home_stats_block['sy_stats_block_stat_color']),
+                '#sassy' => TRUE,
+            );
+            break;
+
+        case 'sy_video_header_block':
+            $sy_video_header_block = variable_get('sy_video_header_block_options', array(
+                'sy_video_youtube_header_block_url' => '',
+                'sy_video_vimeo_header_block_url' => '',
+            ));
+
+            $form['sy_video_youtube_header_block_url'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Video URL - YouTube (iframe)'),
+              '#default_value' => $sy_video_header_block['sy_video_youtube_header_block_url'],
+              '#maxlength' => 2024,
+            );
+
+            $form['sy_video_vimeo_header_block_url'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Video URL - Vimeo'),
+                '#default_value' => $sy_video_header_block['sy_video_vimeo_header_block_url'],
+                '#maxlength' => 1024,
+            );
+
+            break;
+
+        case 'sy_footer_social_block':
+            $sy_footer_right_block = variable_get('sy_footer_right_block_options', array(
+                'sy_social_1_icon' => '',
+                'sy_social_1_link' => '',
+                'sy_social_2_icon' => '',
+                'sy_social_2_link' => '',
+                'sy_social_3_icon' => '',
+                'sy_social_3_link' => '',
+                'sy_social_4_icon' => '',
+                'sy_social_4_link' => '',
+            ));
+
+            $form['sy_social_1_icon'] = array(
+                '#type' => 'textfield',
+                '#title' => t('1st Social Icon (Font Awesome Class)'),
+                '#description' => t("For Example 'fa-facebook-square'"),
+                '#default_value' => $sy_footer_right_block['sy_social_1_icon'],
+            );
+            $form['sy_social_1_link'] = array(
+                '#type' => 'textfield',
+                '#title' => t('1st Social Link'),
+                '#default_value' => $sy_footer_right_block['sy_social_1_link'],
+            );
+            $form['sy_social_2_icon'] = array(
+                '#type' => 'textfield',
+                '#title' => t('2nd Social Icon (Font Awesome Class)'),
+                '#description' => t("For Example 'fa-twitter-square'"),
+                '#default_value' => $sy_footer_right_block['sy_social_2_icon'],
+            );
+            $form['sy_social_2_link'] = array(
+                '#type' => 'textfield',
+                '#title' => t('2nd Social Link'),
+                '#default_value' => $sy_footer_right_block['sy_social_2_link'],
+            );
+            $form['sy_social_3_icon'] = array(
+                '#type' => 'textfield',
+                '#title' => t('3rd Social Icon (Font Awesome Class)'),
+                '#description' => t("For Example 'fa-linkedin-square'"),
+                '#default_value' => $sy_footer_right_block['sy_social_3_icon'],
+            );
+            $form['sy_social_3_link'] = array(
+                '#type' => 'textfield',
+                '#title' => t('3rd Social Link'),
+                '#default_value' => $sy_footer_right_block['sy_social_3_link'],
+            );
+            $form['sy_social_4_icon'] = array(
+                '#type' => 'textfield',
+                '#title' => t('4th Social Icon (Font Awesome Class)'),
+                '#description' => t("For Example 'fa-instagram'"),
+                '#default_value' => $sy_footer_right_block['sy_social_4_icon'],
+            );
+            $form['sy_social_4_link'] = array(
+                '#type' => 'textfield',
+                '#title' => t('4th Social Link'),
+                '#default_value' => $sy_footer_right_block['sy_social_4_link'],
+            );
+
+            break;
+
+        case 'juicer':
+            $juicer = sy_variable_get('juicer', array(
+                'juicer_title' => '',
+                'juicer_feed' => '',
+                'juicer_bg_color' => 'ffffff',
+                'juicer_title_color' => '000000',
+            ));
+
+            $form['juicer_title'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Title of Feeds Block'),
+                '#default_value' => $juicer['juicer_title'],
+            );
+
+            $form['juicer_bg_color'] = array(
+                '#type' => 'jquery_colorpicker',
+                '#title' => t('Color for the background of the feed'),
+                '#default_value' => str_ireplace('#', '', $juicer['juicer_bg_color']),
+                '#sassy' => TRUE,
+            );
+
+            $form['juicer_title_color'] = array(
+                '#type' => 'jquery_colorpicker',
+                '#title' => t('Color for the title of the feed'),
+                '#default_value' => str_ireplace('#', '', $juicer['juicer_title_color']),
+                '#sassy' => TRUE,
+            );
+
+            $form['juicer_feed'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Juicer Data Feed ID'),
+                '#default_value' => $juicer['juicer_feed'],
+            );
+
+            break;
+
+        case 'sy_highlight_block':
+          $home_top_block = variable_get('sy_highlight_block_options', array(
+            'sy_highlight_block_text' => '',
+            'sy_highlight_block_title' => '',
+            'sy_highlight_block_link' => '',
+            'sy_highlight_block_button_text' => '',
+            'sy_highlight_block_show' => 0,
+          ));
+
+          $form['sy_highlight_block_show'] = array(
+            '#type' => 'checkbox',
+            '#title' => t('Show Block on Page'),
+            '#default_value' => $home_top_block['sy_highlight_block_show'],
+          );
+
+          $form['sy_highlight_block_title'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Block Title'),
+            '#default_value' => $home_top_block['sy_highlight_block_title'],
+          );
+
+          $form['sy_highlight_block_text'] = array(
+            '#type' => 'text_format',
+            '#title' => t('Body text'),
+            '#default_value' => check_markup($home_top_block['sy_highlight_block_text']['value'], 'full_html'),
+          );
+
+          $form['sy_highlight_block_link'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Link URL'),
+            '#default_value' => $home_top_block['sy_highlight_block_link'],
+          );
+
+          $form['sy_highlight_block_button_text'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Link Text'),
+            '#default_value' => $home_top_block['sy_highlight_block_button_text'],
+          );
+          break;
+
+        case 'left_video_block':
+        $algarve_home_video_block = sy_variable_get('algarve_home_video_block_options', array(
+          'algarve_home_video_block_title' => 'Title',
+          'algarve_home_video_block_title_color' => '007cb1',
+          'algarve_home_video_bg_color' => 'ffffff',
+          'algarve_home_video_text' => 'Text next to video',
+          'algarve_home_video_video' => '',
+        ));
+
+        $form['algarve_home_video_block_title'] = array(
+          '#type' => 'textfield',
+          '#title' => t('Title for the panel, shows up at the top.'),
+          '#default_value' => $algarve_home_video_block['algarve_home_video_block_title'],
+        );
+
+        $form['algarve_home_video_text'] = array(
+          '#type' => 'text_format',
+          '#format' => NULL,
+          '#title' => t('Text to go next to the video.'),
+          '#default_value' => check_markup($algarve_home_video_block['algarve_home_video_text']['value'], 'full_html'),
+        );
+
+        $vid_url = str_replace("[video:", "", $algarve_home_video_block['algarve_home_video_video']);
+        $vid_url = str_replace("]", "", $vid_url);
+        $form['algarve_home_video_video'] = array(
+          '#type' => 'textfield',
+          '#format' => NULL,
+          '#title' => t('URL for the video, paste it in right from your browser location bar.'),
+          '#default_value' => $vid_url,
+        );
+        break;
+
+        case 'full_image_with_overlay':
+        $full_image_with_overlay = sy_variable_get('full_image_with_overlay_options', array(
+          'full_image_with_overlay_head' => '',
+          'full_image_with_overlay_body' => '',
+          'full_image_with_overlay_image' => '',
+        ));
+
+        $form['full_image_with_overlay_head'] = array(
+          '#type' => 'textfield',
+          '#title' => t('Headline'),
+          '#default_value' => $full_image_with_overlay['full_image_with_overlay_head'],
+        );
+
+        $form['full_image_with_overlay_body'] = array(
+          '#type' => 'text_format',
+          '#title' => t('Body text'),
+          '#default_value' => check_markup($full_image_with_overlay['full_image_with_overlay_body']['value'], 'full_html'),
+        );
+
+        $form['full_image_with_overlay_image'] = array(
+          '#type' => 'managed_file',
+          '#title' => t('Image for the block.'),
+          '#description' => t("Upload an image for this block."),
+          '#default_value' => $full_image_with_overlay['full_image_with_overlay_image'],
+          '#upload_location' => 'public://theme',
+        );
+
+        break;
+
+    }
+
+    return $form;
+}
+
+
+/**
+ * Implements hook_block_save().
+ */
+function sy_supplements_block_save($delta = '', $edit = array())
+{
+    switch ($delta) {
+        case 'sy_promoter_block':
+            variable_set('sy_promoter_options', array(
+                'sy_promoter_width' => $edit['sy_promoter_width'],
+                'sy_promoter_body' => $edit['sy_promoter_body'],
+                'sy_promoter_2nd_color' => '#' . $edit['sy_promoter_2nd_color'],
+                'sy_promoter_bg' => '#' . $edit['sy_promoter_bg'],
+                'sy_promoter_show' => $edit['sy_promoter_show'],
+            ));
+
+            break;
+
+        case 'sy_stats_block':
+            variable_set('sy_stats_block_options', array(
+                'sy_stats_block_stat_1_title' => $edit['sy_stats_block_stat_1_title'],
+                'sy_stats_block_stat_1' => $edit['sy_stats_block_stat_1'],
+                'sy_stats_block_stat_2_title' => $edit['sy_stats_block_stat_2_title'],
+                'sy_stats_block_stat_2' => $edit['sy_stats_block_stat_2'],
+                'sy_stats_block_stat_3_title' => $edit['sy_stats_block_stat_3_title'],
+                'sy_stats_block_stat_3' => $edit['sy_stats_block_stat_3'],
+                'sy_stats_block_stat_bg' => '#' . $edit['sy_stats_block_stat_bg'],
+                'sy_stats_block_stat_color' => '#' . $edit['sy_stats_block_stat_color'],
+            ));
+
+            break;
+
+        case 'sy_video_header_block':
+            variable_set('sy_video_header_block_options', array(
+                'sy_video_youtube_header_block_url' => $edit['sy_video_youtube_header_block_url'],
+                'sy_video_vimeo_header_block_url' => $edit['sy_video_vimeo_header_block_url'],
+            ));
+
+            break;
+
+        case 'sy_footer_social_block':
+            variable_set('sy_footer_right_block_options', array(
+                'sy_social_1_icon' => $edit['sy_social_1_icon'],
+                'sy_social_1_link' => $edit['sy_social_1_link'],
+                'sy_social_2_icon' => $edit['sy_social_2_icon'],
+                'sy_social_2_link' => $edit['sy_social_2_link'],
+                'sy_social_3_icon' => $edit['sy_social_3_icon'],
+                'sy_social_3_link' => $edit['sy_social_3_link'],
+                'sy_social_4_icon' => $edit['sy_social_4_icon'],
+                'sy_social_4_link' => $edit['sy_social_4_link'],
+            ));
+
+            break;
+
+        case 'juicer':
+            sy_variable_set('juicer', array(
+                'juicer_title' => $edit['juicer_title'],
+                'juicer_feed' => $edit['juicer_feed'],
+                'juicer_bg_color' => $edit['juicer_bg_color'],
+                'juicer_title_color' => $edit['juicer_title_color'],
+            ));
+
+            break;
+
+        case 'sy_highlight_block':
+          variable_set('sy_highlight_block_options', array(
+            'sy_highlight_block_title' => $edit['sy_highlight_block_title'],
+            'sy_highlight_block_text' => $edit['sy_highlight_block_text'],
+            'sy_highlight_block_link' => $edit['sy_highlight_block_link'],
+            'sy_highlight_block_show' => $edit['sy_highlight_block_show'],
+            'sy_highlight_block_button_text' => $edit['sy_highlight_block_button_text'],
+          ));
+
+        break;
+
+        case 'left_video_block':
+        sy_variable_set('algarve_home_video_block_options', array(
+          'algarve_home_video_block_title' => $edit['algarve_home_video_block_title'],
+          'algarve_home_video_block_title_color' => '#' . $edit['algarve_home_video_block_title_color'],
+          'algarve_home_video_bg_color' => '#' . $edit['algarve_home_video_bg_color'],
+          'algarve_home_video_text' => $edit['algarve_home_video_text'],
+          'algarve_home_video_video' => '[video:' . $edit['algarve_home_video_video'] . ']',
+        ));
+
+        break;
+
+        case 'full_image_with_overlay':
+        sy_variable_set('full_image_with_overlay_options', array(
+          'full_image_with_overlay_head' => $edit['full_image_with_overlay_head'],
+          'full_image_with_overlay_body' => $edit['full_image_with_overlay_body'],
+          'full_image_with_overlay_image' => $edit['full_image_with_overlay_image'],
+        ));
+
+          $file = file_load($edit['full_image_with_overlay_image']);
+          if ($file) {
+            // Change status to permanent.
+            $file->status = FILE_STATUS_PERMANENT;
+            // Save.
+            file_save($file);
+            file_usage_add($file, "schoolyard_theme_helper", "block", $file->fid);
+          }
+
+        break;
+
+    }
+}
+
+
+/**
+ * Implements hook_block_view().
+ */
+function sy_supplements_block_view($delta = '')
+{
+    $block = array();
+
+    switch ($delta) {
+        case 'sy_promoter_block':
+            $promoter = variable_get('sy_promoter_options', array(
+                'sy_promoter_width' => '',
+                'sy_promoter_2nd_color' => 'ffffff',
+                'sy_promoter_bg' => '7f7b92',
+                'sy_promoter_body' => 'text 1',
+                'sy_promoter_show' => 0,
+            ));
+
+            $content = '';
+            if ($promoter['sy_promoter_show'] == 1) {
+                $content = '<div class="sy-promoter" style="width:' . $promoter["sy_promoter_width"] . '%;">';
+                $content .= '<div style="background-color: ' . $promoter["sy_promoter_bg"] . ';" " class="sy-promoter-content">';
+                $content .= '<a href="#" style="color: ' . $promoter['sy_promoter_2nd_color'] . '" class="sy-promoter-close">X</a>';
+                $content .= '<div class="sy-promoter-block">';
+                $content .= '<div class="sy-promoter-block-text">' . check_markup($promoter["sy_promoter_body"]["value"], "full_html") . '</div>';
+                $content .= '</div>';
+                $content .= '</div>';
+            } else {
+                $content .= '<div>';
+            }
+            $content .= '</div>';
+
+            $block['content'] = $content;
+            break;
+
+        case 'sy_stats_block':
+            $home_stats_block = variable_get('sy_stats_block_options', array(
+                'sy_stats_block_stat_1_title' => '',
+                'sy_stats_block_stat_1' => '',
+                'sy_stats_block_stat_2_title' => '',
+                'sy_stats_block_stat_2' => '',
+                'sy_stats_block_stat_3_title' => '',
+                'sy_stats_block_stat_3' => '',
+                'sy_stats_block_stat_bg' => '000000',
+                'sy_stats_block_stat_color' => 'ffffff',
+            ));
+            $content = '';
+            $content .= '<div class="homepage-stats-1">';
+            $content .= '<div class="statistics">';
+
+            $content .= '<div class="stat-module-block">';
+            $content .= '<div class="title">' . $home_stats_block['sy_stats_block_stat_1_title'] . '</div>';
+            $content .= '<div class="stat">' . $home_stats_block['sy_stats_block_stat_1'] . '</div>';
+            $content .= '</div>';
+
+            $content .= '<div class="stat-module-block">';
+            $content .= '<div class="title">' . $home_stats_block['sy_stats_block_stat_2_title'] . '</div>';
+            $content .= '<div class="stat">' . $home_stats_block['sy_stats_block_stat_2'] . '</div>';
+            $content .= '</div>';
+
+            $content .= '<div class="stat-module-block">';
+            $content .= '<div class="title">' . $home_stats_block['sy_stats_block_stat_3_title'] . '</div>';
+            $content .= '<div class="stat">' . $home_stats_block['sy_stats_block_stat_3'] . '</div>';
+            $content .= '</div>';
+
+            $content .= '</div>';
+            $content .= '</div>';
+
+            $block['content'] = $content;
+
+            break;
+
+        case 'sy_video_header_block':
+            $sy_video_header_block = variable_get('sy_video_header_block_options', array(
+                'sy_video_header_block_url' => '',
+
+            ));
+            $block['subject'] = '';
+            $block['content'] .='<div class="hero_header">';
+          if ($sy_video_header_block['sy_video_youtube_header_block_url']) {
+            $block['content'] .='<div class="youtube-video">'. $sy_video_header_block["sy_video_youtube_header_block_url"] .'</div>';
+          }
+          else if ($sy_video_header_block['sy_video_vimeo_header_block_url']) {
+            $block['content'] .= '<div class="vimeo-video"><video autoplay loop muted><source src="' . $sy_video_header_block["sy_video_vimeo_header_block_url"] . '" type="video/mp4">Your browser does not support the video tag.</video></div>';
+          }
+            $block['content'] .='</div>';
+
+
+            break;
+
+        case 'sy_footer_social_block':
+            $sy_footer_right_block = variable_get('sy_footer_right_block_options', array(
+                'sy_social_1_icon' => '',
+                'sy_social_1_link' => '',
+                'sy_social_2_icon' => '',
+                'sy_social_2_link' => '',
+                'sy_social_3_icon' => '',
+                'sy_social_3_link' => '',
+                'sy_social_4_icon' => '',
+                'sy_social_4_link' => '',
+
+            ));
+
+            $block['content'] = '';
+            $block['content'] .= '<div class="footer-social-icons">';
+            if ($sy_footer_right_block['sy_social_1_link']) {
+                $block['content'] .= '<a href="' . $sy_footer_right_block['sy_social_1_link'] . '"><i class="fa ' . $sy_footer_right_block['sy_social_1_icon'] . ' footer-social-icon fa-3"></i></a>';
+            }
+            if ($sy_footer_right_block['sy_social_2_link']) {
+                $block['content'] .= '<a href="' . $sy_footer_right_block['sy_social_2_link'] . '"><i class="fa ' . $sy_footer_right_block['sy_social_2_icon'] . ' footer-social-icon fa-3"></i></a>';
+            }
+            if ($sy_footer_right_block['sy_social_3_link']) {
+                $block['content'] .= '<a href="' . $sy_footer_right_block['sy_social_3_link'] . '"><i class="fa ' . $sy_footer_right_block['sy_social_3_icon'] . ' footer-social-icon  fa-3"></i></a>';
+            }
+            if ($sy_footer_right_block['sy_social_4_link']) {
+                $block['content'] .= '<a href="' . $sy_footer_right_block['sy_social_4_link'] . '"><i class="fa ' . $sy_footer_right_block['sy_social_4_icon'] . ' footer-social-icon  fa-4"></i></a>';
+            }
+            $block['content'] .= '</div>';
+            break;
+
+        case 'juicer':
+            $juicer = sy_variable_get('juicer', array(
+                'juicer_title' => '',
+                'juicer_feed' => '',
+                'juicer_bg_color' => '#ffffff',
+                'juicer_title_color' => '#000000',
+            ));
+
+            $content = '<div class="juicer-block" style="background: #'. $juicer["juicer_bg_color"] .'">';
+            $content .= '<h3 class="feeds-title pane-title" style="color: #'. $juicer["juicer_title_color"] .'">'.$juicer["juicer_title"].'</h3>';
+            $content .= '<script src="//assets.juicer.io/embed.js" type="text/javascript"></script>';
+            $content .= '<link href="//assets.juicer.io/embed.css" media="all" rel="stylesheet" type="text/css" />';
+            $content .= '<ul class="juicer-feed" data-feed-id="'.$juicer["juicer_feed"].'" data-pages="1" data-per="3"></ul>';
+            $content .= '</div>';
+
+
+            $block['content'] = $content;
+            break;
+
+        case 'sy_highlight_block':
+          $home_top_block = variable_get('sy_highlight_block_options', array(
+            'sy_highlight_block_show' => 0,
+            'sy_highlight_block_text' => '',
+            'sy_highlight_block_link' => 'text 1',
+            'sy_highlight_block_title' => '',
+            'sy_highlight_block_button_text' => '',
+          ));
+
+          $content = "";
+          if ($home_top_block['sy_highlight_block_show'] == 1) {
+            $content .= "<div class='sy_highlight'>";
+            $content .= "<div class='sy_highlight_top_block'>";
+            $content .= "<div class='sy_highlight_block'>";
+            $content .= "<div class='sy_highlight_headline'>" . $home_top_block['sy_highlight_block_title'] . "</div>";
+            $content .= "<div class='sy_highlight_block-text'>" . check_markup($home_top_block['sy_highlight_block_text']['value'], 'full_html') . "</div>";
+            $content .= "<a href='" . $home_top_block['sy_highlight_block_link'] . "' class='sy_highlight_block-button button button-maroon'>" . $home_top_block['sy_highlight_block_button_text'] . "</a>";
+            $content .= "</div>";
+            $content .= "</div>";
+
+          } else {
+            $content .= "<div>";
+          }
+          $content .= "</div>";
+
+          $block['content'] = $content;
+          break;
+
+        case 'left_video_block':
+        $algarve_home_video_block = sy_variable_get('algarve_home_video_block_options', array(
+          'algarve_home_video_block_title' => 'Panel Title',
+          'algarve_home_video_block_title_color' => '#7f7b92',
+          'algarve_home_video_text' => 'Panel text.',
+          'algarve_home_video_bg_color' => '#ffffff',
+          'algarve_home_video_video' => '',
+        ));
+
+        $content = "<div class='left-video-top-block'>";
+        $content .= "<div class='left-video-title'><h2 class='pane-title'>" . $algarve_home_video_block['algarve_home_video_block_title'] . "</h2></div>";
+        $content .= "<div class='grid-x'>";
+        $content .= "<div class='left-video-video small-10 small-offset-1 large-4 cell'>" . check_markup($algarve_home_video_block['algarve_home_video_video'], 'full_html') . "</div>";
+        $content .= "<div class='left-video-text small-10 small-offset-1 large-offset-2 large-4 cell'>" . check_markup($algarve_home_video_block['algarve_home_video_text']['value'], 'full_html') . "</div>";
+        $content .= "</div></div>";
+
+        $block['content'] = $content;
+        break;
+
+        case 'full_image_with_overlay':
+        $full_image_with_overlay = sy_variable_get('full_image_with_overlay_options', array(
+          'full_image_with_overlay_head' => '',
+          'full_image_with_overlay_body' => '',
+          'full_image_with_overlay_image' => '',
+        ));
+
+        $content = "<div class='full_image_with_overlay'>";
+        $content .="<div class='homepage-full-photo grid-x'>";
+        $content .="<img class='small-12' src='".file_create_url(file_load($full_image_with_overlay['full_image_with_overlay_image'])->uri)."'>";
+        $content .="<div class='homepage-full-photo-box small-offset-1 small-10 medium-offset-2 medium-8 large-offset-3 large-6'>";
+        $content .="<h4 class='homepage-full-photo-box-head'>".$full_image_with_overlay['full_image_with_overlay_head']."</h4>";
+        $content .="<div class='homepage-full-photo-box-body'>".check_markup($full_image_with_overlay["full_image_with_overlay_body"]["value"], "full_html")."</div>";
+        $content .="</div></div></div>";
+
+        $block['content'] = $content;
+        break;
+
+
+    }
+
+    return $block;
+}

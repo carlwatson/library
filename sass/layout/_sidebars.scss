@@ -1,0 +1,28 @@
+#sidebar-second,
+#sidebar-first {
+  aside {
+    @include breakpoint(medium) {
+      max-width: 320px;
+      margin: 0 auto;
+    }
+  }
+  .block-menu-block {
+    @include breakpoint(medium) {
+      display: none;
+    }
+  }
+}
+#sidebar-second {
+  .button,
+  .yellow_button {
+    width: 100%;
+    display: inline-block;
+    float: none;
+
+  }
+  @include breakpoint(medium) {
+    margin: 0 auto;
+    float: none;
+    padding-top: 30px;
+  }
+}

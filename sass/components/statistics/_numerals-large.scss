@@ -1,0 +1,17 @@
+.stats-numerals-large {
+  .stat {
+    text-align: center;
+    dl {
+      line-height: 0.9;
+    }
+  }
+  .stat-title {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+  .stat-value {
+    color: $turtle-green;
+    font-size: rem-calc(120px);
+    font-weight: 200;
+  }
+}

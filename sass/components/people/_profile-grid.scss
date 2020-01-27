@@ -1,0 +1,37 @@
+.sy-component---profile-grid {
+  @include global-padding();
+  h2 {
+    font-weight: bold;
+    padding-bottom: .5em;
+  }
+  .small-profile-card {
+    .avatar {
+      height: rem-calc(55px);
+      width: rem-calc(55px);
+      display: inline-block;
+      margin-right: 1.3em;
+      img {
+        border-radius: 50%;
+      }
+    }
+    .name, .title {
+      display: inline-block;
+      margin-bottom: 0;
+    }
+    .name {
+      font-size: .875em;
+      text-transform: uppercase;
+      letter-spacing: 1.5;
+      padding-top: .5em;
+      margin-bottom: -.2em;
+    }
+    .title {
+      font-weight: bold;
+      color: $light-grey;
+    }
+    .body {
+      margin-top: 1em;
+      color: $grey;
+    }
+  }
+}

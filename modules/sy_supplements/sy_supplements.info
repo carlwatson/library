@@ -1,0 +1,11 @@
+name = SY Supplements
+description = Custom Schoolyard module. Adds several custom blocks that are not in core
+core = 7.x
+package = media
+version = 1.0
+
+scripts[] = sy_supplements.js
+stylesheets[all][] = sy_supplements.css
+
+dependencies[] = drupal:color
+dependencies[] = other:jquery_colorpicker

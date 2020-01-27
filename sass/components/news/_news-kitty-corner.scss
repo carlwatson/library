@@ -1,0 +1,10 @@
+.sy-component--news-kitty-corner {
+  @include global-padding();
+  .left-right-padding {
+    padding-left: 50px;
+    padding-right: 35px;
+  }
+  h5 {
+    margin-top: 1rem;
+  }
+}

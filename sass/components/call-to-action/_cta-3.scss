@@ -1,0 +1,24 @@
+.sy-component--cta-3 {
+  @include global-padding();
+  h2 {
+    font-size: 2.5rem;
+    margin: 1rem 0;
+  }
+  .cta-button-hollow {
+    @include button(false, white, auto, auto, hollow);
+    border-radius: 100px;
+    padding: 1rem 3.3rem;
+    font-weight: bold;
+    &:hover {
+      border-color: lighten($evergreen, 71%);
+      color: lighten($evergreen, 71%);
+    }
+  }
+  @media screen and (max-width: 480px) {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    h2 {
+      font-size: 2.1875rem;
+    }
+  }
+}

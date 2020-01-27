@@ -1,0 +1,95 @@
+.page-news {
+  .view-news-views {
+    .views-row {
+      margin-bottom: 30px;
+      .views-field-insert-image {
+        .field-content {
+          float: left;
+          padding-right: 13px;
+        }
+      }
+      .views-field-title {
+        font-size: 1.5em;
+      }
+      .views-field-date-posted {
+        font-size: 0.9em;
+        color: $dark-grey;
+      }
+      .views-field-tagging {
+        margin-top: 10px;
+        .views-label-tagging {
+          float: left;
+          padding-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+&.page-blog {
+  .view-blogs {
+    .views-row {
+      margin-bottom: 20px;
+    }
+    .views-field-title a {
+      font-size: 1.5em;
+      color: $secondary-color;
+      font-family: $PRIM-FONT-B;
+    }
+    .views-field-date-posted {
+      font-size: 0.9em;
+      color: $dark-grey;
+      display: block;
+      .field-label {
+        float: left;
+      }
+    }
+    .field-name-insert-image {
+      float: left;
+    }
+  }
+}
+&.node-type-blog {
+  header .second-top-bar {
+    min-height: 120px;
+  }
+  .field-name-by-line {
+    font-size: 0.9em;
+    color: $dark-grey;
+  }
+}
+
+.page-blog,
+.page-news {
+  .feed-icon {
+    display: none;
+  }
+}
+
+&.node-type-group-post,
+&.node-type-blog,
+&.node-type-news {
+  .field-name-og-group-ref,
+  .field-name-by-line,
+  .field-name-date-posted {
+    font-size: 0.9em;
+    color: $dark-grey;
+    display: block;
+    .field-label {
+      float: left;
+    }
+  }
+  .field-name-by-line {
+    .field-label {
+      display: none;
+    }
+    .field-item:before {
+      content: "By: ";
+    }
+  }
+  #block-system-main {
+    .node-news .links.inline {
+      display: none;
+    }
+  }
+}

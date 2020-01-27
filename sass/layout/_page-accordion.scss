@@ -1,0 +1,42 @@
+.node-type-accordion {
+  .ui-widget {
+    font-family: $PRIM-FONT;
+  }
+  tbody {
+    border: none;
+    background-color: transparent;
+  }
+  .ui-accordion .views-field-accordion-content-body {
+    font-size: 0.9em;
+    color: $black;
+    line-height: 1.3em;
+  }
+}
+.ui-accordion-header {
+  background: $medium-gray;
+  &.ui-accordion-header-active {
+    background: $dark-grey;
+  }
+  &.ui-state-hover {
+    opacity: 0.9;
+  }
+}
+.view-accordion.view-id-accordion {
+  .views-row {
+    .views-accordion-header {
+      background: $primary-color;
+      .field-name-accordion-content-title {
+        color: $white;
+      }
+      &.ui-state-active .ui-icon,
+      &.ui-state-default .ui-icon {
+        display: none;
+      }
+    }
+    .ui-state-active,
+    .ui-widget-content .ui-state-active,
+    .ui-widget-header .ui-state-active {
+      background: $primary-color;
+    }
+  }
+}

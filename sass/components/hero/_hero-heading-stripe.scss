@@ -1,0 +1,23 @@
+.sy-component--hero-heading-stripe {
+  height: 48.6111111vw;
+  min-height: 76.40625vh;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .hero-middle-overlay {
+    height: 100%;
+    .trans-grey-stripe {
+      background-color: rgba(51,51,51,0.5);
+      width: 100%;
+      padding: 1.5rem 0 1rem 0;
+      .heading {
+        font-size: 4vw;
+        color: white;
+        font-weight: bold;
+        @include breakpoint(small only) {
+          font-size: 9vw;
+        }
+      }
+    }
+  }
+}

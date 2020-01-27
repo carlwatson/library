@@ -1,0 +1,51 @@
+
+//Colors
+$primary-color: #1a5773;
+$primary-dark: darken($primary-color, 10%);
+$primary-light: lighten($primary-color, 20%);
+$secondary-color: #a64191;
+$secondary-dark: darken($secondary-color, 10%);
+$secondary-light: lighten($secondary-color, 20%);
+$tertiary-color: #4688be;
+$tertiary-dark: darken($tertiary-color, 10%);
+$tertiary-light: lighten($tertiary-color, 20%);
+$black: #383838;
+$white: #fff;
+$success-color: $secondary-color;
+$warning-color: orange;
+$alert-color: red;
+$dark-grey: lighten($black, 20%);
+$medium-grey: lighten($black, 50%);
+$light-grey: darken($white, 20%);
+
+.component-color-1 { color: $primary-color;}
+.component-color-1-bg { background-color: $primary-color; }
+.component-color-2 { color: $secondary-dark;}
+.component-color-2-bg { background-color: $secondary-dark; }
+.component-color-3 { color: $secondary-color; }
+.component-color-3-bg { background-color: $secondary-color; }
+.component-color-4 { color: $primary-dark; }
+.component-color-4-bg { background-color: $primary-dark; }
+.component-color-5 { color: $dark-grey; }
+.component-color-5-bg { background-color: $dark-grey; }
+.component-color-6 { color: $medium-gray; }
+.component-color-6-bg { background-color: $medium-gray; }
+
+$turtle-green: $primary-color;
+$squash: $secondary-dark;
+$lime-yellow: $secondary-color;
+$evergreen: $secondary-color;
+$light-light-grey: $light-grey;
+
+$square: 30px;
+
+//Fonts
+$PRIM-FONT: 'AvenirNextLTW01-Regular', sans-serif;
+$PRIM-FONT-B: 'Avenir Next LT W01 Bold', sans-serif;
+$PRIM-FONT-BI: 'AvenirNextLTW01-BoldIta', sans-serif;
+$PRIM-FONT-I: 'AvenirNextLTW01-Italic', sans-serif;
+$PRIM-FONT-L: 'Avenir Next LT W01 Demi', sans-serif;
+
+$SEC-FONT: 'Garamond Classico W01 Regular', sans-serif;
+$SEC-FONT-B: 'Open Sans', sans-serif;
+$SEC-FONT-I: 'Open Sans', sans-serif;

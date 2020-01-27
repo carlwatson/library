@@ -1,0 +1,10 @@
+.sy-component--text-4 {
+  @include global-padding();
+  a {
+    color: $turtle-green;
+    font-size: 14px;
+  }
+  h5 {
+    margin-top: 0rem;
+  }
+}

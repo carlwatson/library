@@ -1,0 +1,104 @@
+ul {
+  list-style: none;
+}
+// Buttons which should be used in conjunction Foundation button classes
+[class*='sy-component--'] .button {
+  padding: 1rem 5rem;
+
+  // Shapes
+  &.square {
+  }
+  &.rounded {
+    border-radius: 4px;
+  }
+  &.pill {
+    border-radius: 2rem;
+  }
+
+  // Colors and hover states
+  &.component-color-1 {
+    color: $turtle-green;
+    &:hover {
+      color: darken($turtle-green, 9%);
+    }
+  }
+  &.component-color-1-bg {
+    background-color: $turtle-green;
+    &:hover {
+      background-color: darken($turtle-green, 9%);
+    }
+  }
+  &.component-color-2 {
+    color: $squash;
+    &:hover {
+      color: darken($squash, 9%);
+    }
+  }
+  &.component-color-2-bg {
+    background-color: $squash;
+    &:hover {
+      background-color: darken($squash, 9%);
+    }
+  }
+  &.component-color-3 {
+    color: $lime-yellow;
+    &:hover {
+      color: darken($lime-yellow, 9%);
+    }
+  }
+  &.component-color-3-bg {
+    background-color: $lime-yellow;
+    &:hover {
+      background-color: darken($lime-yellow, 9%);
+    }
+  }
+  &.component-color-4 {
+    color: $evergreen;
+    &:hover {
+      color: darken($evergreen, 9%);
+    }
+  }
+  &.component-color-4-bg {
+    background-color: $evergreen;
+    &:hover {
+      background-color: darken($evergreen, 9%);
+    }
+  }
+  &.component-color-5 {
+    color: $grey;
+    &:hover {
+      color: darken($grey, 9%);
+    }
+  }
+  &.component-color-5-bg {
+    background-color: $grey;
+    &:hover {
+      background-color: darken($grey, 9%);
+    }
+  }
+
+  // Utilities
+  &.light-button {
+    color: $black;
+  }
+  &.dark-button {
+    color: white;
+  }
+  &.clear-button {
+    background-color: transparent;
+    border-width: 2px;
+    border-color: inherit;
+    border-style: solid;
+    &.on-color:hover {
+      background-color: rgba(0,0,0,0.2);
+    }
+  }
+}
+
+@mixin global-padding() {
+  padding: 3rem 1rem;
+  @include breakpoint(medium) {
+    padding: 4.2rem 1rem;
+  }
+
+}

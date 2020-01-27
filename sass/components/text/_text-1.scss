@@ -1,0 +1,18 @@
+.sy-component--text-1 {
+  text-align: center;
+  @include global-padding();
+  .title {
+    font-size: 40px;
+  }
+  .subtitle {
+    width: 390px;
+    margin: auto;
+    padding-bottom: 24px;
+    text-align: center;
+  }
+  p {
+    line-height:26px;
+    text-align: left;
+    padding-bottom: 40px;
+  }
+}

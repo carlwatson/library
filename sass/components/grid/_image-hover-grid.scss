@@ -1,0 +1,54 @@
+.sy-component--image-hover-grid {
+  @include global-padding();
+}
+.four-image-rect {
+  .hover-image {
+    height: 0;
+    padding-top: calc(185 / 278 * 100%); // 185:278 aspect ratio
+    overflow: hidden;
+  }
+}
+.four-image-square {
+  .hover-image {
+    height: 0;
+    padding-top: 100%; // square
+    overflow: hidden;
+  }
+}
+.three-image-rect {
+  .hover-image {
+    height: 0;
+    padding-top: calc(247 / 372 * 100%); // 247:372 aspect ratio
+    overflow: hidden;
+  }
+}
+.hover-image {
+  font-size: rem-calc(19.2px);
+  font-weight: bold;
+  line-height: 1.35;
+  letter-spacing: -0.1px;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  figcaption {
+    position: absolute;
+    top: 45%;
+    text-align: center;
+    width: 100%;
+  }
+  .image-fill {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: opacity 0.5s;
+    &:hover {
+      opacity: 0;
+    }
+  }
+}

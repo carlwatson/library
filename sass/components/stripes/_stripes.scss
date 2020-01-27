@@ -1,0 +1,121 @@
+.sy-component--stripe {
+  text-align: center;
+  padding: rem-calc(33px) rem-calc(50px) rem-calc(46px);
+  .point-line {
+    margin-bottom: rem-calc(18px);
+    em {
+      font-size: rem-calc(22px);
+      font-weight: bold;
+      line-height: 1.41;
+      letter-spacing: -0.3px;
+    }
+  }
+  h2 {
+    font-size: rem-calc(56px);
+    font-weight: bold;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: rem-calc(38px);
+  }
+  em {
+    font-style: normal;
+    font-size: rem-calc(35px);
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+  }
+  &.dark-bg, .dark-bg {
+    color: white;
+  }
+  &.light-bg {
+    color: $black;
+  }
+}
+.simple-text-2, .simple-text-3 {
+  background-color: #fafafa;
+}
+.circle-over-blurb {
+  img {
+    border-radius: 50%;
+    height: rem-calc(260px);
+    width: rem-calc(260px);
+    margin-bottom: rem-calc(43px);
+  }
+  p {
+    max-width: 49%;
+    margin: auto;
+    line-height: 1.72;
+    font-size: rem-calc(18px);
+  }
+}
+.blockquote {
+  blockquote{
+    border-left: 0;
+    width: 74.4%;
+    margin: 0 auto rem-calc(30px);
+    font-size: rem-calc(22px);
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.77;
+  }
+  .citation {
+    font-weight: bold;
+    color: $black;
+    line-height: 1.63;
+    letter-spacing: -0.1px;
+    position: relative;
+    z-index: 2;
+  }
+  .credentials {
+    color: $black;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+  }
+  .fa-quote-right {
+    color: $turtle-green;
+    opacity: 0.2;
+    font-size: 6rem;
+    position: relative;
+    &:before {
+      position: absolute;
+      top: rem-calc(-68px);
+      left: rem-calc(-44px);
+    }
+  }
+}
+.split-screen {
+  padding:0;
+  > div {
+    @include breakpoint(medium) {
+      max-width: 50%;
+    }
+    padding: rem-calc(96px) 1rem;
+  }
+  .point-line {
+    font-size: rem-calc(14px);
+    font-weight: normal;
+    line-height: 1.57;
+    letter-spacing: 1.5px;
+    margin-bottom: rem-calc(48px);
+    text-transform: uppercase;
+  }
+
+  h3 {
+    font-size: rem-calc(27px);
+    line-height: 1.44;
+    letter-spacing: -0.4px;
+    margin-bottom: rem-calc(50px);
+  }
+
+  p {
+    font-size: rem-calc(22px);
+    line-height: 1.77;
+    max-width: rem-calc(300px);
+    margin: 0 auto rem-calc(38px);
+    color: $grey;
+    @at-root .dark-bg p{
+      color: white;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+/* special wysiwyg styles for the sidebars in css injector */
+.button{
+  border-radius:12px;
+}
+.primary-background, .secondary-background {
+  padding: 14px 25px;
+  margin-bottom: 8px;
+  text-align:center;
+  font-size:1.294em;
+  width:150px;
+  transition:background-color 0.2s ease;
+
+}
+.primary-background:hover, .secondary-background:hover{
+  opacity: 0.9;
+}
+
+/* table ones, no margins and more */
+table .primary-background, table .secondary-background{
+  margin-bottom: -2px;
+}
+
+.primary-background img, .secondary-background img{
+  margin: -3px -7px;
+  max-width: 240px;
+  height: auto;
+}
+.primary-background,
+.secondary-background {
+  border-radius:12px;
+  cursor:pointer;
+  color: #001e60;
+}
+body .primary-background a, body .secondary-background a {
+  color: #001e60;
+  text-decoration: none !important;
+}
+.primary-background {
+  background-color: #a6bbc8;
+}
+
+.secondary-background {
+  background-color: #f3d03e;
+}

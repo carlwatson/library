@@ -1,0 +1,138 @@
+/* CKEDITOR  */
+.sidebar_dark_gray_background {
+  background: $dark-grey;
+  padding: 20px 5%;
+  width: 100%;
+  display: block;
+  clear: both;
+  color: $white;
+  margin-bottom: 15px;
+}
+
+table .sidebar_dark_gray_background {
+  margin-bottom: 0;
+}
+
+h1.sidebar_dark_gray_background,
+.sidebar_dark_gray_background h1 {
+  color: $white;
+  margin: 0;
+  padding-top: 0;
+}
+
+.sidebar_primary_background {
+  background: $primary-color;
+  padding: 20px 5%;
+  width: 100%;
+  display: block;
+  color: $white;
+  margin-bottom: 15px;
+  clear: both;
+  h3 {
+    color: $white;
+  }
+}
+
+table .sidebar_primary_background {
+  margin-bottom: 0;
+}
+
+h1.sidebar_primary_background,
+.sidebar_primary_background h1 {
+  color: $white;
+  margin: 0;
+  padding-top: 0;
+}
+
+.sidebar_gray_background {
+  background: $medium-gray;
+  padding: 20px 5%;
+  width: 100%;
+  display: block;
+  color: $dark-grey;
+  margin-bottom: 15px;
+  clear: both;
+}
+
+table .sidebar_gray_background {
+  margin-bottom: 0;
+}
+
+h1.sidebar_gray_background,
+.sidebar_gray_background h1 {
+  color: #E9E9E9;
+  margin: 0;
+  padding-top: 0;
+}
+
+html blockquote,
+blockquote.blockquote {
+  border-left: 10px solid $tertiary-color;
+  color: $primary-color;
+  font-size: 22px;
+  line-height: 30px;
+  margin-left: 0;
+  padding-left: 20px;
+  font-family: $PRIM-FONT-I;
+}
+
+.button {
+  display: inline-block;
+}
+
+html {
+  blockquote p {
+    color: $primary-color;
+  }
+
+  p.secondary_button,
+  p.button {
+    font-size: 1.294em;
+    border-radius: 3px;
+    letter-spacing: 2px;
+    width: auto;
+    text-align: center;
+    padding: 13px 25px 10px;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+    line-height: 1em;
+    clear: both;
+    margin: 10px auto;
+  }
+
+  .button {
+    background-color: $primary-color;
+    color: $white;
+    a {
+      color: $white;
+      &:hover {
+        color: $white;
+      }
+    }
+    &:hover {
+      background-color: $secondary-dark;
+    }
+  }
+
+  .secondary_button {
+    background-color: $secondary-color;
+    color: $white;
+    a {
+      color: $white;
+      &:hover {
+        color: $white;
+      }
+    }
+    &:hover {
+      background-color: $secondary-dark;
+    }
+  }
+
+  #sidebar-second,
+  #sidebar-first {
+    .secondary_button,
+    .button {
+      width: 100%;
+    }
+  }
+}

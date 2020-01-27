@@ -1,0 +1,19 @@
+.dark-bold-text{
+  color: $black;
+  font-weight: bold;
+}
+.light-gray-background{
+  background-color: $light-light-grey;
+}
+.small-caps-heading {
+  font-size: .875em;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.serif-heading {
+  font-family: $serif-font;
+  font-size: 1.6875em;
+}
+.circle-img {
+  border-radius: 50%;
+}

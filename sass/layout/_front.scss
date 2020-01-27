@@ -1,0 +1,487 @@
+.front {
+  .section-block {
+    clear: both;
+  }
+  .md-item-wrap {
+    border-bottom: 10px solid $secondary-dark;
+  }
+  .az-element {
+    overflow: hidden;
+  }
+  .container {
+    padding: 0;
+  }
+  ul.breadcrumbs,
+  h1.title {
+    display: none;
+  }
+  h2.pane-title {
+    color: $primary-color;
+    padding-left: 70px;
+    font-size: 2.0em;
+    font-weight: bold;
+    font-family: $PRIM-FONT;
+    letter-spacing: -1px;
+    text-transform: capitalize;
+    .see-all {
+      color: $secondary-color;
+      font-size: 0.5em;
+      padding-left: 16px;
+      .arrow-all {
+        background-color: $secondary-color;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        position: relative;
+        line-height: 15px;
+        top: -2px;
+        text-align: center;
+        .arrow {
+          color: $white;
+          font-size: 0.7em;
+        }
+      }
+    }
+  }
+  // Header slider area
+  .header-image-block {
+    .header-image-overlay-logo {
+      position: relative;
+      width: 360px;
+      @include breakpoint(small) {
+        width: 100%;
+      }
+      img {
+        position: absolute;
+        top: 55px;
+        width: 100%;
+        height: auto;
+        left: 114px;
+        z-index: 3;
+        @include breakpoint(large) {
+          width: 50%; 
+        }  
+        @include breakpoint(small) {
+          max-width: 170px;
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          width: 50%;
+          top: 60px;
+        }
+        @include breakpoint(xsmall) {
+          top: 20px;
+          max-width: 150px;
+        }
+      }
+    }
+    .md-slide-wrap {
+      top: 0;
+      z-index: 2;
+    }
+  }
+  .md-slide-wrap {
+    .md-object {
+      font-family: $PRIM-FONT;
+    }
+  }
+  // Front page block with left side video
+  .left-video-block {
+    padding-top: 5px;
+    padding-bottom: 25px;
+    h2 {
+      @include fronth2;
+      margin-bottom: 0.83em;
+      margin-top: 0.83em;
+    }
+    .left-video-video {
+      width: 50%;
+      padding-left: 5%;
+      margin-left: 0;
+      float: left;
+      @include breakpoint(xmedium) {
+        width: 95%;
+      }
+      .video-filter {
+        position: relative;
+        iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+        }
+      }
+    }
+    .left-video-text {
+      width: 45%;
+      padding-left: 5%;
+      margin-left: 0;
+      font-size: 20px;
+      float: left;
+      line-height: 1.518em;
+      @include breakpoint(xmedium) {
+        width: 95%;
+      }
+      p {
+        font-size: 19px; 
+        margin: 0;
+      }
+      .button {
+        margin: 25px auto 0;
+        display: inherit;
+        width: 150px;
+        padding: 13px 26px;
+        line-height: 1.5em;
+        box-sizing: content-box;
+      }
+    }
+  }
+  
+  // Image gallery grid 
+  .front-grid-block {
+    background-color: $dark-grey;
+    margin-top: 15px;
+    padding-top: 30px;
+    padding-bottom: 85px; 
+    h2 {
+      @include fronth2;
+      margin-bottom: 0;
+    }
+    .view-front-grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      .view-content {
+        max-width: 1125px;
+        margin: 0 auto;
+        @include breakpoint(xmedium) {
+          margin: 0 auto;
+          max-width: 100%;
+        }
+        @include breakpoint(small) { 
+          max-width: 350px;
+        }
+        .views-row {
+          padding: 30px;
+          width: 33.3333333333%;
+          max-width: 100%;
+          @include breakpoint(xmedium) {
+            width: 50%;
+            box-sizing: border-box;
+            padding: 15px 15px;
+          } 
+          @include breakpoint(small) {
+            margin: 0 auto;
+            float: none;
+            width: auto;
+          }
+          .img-main {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 375px;
+            max-height: 246px;
+            overflow: hidden;
+            background: black;
+            z-index: 88; 
+            @include breakpoint(xmedium) {
+              img {
+                width: 100%;
+              }
+            }   
+          }
+          .img-over {
+            display: block !important;
+            opacity: 1 !important;
+            background: rgba(0, 0, 0, 0);
+            width: 100%;
+            height: auto;
+            max-width: 346px;
+            max-height: 246px;
+            top: -130px;
+            z-index: 99;
+            margin: 0 auto;
+            position: relative;
+            
+            @include breakpoint(xmedium) {
+              top: -150px;
+            }
+            @include breakpoint(small) { 
+              top: -124px;
+            }
+          }
+          .img-title {
+            position: absolute;
+            padding: 0 20px;
+            width: 100%;
+            a {
+              text-transform: uppercase;
+              background-color: rgba(0, 0, 0, 0.4);
+              border: 2px solid $white;
+              padding: 5px 10px;
+              text-align: center;
+              color: $white;
+              text-decoration: none;
+              font-weight: bold;
+              display: block;
+              z-index: 99;
+            }
+          }    
+        }
+      }
+      .view-display-id-attachment_1 {
+        .view-content {
+          .views-row {
+            padding: 0;
+            width: 100%;
+          }
+        }
+      }
+    } 
+  }
+  
+  // Latest news block
+  .view-news-views {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    padding-left: 0;
+    height: auto;
+    h2.pane-title {
+      @include breakpoint(small) {
+        padding-left: 34px;
+        font-size: 1.6em;
+        margin-top: 0.83em;
+        margin-bottom: 0.83em;
+      }
+    }
+
+    // jCarousel styles
+    .jcarousel-skin-default {
+      position: relative;
+      // the carousel as a whole
+      .jcarousel-container-horizontal {
+        padding: 20px;
+        height: auto;
+      }
+      // spacing between items
+      .jcarousel-item-horizontal {
+        margin: 0 15px;
+      }
+      // each item in the list
+      .jcarousel-item {
+        width: 360px;
+        height: auto;
+        border: none;
+        background: transparent;
+        text-align: left;
+        padding-right: 20px;
+        min-height: 184px;
+        @media (max-width: 480px) {
+          width: 280px;
+        }
+        .field-name-insert-image {
+          overflow: hidden;
+          float: left;
+          margin-right: 0.5em;
+          @media (max-width: 480px) {
+            height: 156px;
+          }
+          img {
+            width: 100%;
+            height: auto;
+          }
+        }
+        .views-field-title {
+          a:link, a:visited {
+            text-decoration: none;
+            color: $black;
+            font-size: 1em;
+            line-height: 1.618em;
+          }
+        }
+        .views-field-body {
+          font-size: 0.8em;
+          line-height: 1.618em;
+          img {
+            max-width: 100px;
+            height: auto;
+            padding-right: 10px;
+            padding-bottom: 4px;
+            float: left !important;
+          }
+          a:link, a:visited {
+            text-decoration: none;
+          }
+        }
+      }
+      .jcarousel-next {
+        @include arrowJcarouselNext();
+      }
+      .jcarousel-prev {
+        @include arrowJcarouselPrev();
+      }
+    }
+  }
+
+  // Latest events slider
+  .view-calendar {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    padding-left: 10px;
+    min-height: 285px;
+      // jCarousel styles
+      .jcarousel-skin-default {
+        // the carousel as a whole
+        .jcarousel-container-horizontal {
+          padding: 0;
+        }
+        // spacing between items
+        .jcarousel-item-horizontal {
+          margin: 0 15px;
+        }
+        // each item in the list
+        .jcarousel-item {
+          width: 185px;
+          height: 170px;
+          border: none;
+          background: transparent;
+          padding-right: 20px;
+          // the month and day together
+          .views-field-event-date-2 {
+            width: 75px;
+            text-align: center;
+            margin: 0 auto;
+            padding-bottom: 10px;
+            .field-content {
+              color: $white;
+              background-color: $secondary-color;
+              border-radius: 50%;
+              width: 75px;
+              height: 75px;
+              line-height: 1.4;
+            }
+          }
+          // the month
+          .upcoming-event-month {
+            font-size: 1.1em;
+            color: $white;
+            position: relative;
+            top: 6px;
+          }
+          // the day number
+          .upcoming-event-day {
+            font-size: 2.3em;
+            position: relative;
+            top: 2px;
+            color: $white;
+            line-height: 1.4em;
+          }
+          // the title of the event
+          .views-field-title {
+            a:link, a:visited {
+              text-decoration: none;
+              font-size: 1.1em;
+              color: $primary-color;
+            }
+          }
+          // the location
+          .field--name-event-location {
+            font-size: 0.9em;
+            color: $black;
+            margin-bottom: 0;
+          }
+          // description
+          .field--name-body {
+            font-size: 0.9em;
+          }
+        }
+        .jcarousel-next {
+          @include arrowJcarouselNext();
+          top: 60px;
+        }
+        .jcarousel-prev {
+          @include arrowJcarouselPrev();
+          top: 60px;
+        }
+      }
+  }
+
+  // Stats Section
+  .homepage-stats-1 {
+    .statistics.grid-x {
+      padding: 50px 25%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      @include breakpoint(medium) {
+        padding: 50px 0;
+      }
+    }
+    .stat-module-block-title {
+      text-align: center;
+      color: $white;
+      text-transform: uppercase;
+      margin-bottom: 50px;
+    }
+    .stat-module-block-item {
+      height: 160px;
+      width: 160px;
+      margin: 0 auto;
+      text-align: center;
+      border-radius: 50%;
+      border: 6px solid $secondary-color;
+      background-color: rgba(97,33,71, .7);
+      .stat,
+      .title {
+        color: $white;
+      }
+      .title {
+        margin-top: -7px;
+      }
+      .stat {
+        padding-top: 12px;
+      }
+    }
+  }
+
+  //icon block section
+  .sy4-panel-3 {
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    .grid-x:not(.icon-callout) {
+      width: 100%;
+    }
+    .icon-callout {
+      position: relative;
+      background-color: transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 10px solid transparent;
+      text-align: center;
+      &.icon-callout-1 {
+        border-left: 10px solid transparent;
+      }
+      &:before {
+        display: none;
+      }
+      .icon-callout-link {
+        margin: 0 auto;
+      }
+    }
+
+    .icon-title {
+      font-size: 1.5em;
+      display: inline-block;
+      position: relative;
+      top: -20px;
+    }
+
+    .icon-icon {
+      font-size: 4em;
+      display: inline-block;
+      .icon {
+        color: $white;
+      }
+    }
+  }
+}

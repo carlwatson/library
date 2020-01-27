@@ -1,0 +1,24 @@
+.stats-numerals-small {
+  .stat {
+    padding: 0 2rem;
+    text-align: center;
+    dl {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .stat-title {
+    color: $grey;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.63;
+    margin-bottom: 0;
+    order: 1; // display on bottom
+  }
+  .stat-value {
+    color: $turtle-green;
+    line-height: 1.63;
+    font-size: rem-calc(27px);
+    margin-bottom: rem-calc(8px);
+  }
+}

@@ -1,0 +1,7 @@
+name = Floating Slider Menu
+description = Custom Schoolyard module. A Floating Slider Menu that expands when hovered upon.
+core = 7.x
+package = media
+version = 1.0
+
+stylesheets[all][] = floating_slider.css

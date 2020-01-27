@@ -1,0 +1,444 @@
+.page-my-portal {
+  #sidebar-second,
+  #sidebar-first {
+    display: none;
+  }
+  #content {
+    width: 100%;
+    #block-system-main {
+      max-width: 100%;
+    }
+  }
+  #main {
+    #block-system-main {
+      text-align: left;
+    }
+  }
+  #block-system-main {
+    max-width: 76.4624%;
+    margin: 0 auto;
+    @include breakpoint(small) {
+      max-width: 100%;
+    }
+  }
+  header {
+    .top-bar .logo-row {
+      top: 20px;
+      @include breakpoint(medium) {
+        top: 0;
+      }
+    }
+    .second-top-bar {
+      top: 0;
+    }
+  }
+  .pane-page-title h2.pane-title {
+    padding-bottom: 5px;
+    padding-left: 21px;
+    margin: 0;
+  }
+  #homebox-add {
+    display: block;
+    .item-list ul li {
+      display: none;
+      &.last {
+        display: block;
+      }
+    }
+  }
+  #homebox {
+    clear: none;
+    .homebox-column-wrapper-2 .form-type-select {
+      @include breakpoint(large) {
+        position: absolute;
+        top: 1.5em;
+        left: 14em;
+        z-index: 9;
+      }
+      @include breakpoint(small) {
+        position: relative;
+        top: 0;
+        left: 0;
+      }
+    }
+    .homebox-portlet {
+      margin-bottom: 15px;
+      padding-left: 0;
+      padding-right: 0;
+      .homebox-portlet-inner {
+        padding: 10px;
+        border: none;
+        .field--type-taxonomy-term-reference {
+          font-size: 13px;
+        }
+      }
+      td {
+        display: block;
+      }
+      .view-content > div {
+        @include breakpoint(xsmall) {
+          width: 100%;
+        }
+      }
+    }
+    .view-content > div {
+      margin-bottom: 10px;
+    }
+    #homebox-add, #homebox-buttons {
+      padding-left: 7px;
+    }
+    h2#button-info {
+      font-size: 14px;
+      color: $black;
+    }
+    .pager {
+      position: initial;
+      text-align: left;
+      .pager__item {
+        padding: 0;
+        text-transform: capitalize;
+      }
+    }
+  }
+  #homebox-icons {
+    position: relative;
+    h2 {
+      font-size: 1.7rem;
+    }
+    h3 {
+      position: relative;
+      max-height: 80px;
+      border-top: 1px solid $medium-gray;
+      margin: 0;
+      padding-bottom: 2.5vw;
+      text-align: center;
+      @include breakpoint(xsmall) {
+        width: 2%;
+        padding: 4px 6px;
+      }
+      span {
+        color: $primary-color;
+      }
+    }
+  }
+  #homebox-add a.restore {
+    margin: 0;
+    padding-left: 21px;
+  }
+  #homebox-block-schoolyard_data_providers_my_connections {
+    input[type="submit"] {
+      border: none;
+      min-width: 240px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    h2 {
+      margin: 10px;
+    }
+  }
+  #homebox-block-views_my_portal_content-group_updates {
+    .view-content ul {
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+  }
+  .homebox-column-wrapper-large {
+    #homebox-block-schoolyard_groups_groups-161,
+    #homebox-block-schoolyard_groups_groups-160 {
+      .form-type-select {
+        position: absolute;
+        top: -3.1em;
+        left: 26em;
+        z-index: 9;
+      }
+    }
+  }
+  .homebox-column-wrapper-medium,
+  .homebox-column-wrapper-small {
+    #homebox-block-schoolyard_data_providers_my_connections {
+      input[type="submit"] {
+        min-width: 0;
+        font-size: 12px;
+        width: 100%;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      h2 {
+        margin: 10px;
+      }
+    }
+  }
+  .date-display-single {
+    font-style: italic;
+    font-size: 14px;
+  }
+  h4.section-title {
+    margin: 0;
+  }
+  .view-content {
+    display: flex;
+    flex-wrap: wrap;
+    div {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+  }
+  .right-sidebar {
+    visibility: hidden;
+  }
+  #homebox-buttons {
+    display: none;
+  }
+  #homebox {
+    .homebox-portlet {
+      background: $white;
+    }
+    &.homebox-my_portal {
+      .portlet-header .portlet-title {
+        font-size: 1.5em;
+      }
+      .homebox-column {
+        padding: 7px;
+      }
+    }
+  }
+  .homebox-my_portal {
+    .homebox-processed {
+      position: relative;
+    }
+    select {
+      height: 2.1rem;
+      padding: 3px 0.5rem;
+    }
+    .homebox-column-wrapper-2 .form-type-select {
+      position: absolute;
+      top: 1.5em;
+      left: 14em;
+      z-index: 9;
+    }
+    .homebox-column-wrapper-1 {
+      width: 20%;
+      .button {
+        width: 100%;
+      }
+
+      #homebox-block-views_my_portal_content-block_2 {
+        .view-my-portal-content {
+          .view-content > div {
+            padding-bottom: 10px;
+            .field-name-event-date {
+              span {
+                color: $dark-grey;
+                font-size: 14px;
+                font-style: italic;
+              }
+            }
+          }
+        }
+      }
+    }
+    .homebox-column-wrapper-2 {
+      > div {
+        height: auto !important;
+      }
+      width: 60%;
+      #homebox-block-views_my_portal_content-galleries,
+      #homebox-block-views_my_portal_content-school_news {
+        .view-my-portal-content {
+          .view-content > div {
+            width: 25%;
+            padding: 2%;
+            box-sizing: border-box;
+            @include breakpoint(medium) {
+              width: 33.33%;
+            }
+            @include breakpoint(small) {
+              width: 50%;
+            }
+            @include breakpoint(xsmall) {
+              width: 100%;
+            }
+          }
+        }
+      }
+      img {
+        width: 100%;
+      }
+    }
+    #homebox-block-views_my_portal_content-blogs {
+      .field-type-taxonomy-term-reference .field-item {
+        font-size: 13px;
+      }
+    }
+
+    .homebox-column-wrapper-3 {
+      width: 20%;
+      .button {
+        width: 100%;
+      }
+      #homebox-block-views_my_portal_content-blogs {
+        .view-my-portal-content {
+          .view-content > div {
+            padding-bottom: 10px;
+            width: 100%;
+
+          }
+        }
+      }
+    }
+    .view-id-my_portal_content {
+      .views-exposed-form {
+        background: none;
+        padding: 0;
+        margin: 0;
+      }
+      &.view-display-id-block_2 {
+        .view-content {
+          clear: both;
+          display: block;
+        }
+      }
+
+      .view-display-id-athletic_teams {
+        .item-list ul li {
+          margin-left: 0;
+          .views-field-title {
+            .field-content span {
+              display: block;
+            }
+          }
+        }
+      }
+      .view-display-id-school_news {
+        .field-type-taxonomy-term-reference {
+          font-size: 13px;
+        }
+        .field-type-taxonomy-term-reference ~ div {
+          margin-bottom: 10px;
+        }
+        .field-name-news-type .field-item {
+          font-size: 13px;
+        }
+      }
+      .view-display-id-my_groups {
+        .item-list ul li {
+          margin-left: 0;
+        }
+      }
+      .view-display-id-blogs {
+        .form-type-select {
+          left: 9em;
+        }
+      }
+      #schoolyard-portal-athletics-block-form {
+        .form-type-select {
+          top: 0.5em;
+          left: 12em;
+        }
+      }
+      #edit-og-group-ref-target-id-entityreference-filter-wrapper {
+        .form-type-select {
+          left: 16em;
+          @include breakpoint(small) {
+            left: 0;
+          }
+        }
+        .item-list ul li {
+          margin-left: 0;
+        }
+      }
+    }
+    .view-display-id-athletic_upcoming_event.view-my-portal-content {
+      .view-content > div {
+        padding-bottom: 10px;
+        .field-name-event-date {
+          span {
+            color: $dark-grey;
+            font-size: 14px;
+            font-style: italic;
+          }
+        }
+      }
+    }
+    #homebox-block-schoolyard_portal_my_portal_athletics {
+      h4.section-title {
+        font-size: 18px;
+      }
+      .view-display-id-athletic_teams {
+        .views-field-title {
+          span {
+            display: block;
+            + a {
+              clear: left;
+            }
+          }
+        }
+      }
+      .view-my-portal-content.view-display-id-athletic_posts {
+        .views-row {
+          width: 50%;
+          .views-field-title {
+            font-size: 16px;
+            font-weight: normal;
+            padding-right: 15px;
+            box-sizing: border-box;
+          }
+          @include breakpoint(xsmall) {
+            width: 100%;
+            padding-right: 0;
+          }
+        }
+      }
+    }
+  }
+  #homebox-block-schoolyard_portal_my_portal_athletics .view-my-portal-content.view-display-id-athletic_upcoming_event {
+    padding-top: 20px;
+    .views-row {
+      width: 25%;
+      float: left;
+      padding: 10px;
+      box-sizing: border-box;
+      text-align: center;
+      @include breakpoint(small) {
+        width: 50%;
+      }
+      .event_dates {
+        color: $white;
+        background-color: $primary-color;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        line-height: 1.4;
+        margin: 0 auto;
+        .field-type-datetime .date-display-single {
+          font-size: 1.1em;
+          color: $white;
+          position: relative;
+          top: 6px;
+          font-style: normal;
+        }
+        .date-display-single {
+          font-size: 2.3em;
+          position: relative;
+          top: 2px;
+          color: $white;
+          line-height: 1.4em;
+          font-style: normal;
+        }
+      }
+      .views-field-title {
+        a {
+          font-size: 18px;
+          font-weight: normal;
+          display: block;
+          line-height: 1.5em;
+          @include breakpoint(small) {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}

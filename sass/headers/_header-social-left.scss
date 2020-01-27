@@ -1,0 +1,354 @@
+header.header-social-left {
+  margin: 0;
+  @include breakpoint(medium) {
+    border-top: 40px solid $secondary-color;
+  }
+  .title-bar {
+    height: 0;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .top-bar {
+    height: 90px;
+    background-color: $secondary-color;
+    @include breakpoint(medium) {
+      height: 100px;
+    }
+    @include breakpoint(small) {
+      height: 90px;
+    }
+    .top-bar-menu {
+      display: inline-block;
+      ul.menu {
+        position: absolute;
+        min-width: 160px;
+        z-index: 90;
+        right: 0;
+        top: 35px;
+        background-color: transparent;
+        @include breakpoint(medium) {
+          top: 20px;
+        }
+        a {
+          color: $white;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+          li:hover {
+            a {
+              color: $secondary-color;
+            }
+          }
+        }
+      }
+    }
+    .search-block {
+      position: relative;
+      float: right;
+      right: 450px;
+      top: 30px;
+      width: 40%;
+      z-index: 150;
+      @include breakpoint(medium) {
+        right: 75px;
+      }
+      @include breakpoint(small) {
+        right: 55px;
+        top: -33px;
+      }
+      .logged-in & {
+        right: 445px;
+        top: 30px;
+        @include breakpoint(medium) {
+          right: 65px;
+          top: 25px;
+        }
+        @include breakpoint(small) {
+          right: 50px;
+          top: -33px;
+        }
+      }
+      
+      // the text box
+      #edit-search-block-form--2 {
+        padding: 4px;
+        width: 0;
+        background: $secondary-color;
+        border: none;
+        box-shadow: none;
+        webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        -ms-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        float: right;
+        color: $black;
+      }
+      &:hover,
+      &:focus {
+        #edit-search-block-form--2 {
+          width: 100%;
+          background-color: $secondary-light;
+        }
+      }
+      input.form-autocomplete {
+        background-image: none;
+      }
+      #edit-search-block-form--2.expanded {
+        width: 450px;
+      }
+      input.form-submit {
+        display: none;
+      }
+      .fa-search {
+        position: absolute;
+        top: 10px;
+        right: -10px;
+        font-size: 1.5em;
+        color: $white;
+        @include breakpoint(medium) {
+          color: $secondary-color;
+        }
+        @include breakpoint(small) {
+          right: -15px;
+          color: $primary-color;
+        }
+      }
+    }
+    .translate-block {
+      float: right;
+      top: 10px;
+      position: relative;
+      z-index: 240;
+      @include breakpoint(small) {
+        position: absolute;
+        top: -62px;
+      }
+      h2 {
+        display: none;
+      }
+      .switcher .option {
+        position: absolute;
+      }
+    }
+    .social-menu-block {
+      display: block;
+      @include breakpoint(medium) {
+        position: relative;
+        top: 15px;
+        z-index: 50;
+      }
+      .social-icon-menu {
+        float: right;
+        padding-top: 5px;
+        @include breakpoint (small) {
+          position: relative;
+          top: -10px;
+          text-align: center;
+          float: left;
+          left: 115px;
+        }
+        .social-icon-item {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          border: 1px solid $white;
+          border-radius: 50%;
+          text-align: center;
+          margin: 5px;
+          i {
+            color: $white;
+            top: 3px;
+            position: relative;
+          }
+          &:hover {
+            border-color: $medium-gray;
+            i {
+              color: $medium-gray;
+            }
+          }
+          &:last-child {
+            margin-right: 16px;
+            @include breakpoint(small) {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+    .utility-row {
+      position: relative;
+      top: -20px;
+    }
+    .utility-menu {
+      @include breakpoint(medium) {
+        display: none;
+      }
+      li.expanded.active-trail {
+        display: none;
+      }
+    }
+  }
+  .second-top-bar {
+    position: relative;
+    background-color: $white;
+    height: 50px;
+    .social-icon-menu {
+      padding-left: 25px;
+      padding-top: 5px;
+      .social-icon-item {
+        display: inline-block;
+        padding: 0 7.5px;
+        font-size: 1.8em;
+        i {
+          color: $primary-color;
+        }
+      }
+    }
+    
+    @include breakpoint(medium) {
+      display: none;
+    }
+    .nav-row {
+      nav#main-menu {
+        position: relative;
+        margin-bottom: 0;
+        float: right;
+        ul.medium-horizontal {
+          float: none;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+        }
+      }
+    }
+    ul.medium-horizontal,
+    ul.nice-menu {
+      list-style: none;
+      padding: 0;
+      position: inherit;
+      border: none;
+      text-align: center;
+      width: 100%;
+      top: -5px;
+      li {
+        float: left;
+        padding: 0 0 4px 0;
+        position: initial;
+        cursor: pointer;
+        margin-top: 14px;
+        background: transparent;
+        border: none;
+        &:hover {
+          background: none;
+          ul {
+            display: block !important;
+          }
+        }
+        span, a {
+          color: $primary-color;
+          font-size: 1.2em;
+          font-weight: normal;
+        }
+        &.last ul {
+          right: 0;
+        }
+        
+        &:nth-last-child(2) ul {
+          right: 0;
+        }
+        ul {
+          background-color: $medium-gray;
+          min-height: 40px;
+          width: 260px;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+          position: absolute;
+          left: initial;
+          top: 40px;
+          border: none;
+          margin-left: -10px;
+          &.js-dropdown-active {
+            display: flex;
+            flex-flow: row wrap;
+          }
+          > li {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            display: block;
+            position: relative;
+            background: $secondary-color;
+            &:hover {
+              background: $secondary-dark;
+            }
+            a {
+              color: $white;
+            }
+            ul {
+              left: 270px;
+              top: 0;
+              position: absolute;
+            }
+          }
+        }
+        ul.js-dropdown-active {
+          display: flex;
+          flex-wrap: wrap;
+        }
+        &:nth-child(3n) {
+          ul li ul {
+            left: auto;
+            right: 260px;
+          }
+        }
+      }
+      > li {
+        padding: 3px 10px 5px;
+        position: relative;
+        top: -6px;
+        &.last ul ul {
+          left: auto;
+          right: 260px;
+        }
+      }
+    }
+  }
+  span.toggler {
+    display: none;
+    @include breakpoint(medium) {
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      position: absolute;
+      right: 20px;
+      z-index: 110;
+      cursor: pointer;
+      color: $white;
+      display: block;
+      font-size: 35px;
+      top: 25px;
+    }
+    @include breakpoint(small) {
+      top: -35px;
+      right: 0;
+      color: $primary-color;
+    }
+  }
+  .header-image-block {
+    .title {
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      top: 265px;
+    }
+    .title-over-image {
+      width: 100%;
+      color: $white;
+      letter-spacing: 0.06em;
+      font-size: 3em;
+    }
+  }
+}

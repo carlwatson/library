@@ -1,0 +1,26 @@
+.sy-component--hero-overlay-caption-left {
+  height: 48.6111111vw;
+  min-height: 76.40625vh;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .hero-caption {
+    background-color: rgba(51,51,51,0.5);
+    margin: 10vw 0 0 6vw;
+    padding: 2.5rem;
+    @include breakpoint(small only) {
+      margin: 0 auto 3rem auto;
+      align-self: flex-end;
+      //padding: 1em;
+    }
+    .hero-caption-heading {
+      font-size: 1.375rem;
+      color: white;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+    .hero-caption-text{
+      color: white;
+    }
+  }
+}

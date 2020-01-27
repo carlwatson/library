@@ -1,0 +1,390 @@
+header {
+  margin: 0;
+  @include breakpoint(small) {
+    border-top: 50px solid $white;
+    position: relative;
+  }
+  .title-bar {
+    height: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .top-bar {
+    height: 130px;
+    background-color: $white;
+    padding-right: 0;
+    position: relative;
+    @include breakpoint(medium) {
+      height: 125px;
+    }
+    @include breakpoint(small) {
+      height: 140px;
+      display: block;
+      padding-top: 20px;
+    }
+    .top-bar-menu {
+      float: right;
+      &.utility-menu {
+        position: relative;
+        ul.menu {
+          min-width: 160px;
+          z-index: 9;
+          background-color: transparent;
+          a {
+            color: $white;
+            padding: 12px 12px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            text-transform: capitalize;
+            font-family: $PRIM-FONT;
+            font-size: 18px;
+            font-weight: bold;
+            li:hover {
+              a {
+                color: $secondary-dark;
+              }
+            }
+          }
+          li.first a {
+
+          }
+        }
+      }
+    }
+    .utility-row {
+      text-align: right;
+      width: calc(100% - 400px);
+      position: absolute;
+      right: 0;
+      top: 0;
+      @include breakpoint(small) {
+        right: 10px;
+        top: -15px;
+        width: 100%;
+      }
+      .utility-menu {
+        ul#nice-menu-2 {
+          background-color: $secondary-color;
+          padding-left: 10px;
+          position: relative;
+          z-index: 15;
+          li {
+            display: inherit !important;
+            background: $secondary-color;
+            border: none;
+            &:hover {
+              > ul {
+                display: block !important;
+                visibility: visible !important;
+              }
+            }
+          }
+          ul {
+            top: 49px;
+            border: none;
+            ul {
+              top: 0;
+            }
+            li {
+              text-align: left;
+              font-size: 16px;
+              padding-left: 10px;
+            }
+          }
+          > li {
+            background: $secondary-color;
+            border: none;
+            font-size: 24px;
+            padding: 5px 20px 6px;
+            a {
+              color: $white;
+              padding: 0;
+            }
+            &.first, &:hover {
+              background: $secondary-dark;
+            }
+            &.last {
+              ul {
+                left: -81px;
+              }
+            }
+          }
+          @include breakpoint(medium) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  .second-top-bar {
+    position: relative;
+    background-color: rgb(57,107,145,.8);
+    border-top: 10px solid $secondary-color;
+    @include breakpoint(medium) {
+      display: none;
+    }
+    .nav-row {
+      nav#main-menu {
+        position: relative;
+        margin-bottom: 0;
+        ul.medium-horizontal {
+          float: none;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+        }
+      }
+    }
+    ul.medium-horizontal,
+    ul.nice-menu {
+      list-style: none;
+      padding: 0;
+      position: relative;
+      border: none;
+      text-align: center;
+      transform: translate(-50%);
+      left: 50%;
+      top: 5px;
+      li {
+        float: left;
+        display: inline-block;
+        padding: 0;
+        position: initial;
+        cursor: pointer;
+        margin-top: 14px;
+        padding-bottom: 4px;
+        background: transparent;
+        border: none;
+        font-weight: bold;
+        &:hover {
+          background-color: $secondary-dark !important;
+          background: none;
+          ul {
+            display: block !important;
+          }
+        }
+        span, a {
+          color: $primary-color;
+          font-size: 1.2em;
+        }
+        &.last ul {
+          right: 0;
+        }
+        &:nth-last-child(2) ul {
+          right: -110px;
+        }
+        ul {
+          background-color: $medium-gray;
+          min-height: 30px;
+          width: 260px;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+          position: absolute;
+          left: initial;
+          top: 33px;
+          border: none;
+          margin-left: -10px;
+          &.js-dropdown-active {
+            display: flex;
+            flex-flow: row wrap;
+          }
+          > li {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            display: block;
+            position: relative;
+            background: $secondary-color;
+            &:hover {
+              background: $secondary-dark;
+            }
+            a {
+              color: $white;
+            }
+            ul {
+              left: 270px;
+              top: 0;
+              min-height: 30px;
+              position: absolute;
+            }
+          }
+        }
+        ul.js-dropdown-active {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+      > li {
+        padding: 3px 10px 5px;
+        position: relative;
+        top: -5px;
+      }
+    }
+  }
+  span.toggler {
+    display: none;
+    @include breakpoint(medium) {
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      position: absolute;
+      right: 20px;
+      z-index: 11;
+      cursor: pointer;
+      color: $secondary-color;
+      display: block;
+      font-size: 30px;
+      top: -4px;
+      transform: scale(1.5, 0.8);
+    }
+    @include breakpoint(small) {
+      top: -35px;
+      right: 8px;
+    }
+  }
+  .responsive-menus.responsified span.toggler {
+    display: none;
+  }
+  .header-image-block {
+    .title {
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      top: 265px;
+    }
+    .title-over-image {
+      width: 100%;
+      color: $white;
+      letter-spacing: 0.06em;
+      font-size: 3em;
+    }
+  }
+  &.header2 {
+    .top-bar {
+      .logo-row {
+        position: relative;
+        top: 30px;
+        padding-left: 0;
+        z-index: 10;
+        max-width: 400px;
+        @include breakpoint(small) {
+          top: 0;
+          max-width: 700px;
+        }
+        a#logo {
+          display: block;
+          text-align: center;
+          .site-name {
+            max-width: 250px;
+            @include breakpoint(small) {
+              left: 100px;
+              top: -15px;
+              max-width: 150px;
+            }
+          }
+          img.logo {
+            max-height: 100px;
+            position: absolute;
+            top: -75px;
+            left: 20px;
+            @include breakpoint(medium) {
+              top: -65px;
+            }
+            @include breakpoint(small) {
+              display: inline-block;
+              position: static;
+            }
+          }
+        }
+      }
+      .search-block #edit-search-block-form--2 {
+        color: $primary-color;
+        background-color: $primary-color;
+        padding-left: 8px;
+        @include breakpoint(small) {
+          height: 40px;
+          position: relative;
+          z-index: 99;
+          top: 3px;
+          background-color: $primary-light;
+          color: $white;
+          width: 100%;
+        }
+      }
+      .search-block:hover #edit-search-block-form--2 {
+        color: $black;
+        background-color: $dark-grey;
+        @include breakpoint(small) {
+          background-color: $primary-light;
+          color: $white;
+        }
+      }
+      .top-bar-menu {
+        background-color: transparent;
+      }
+    }
+    .second-top-bar {
+      background-color: $primary-color;
+      height: 44px;
+      .nav-row {
+        top: -15px;
+        z-index: 11;
+        .responsive-menus {
+          text-align: center;
+          nav#main-menu {
+            float: none;
+            display: inline-block;
+          }
+        }
+        nav#main-menu {
+          top: -14px;
+          position: relative;
+        }
+      }
+      ul.medium-horizontal,
+      ul.nice-menu {
+        font-family: $PRIM-FONT;
+        > li {
+          width: auto;
+          &:hover {
+            > span, > a {
+              color: $white;
+            }
+          }
+          > span, > a {
+            color: $white;
+            padding: 2px 5px 1px;
+            font-size: 15px;
+            font-weight: normal;
+            font-family: $PRIM-FONT;
+          }
+          ul {
+            li {
+              background: $primary-color;
+              
+            }
+            a {
+              color: $white;
+              text-align: left;
+              padding: 4px 10px;
+              font-size: 15px;
+              font-weight: normal;
+            }
+          }
+        }
+        li:hover {
+          background-color: $primary-light !important;
+          > ul {
+            display: block !important;
+            visibility: visible !important;
+          }
+          > span, > a {
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+}

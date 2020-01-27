@@ -1,0 +1,13 @@
+.sy-component--news-3-photos-C {
+  @include global-padding();
+  .dark-text {
+    font-weight: bold;
+    color: $black;
+  }
+  .large-subtitle {
+    width: 515px;
+    margin: auto;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
